@@ -4,3 +4,10 @@ entity.employee.add_form:
   appears_on:
     - entity.employee.collection
     - entity.employee.canonical
+
+entity.group.add_form:
+  route_name: entity.group.add_form
+  title: 'Add Group'
+  appears_on:
+    - entity.group.collection
+    - entity.group.canonical

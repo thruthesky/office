@@ -19,10 +19,24 @@ class EmployeeController extends ControllerBase {
 		$data = [];
 		$employee = Employee::load($employee);
 		$data['employee'] = $employee;
-		$uid = $employee->get('user_id')->target_id;
-		$data['user'] = User::load($uid);
+		$data['user'] = $employee->getOwner();
 		return [
 			'#theme' => 'employee.view',
+			'#data' => $data,
+		];
+	}
+	public function edit() {
+		$data = [];
+		if ( x::isFromSubmit() ) {
+			$re = x::employeeFormSubmit();
+			if ( $re ) {
+				$data['error']['code'] = $re;
+				$data['error']['message'] = x::errorMessage($re);
+			}
+		}
+		$data['employee'] = Employee::loadByUserID(x::myUid());
+		return [
+			'#theme' => 'employee.add',
 			'#data' => $data,
 		];
 	}

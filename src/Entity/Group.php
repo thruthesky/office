@@ -1,30 +1,41 @@
 <?php
+
+/**
+ * @file
+ * Contains Drupal\office\Entity\Group.
+ */
+
 namespace Drupal\office\Entity;
-use Drupal\office\EmployeeInterface;
-use Drupal\Core\Entity\ContentEntityBase;
+
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\office\GroupInterface;
 use Drupal\user\UserInterface;
 
 /**
- * Defines the Employee entity.
+ * Defines the Group entity.
  *
+ * @ingroup office
  *
  * @ContentEntityType(
- *   id = "employee",
- *   label = @Translation("Employee entity"),
+ *   id = "group",
+ *   label = @Translation("Group entity"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\office\Entity\Controller\EmployeeListController",
+ *     "list_builder" = "Drupal\office\Entity\Controller\GroupListController",
+ *     "views_data" = "Drupal\office\Entity\GroupViewsData",
+ *
  *     "form" = {
- *       "default" = "Drupal\office\Entity\Form\EmployeeForm",
- *       "add" = "Drupal\office\Entity\Form\EmployeeForm",
- *       "edit" = "Drupal\office\Entity\Form\EmployeeForm",
- *       "delete" = "Drupal\office\Entity\Form\EmployeeDeleteForm"
- *     }
+ *       "default" = "Drupal\office\Entity\Form\GroupForm",
+ *       "add" = "Drupal\office\Entity\Form\GroupForm",
+ *       "edit" = "Drupal\office\Entity\Form\GroupForm",
+ *       "delete" = "Drupal\office\Entity\Form\GroupDeleteForm",
+ *     },
  *   },
- *   admin_permission = "administer employee",
- *   base_table = "office_employee",
+ *   base_table = "office_group",
+ *   admin_permission = "administer Group entity",
  *   fieldable = TRUE,
  *   entity_keys = {
  *     "id" = "id",
@@ -32,22 +43,16 @@ use Drupal\user\UserInterface;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "entity.employee.canonical",
- *     "delete-form" = "entity.employee.delete_form",
- *     "edit-form" = "entity.employee.edit_form",
- *     "collection" = "entity.employee.collection"
+ *     "canonical" = "entity.group.canonical",
+ *     "edit-form" = "entity.group.edit_form",
+ *     "delete-form" = "entity.group.delete_form",
+ *     "collection" = "entity.group.collection"
  *   },
- *   field_ui_base_route = "employee.settings",
+ *   field_ui_base_route = "group.settings"
  * )
  */
-class Employee extends ContentEntityBase implements EmployeeInterface {
+class Group extends ContentEntityBase implements GroupInterface {
 
-	public static function loadByUserID($uid) {
-		$employees = \Drupal::entityManager()->getStorage('employee')->loadByProperties(['user_id'=>$uid]);
-		if ( $employees ) $employee = reset($employees);
-		else $employee = NULL;
-		return $employee;
-	}
 
 
 	/**
@@ -94,23 +99,28 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
 		return $this;
 	}
 
-
+	/**
+	 * {@inheritdoc}
+	 */
 	public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
 		$fields['id'] = BaseFieldDefinition::create('integer')
 			->setLabel(t('ID'))
-			->setDescription(t('The ID of the Employee entity.'))
+			->setDescription(t('The ID of the Group entity.'))
 			->setReadOnly(TRUE);
+
 		$fields['uuid'] = BaseFieldDefinition::create('uuid')
 			->setLabel(t('UUID'))
-			->setDescription(t('The UUID of the Employee entity.'))
+			->setDescription(t('The UUID of the Group entity.'))
 			->setReadOnly(TRUE);
+
 		$fields['user_id'] = BaseFieldDefinition::create('entity_reference')
-			->setLabel(t('Employee Username'))
-			->setDescription(t('The user ID of the Employee entity author.'))
+			->setLabel(t('Group Owner'))
+			->setDescription(t('The user ID of the Group owner.'))
 			->setRevisionable(TRUE)
 			->setSetting('target_type', 'user')
 			->setSetting('handler', 'default')
 			->setDefaultValueCallback('Drupal\node\Entity\Node::getCurrentUserId')
+
 			->setTranslatable(TRUE)
 			->setDisplayOptions('view', array(
 				'label' => 'hidden',
@@ -129,9 +139,10 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
 			))
 			->setDisplayConfigurable('form', TRUE)
 			->setDisplayConfigurable('view', TRUE);
+
 		$fields['name'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Name'))
-			->setDescription(t('The name of the Employee entity.'))
+			->setDescription(t('The name of the Group, Company, Organization'))
 			->setSettings(array(
 				'default_value' => '',
 				'max_length' => 50,
@@ -148,34 +159,18 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
 			))
 			->setDisplayConfigurable('form', TRUE)
 			->setDisplayConfigurable('view', TRUE);
+
 		$fields['langcode'] = BaseFieldDefinition::create('language')
 			->setLabel(t('Language code'))
-			->setDescription(t('The language code of Employee entity.'));
+			->setDescription(t('The language code of Group entity.'));
 		$fields['created'] = BaseFieldDefinition::create('created')
 			->setLabel(t('Created'))
 			->setDescription(t('The time that the entity was created.'));
+
 		$fields['changed'] = BaseFieldDefinition::create('changed')
 			->setLabel(t('Changed'))
 			->setDescription(t('The time that the entity was last edited.'));
-		$fields['address'] = BaseFieldDefinition::create('string')
-			->setLabel(t('Address'))
-			->setDescription(t('The address of the Employee.'))
-			->setSettings(array(
-				'default_value' => '',
-				'max_length' => 255,
-				'text_processing' => 0,
-			))
-			->setDisplayOptions('view', array(
-				'label' => 'above',
-				'type' => 'string',
-				'weight' => -4,
-			))
-			->setDisplayOptions('form', array(
-				'type' => 'string_textfield',
-				'weight' => -4,
-			))
-			->setDisplayConfigurable('form', TRUE)
-			->setDisplayConfigurable('view', TRUE);
+
 		return $fields;
 	}
 

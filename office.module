@@ -8,7 +8,7 @@ if ( ! function_exists('di') ) {
 
 function office_theme() {
 	$themes = [];
-	$names = ['office', 'employee.list', 'employee.view'];
+	$names = ['office', 'employee.list', 'employee.view', 'employee.add'];
 	foreach($names as $name) {
 		$themes[ $name ] = [
 			'variables' => [ 'data' => null],
