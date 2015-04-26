@@ -1,0 +1,22 @@
+<?php
+use Drupal\office\Entity\Employee;
+use Drupal\office\x;
+if ( ! function_exists('di') ) {
+	function di( $obj ) { echo "<pre>"; print_r($obj); echo "</pre>"; }
+}
+
+
+function office_theme() {
+	$themes = [];
+	$names = ['office', 'employee.list', 'employee.view'];
+	foreach($names as $name) {
+		$themes[ $name ] = [
+			'variables' => [ 'data' => null],
+			'template' => $name,
+		];
+	}
+	return $themes;
+}
+
+
+

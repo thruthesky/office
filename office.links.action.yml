@@ -1,0 +1,6 @@
+entity.employee.add_form:
+  route_name: entity.employee.add_form
+  title: 'Add Employee'
+  appears_on:
+    - entity.employee.collection
+    - entity.employee.canonical

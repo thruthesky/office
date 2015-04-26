@@ -1,0 +1,11 @@
+<h1>Office Employee List</h1>
+<div class="employee list">
+    {% for employee in data.employees %}
+        <div class="row">
+            <a href="/office/employee/{{ employee.get('id').value  }}">
+                {{ employee.label }}
+                {{ employee.get('address').value }}
+            </a>
+        </div>
+    {% endfor %}
+</div>

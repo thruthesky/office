@@ -1,0 +1,4 @@
+name: xOffice
+type: module
+description: 'Extended Office System by JaeHo Song'
+core: 8.x

@@ -1,0 +1,80 @@
+# admin
+entity.office.index:
+  path: '/admin/office'
+  defaults:
+    _controller: Drupal\office\Controller\Office::pageAdmin
+    _title: 'Xoffice'
+  requirements:
+    _permission: 'access content'
+
+# public
+entity.office.front:
+  path: '/office'
+  defaults:
+    _controller: Drupal\office\Controller\Office::pageFront
+    _title: 'Xoffice Front Page'
+  requirements:
+    _permission: 'access content'
+
+# admin
+entity.employee.collection:
+  path: '/admin/employee'
+  defaults:
+    _entity_list: 'employee'
+    _title: 'Employee List'
+  requirements:
+    _permission: 'view Employee entity'
+
+# public
+entity.office.employee.list:
+  path: '/office/employee/list'
+  defaults:
+    _controller: Drupal\office\Controller\EmployeeController::collection
+    _title: 'Xoffice Employee Collection'
+  requirements:
+    _permission: 'access content'
+
+# admin
+entity.employee.add_form:
+  path: '/admin/employee/add'
+  defaults:
+    _entity_form: employee.add
+    _title: 'Add Employee'
+  requirements:
+    _entity_create_access: 'employee'
+
+# admin
+entity.employee.edit_form:
+  path: '/admin/employee/{employee}/edit'
+  defaults:
+    _entity_form: employee.edit
+    _title: 'Edit Employee'
+  requirements:
+    _entity_access: 'employee.edit'
+
+# admin
+entity.employee.delete_form:
+  path: '/admin/employee/{employee}/delete'
+  defaults:
+    _entity_form: employee.delete
+    _title: 'Delete Employee'
+  requirements:
+    _entity_access: 'employee.delete'
+
+
+# admin
+entity.employee.canonical:
+  path: '/admin/employee/{employee}'
+  defaults:
+    _entity_view: 'employee'
+    _title: 'Employee Content'
+  requirements:
+    _entity_access: 'employee.view'
+
+entity.employee.view:
+  path: '/office/employee/{employee}'
+  defaults:
+    _controller: Drupal\office\Controller\EmployeeController::view
+    _title: 'Employee Content in PUBLIC'
+  requirements:
+    _permission: 'access content'

@@ -1,0 +1,7 @@
+entity.office.index:
+  title: 'Office'
+  route_name: entity.office.index
+  description: 'Office - Online Desk & ITS by JaeHo Song'
+  parent: system.admin_structure
+  weight: 1234567
+
