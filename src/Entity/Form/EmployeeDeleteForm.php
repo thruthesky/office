@@ -8,7 +8,7 @@ class EmployeeDeleteForm extends ContentEntityConfirmFormBase {
 		return t('Are you sure you want to delete entity %name?', array('%name' => $this->entity->label()));
 	}
 	public function getCancelUrl() {
-		return new Url('entity.employee.collection');
+		return new Url('entity.office_employee.collection');
 	}
 	public function getConfirmText() {
 		return t('Delete');

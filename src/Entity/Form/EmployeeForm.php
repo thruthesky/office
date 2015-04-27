@@ -52,6 +52,6 @@ class EmployeeForm extends ContentEntityForm {
 				'%label' => $entity->label(),
 			)));
 		}
-		$form_state->setRedirect('entity.employee.edit_form', ['employee' => $entity->id()]);
+		$form_state->setRedirect('entity.office_employee.edit_form', ['office_employee' => $entity->id()]);
 	}
 }

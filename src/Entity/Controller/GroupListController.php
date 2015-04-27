@@ -23,6 +23,7 @@ class GroupListController extends EntityListBuilder {
 	public function buildHeader() {
 		$header['id'] = t('GroupID');
 		$header['name'] = t('Name');
+		$header['no'] = t('No. of Employees');
 		return $header + parent::buildHeader();
 	}
 
@@ -35,11 +36,19 @@ class GroupListController extends EntityListBuilder {
 		$row['name'] = \Drupal::l(
 			$this->getLabel($entity),
 			new Url(
-				'entity.group.edit_form', array(
-					'group' => $entity->id(),
+				'entity.office_group.edit_form', array(
+					'office_group' => $entity->id(),
 				)
 			)
 		);
+
+		$count = \Drupal::entityQuery('office_employee')
+			->condition('group_id', $entity->id())
+			->count()
+			->execute();
+		$row['no'] = $count;
+
+
 		return $row + parent::buildRow($entity);
 	}
 

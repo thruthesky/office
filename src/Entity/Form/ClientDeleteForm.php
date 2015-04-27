@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\office\Entity\Form\GroupDeleteForm.
+ * Contains Drupal\office\Entity\Form\ClientDeleteForm.
  */
 
 namespace Drupal\office\Entity\Form;
@@ -12,11 +12,11 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
 /**
- * Provides a form for deleting a Group entity.
+ * Provides a form for deleting a Client entity.
  *
  * @ingroup office
  */
-class GroupDeleteForm extends ContentEntityConfirmFormBase {
+class ClientDeleteForm extends ContentEntityConfirmFormBase {
 	/**
 	 * {@inheritdoc}
 	 */
@@ -28,7 +28,7 @@ class GroupDeleteForm extends ContentEntityConfirmFormBase {
 	 * {@inheritdoc}
 	 */
 	public function getCancelUrl() {
-		return new Url('entity.office_group.collection');
+		return new Url('entity.office_client.collection');
 	}
 
 	/**

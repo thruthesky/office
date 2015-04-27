@@ -11,7 +11,7 @@ use Drupal\user\UserInterface;
  *
  *
  * @ContentEntityType(
- *   id = "employee",
+ *   id = "office_employee",
  *   label = @Translation("Employee entity"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
@@ -32,10 +32,10 @@ use Drupal\user\UserInterface;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "entity.employee.canonical",
- *     "delete-form" = "entity.employee.delete_form",
- *     "edit-form" = "entity.employee.edit_form",
- *     "collection" = "entity.employee.collection"
+ *     "canonical" = "entity.office_employee.canonical",
+ *     "delete-form" = "entity.office_employee.delete_form",
+ *     "edit-form" = "entity.office_employee.edit_form",
+ *     "collection" = "entity.office_employee.collection"
  *   },
  *   field_ui_base_route = "employee.settings",
  * )
@@ -43,7 +43,7 @@ use Drupal\user\UserInterface;
 class Employee extends ContentEntityBase implements EmployeeInterface {
 
 	public static function loadByUserID($uid) {
-		$employees = \Drupal::entityManager()->getStorage('employee')->loadByProperties(['user_id'=>$uid]);
+		$employees = \Drupal::entityManager()->getStorage('office_employee')->loadByProperties(['user_id'=>$uid]);
 		if ( $employees ) $employee = reset($employees);
 		else $employee = NULL;
 		return $employee;
@@ -176,6 +176,10 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
 			))
 			->setDisplayConfigurable('form', TRUE)
 			->setDisplayConfigurable('view', TRUE);
+
+		$fields['group_id'] = BaseFieldDefinition::create('integer')
+			->setLabel(t('group_id'))
+			->setDescription(t('The Group ID of the Employee'));
 		return $fields;
 	}
 

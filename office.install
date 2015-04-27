@@ -1,0 +1,21 @@
+<?php
+
+use Drupal\office\Entity\Employee;
+use Drupal\office\Entity\Group;
+
+function office_uninstall() {
+
+	$employees = Employee::loadMultiple();
+	if ( $employees ) {
+		foreach ( $employees as $employee ) {
+			$employee->delete();
+		}
+	}
+
+	$groups = Group::loadMultiple();
+	if ( $groups ) {
+		foreach ( $groups as $group ) {
+			$group->delete();
+		}
+	}
+}

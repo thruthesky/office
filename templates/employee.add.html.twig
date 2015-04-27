@@ -17,6 +17,16 @@
 
     <br>
 
+    <select name="group">
+        <option value="">Select your group</option>
+        {% for group in data.groups %}
+            <option value="{{ group.id.value }}">{{ group.name.value }}</option>
+        {% endfor %}
+    </select>
+
+    <br>
+
+
     <input type="submit">
 
 </form>

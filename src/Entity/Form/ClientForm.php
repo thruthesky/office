@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\office\Entity\Form\GroupForm.
+ * Contains Drupal\office\Entity\Form\ClientForm.
  */
 
 namespace Drupal\office\Entity\Form;
@@ -12,16 +12,16 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\Language;
 
 /**
- * Form controller for the Group entity edit forms.
+ * Form controller for the Client entity edit forms.
  *
  * @ingroup office
  */
-class GroupForm extends ContentEntityForm {
+class ClientForm extends ContentEntityForm {
 	/**
 	 * Overrides Drupal\Core\Entity\EntityFormController::buildForm().
 	 */
 	public function buildForm(array $form, FormStateInterface $form_state) {
-		/* @var $entity \Drupal\office\Entity\Group */
+		/* @var $entity \Drupal\office\Entity\Client */
 		$form = parent::buildForm($form, $form_state);
 		$entity = $this->entity;
 
@@ -33,23 +33,6 @@ class GroupForm extends ContentEntityForm {
 		);
 
 		return $form;
-	}
-
-	public function validateForm(array &$form, FormStateInterface $form_state) {
-		$id = $this->entity->id();
-		$name = $form_state->getValue('name');
-		$name = $name[0]['value'];
-		$groups = \Drupal::entityManager()->getStorage('office_group')->loadByProperties(['name'=>$name]);
-		if ($groups ) {
-			$group = reset($groups);
-			if ( $group->id() == $id ) return; // 그룹을 수정하는 경우, 그룹 이름이 같은 것이 하나 존재 함.
-			// 그룹을 수정하는데, 같은 이름의 다른 그룹이 존재하거나,
-			// 추가를 하는데, 같은 이름의 그룹이 이미 존재하는 경우,
-			$form_state->setErrorByName(
-				'name',
-				$this->t("ERROR: The group name is already exists. Please choose another")
-			);
-		}
 	}
 
 	/**
@@ -70,16 +53,16 @@ class GroupForm extends ContentEntityForm {
 		$status = $entity->save();
 
 		if ($status) {
-			drupal_set_message($this->t('Saved the %label Group.', array(
+			drupal_set_message($this->t('Saved the %label Client.', array(
 				'%label' => $entity->label(),
 			)));
 		}
 		else {
-			drupal_set_message($this->t('The %label Group was not saved.', array(
+			drupal_set_message($this->t('The %label Client was not saved.', array(
 				'%label' => $entity->label(),
 			)));
 		}
-		$form_state->setRedirect('entity.office_group.edit_form', ['office_group' => $entity->id()]);
+		$form_state->setRedirect('entity.office_client.edit_form', ['office_client' => $entity->id()]);
 	}
 
 }

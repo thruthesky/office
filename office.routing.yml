@@ -20,10 +20,10 @@ entity.office.front:
 #### -------------- Employee --------------
 
 # admin
-entity.employee.collection:
+entity.office_employee.collection:
   path: '/admin/office/employee'
   defaults:
-    _entity_list: 'employee'
+    _entity_list: 'office_employee'
     _title: 'Employee List'
   requirements:
     _permission: 'view Employee entity'
@@ -38,13 +38,13 @@ entity.office.employee.list:
     _permission: 'access content'
 
 # admin
-entity.employee.add_form:
+entity.office_employee.add_form:
   path: '/admin/office/employee/add'
   defaults:
-    _entity_form: employee.add
+    _entity_form: office_employee.add
     _title: 'Add Employee'
   requirements:
-    _entity_create_access: 'employee'
+    _entity_create_access: 'office_employee'
 
 # public
 entity.office.employee.add:
@@ -57,35 +57,35 @@ entity.office.employee.add:
 
 
 # admin
-entity.employee.edit_form:
-  path: '/admin/office/employee/{employee}/edit'
+entity.office_employee.edit_form:
+  path: '/admin/office/employee/{office_employee}/edit'
   defaults:
-    _entity_form: employee.edit
+    _entity_form: office_employee.edit
     _title: 'Edit Employee'
   requirements:
-    _entity_access: 'employee.edit'
+    _entity_access: 'office_employee.edit'
 
 # admin
-entity.employee.delete_form:
-  path: '/admin/office/employee/{employee}/delete'
+entity.office_employee.delete_form:
+  path: '/admin/office/employee/{office_employee}/delete'
   defaults:
-    _entity_form: employee.delete
+    _entity_form: office_employee.delete
     _title: 'Delete Employee'
   requirements:
-    _entity_access: 'employee.delete'
+    _entity_access: 'office_employee.delete'
 
 
 # admin
-entity.employee.canonical:
-  path: '/admin/office/employee/{employee}'
+entity.office_employee.canonical:
+  path: '/admin/office/employee/{office_employee}'
   defaults:
-    _entity_view: 'employee'
+    _entity_view: 'office_employee'
     _title: 'Employee Content'
   requirements:
-    _entity_access: 'employee.view'
+    _entity_access: 'office_employee.view'
 
-entity.employee.view:
-  path: '/office/employee/view/{employee}'
+entity.office_employee.view:
+  path: '/office/employee/view/{office_employee}'
   defaults:
     _controller: Drupal\office\Controller\EmployeeController::view
     _title: 'Employee Content in PUBLIC'
@@ -95,42 +95,84 @@ entity.employee.view:
 
 #### ----------------------- GROUP -------------------------
 # Group routing definition
-entity.group.canonical:
-  path: '/admin/office/group/{group}'
+entity.office_group.canonical:
+  path: '/admin/office/group/{office_group}'
   defaults:
-    _entity_view: 'group'
+    _entity_view: 'office_group'
     _title: 'Group Content'
   requirements:
-    _entity_access: 'group.view'
+    _entity_access: 'office_group.view'
 
-entity.group.collection:
+entity.office_group.collection:
   path: '/admin/office/group'
   defaults:
-    _entity_list: 'group'
+    _entity_list: 'office_group'
     _title: 'Group List'
   requirements:
     _permission: 'view Group entity'
 
-entity.group.add_form:
+entity.office_group.add_form:
   path: '/admin/office/group/add'
   defaults:
-    _entity_form: group.add
+    _entity_form: office_group.add
     _title: 'Add Group'
   requirements:
-    _entity_create_access: 'group'
+    _entity_create_access: 'office_group'
 
-entity.group.edit_form:
-  path: '/admin/office/group/{group}/edit'
+entity.office_group.edit_form:
+  path: '/admin/office/group/{office_group}/edit'
   defaults:
-    _entity_form: group.edit
+    _entity_form: office_group.edit
     _title: 'Edit Group'
   requirements:
-    _entity_access: 'group.edit'
+    _entity_access: 'office_group.edit'
 
-entity.group.delete_form:
-  path: '/admin/office/group/{group}/delete'
+entity.office_group.delete_form:
+  path: '/admin/office/group/{office_group}/delete'
   defaults:
-    _entity_form: group.delete
+    _entity_form: office_group.delete
     _title: 'Delete Group'
   requirements:
-    _entity_access: 'group.delete'
+    _entity_access: 'office_group.delete'
+
+#### ----------------------------- CLIENT ---------------------------------
+# Client routing definition
+entity.office_client.canonical:
+  path: '/admin/office/client/{office_client}'
+  defaults:
+    _entity_view: 'office_client'
+    _title: 'Client Content'
+  requirements:
+    _entity_access: 'office_client.view'
+
+entity.office_client.collection:
+  path: '/admin/office/client'
+  defaults:
+    _entity_list: 'office_client'
+    _title: 'Client List'
+  requirements:
+    _permission: 'view Client entity'
+
+entity.office_client.add_form:
+  path: '/admin/office/client/add'
+  defaults:
+    _entity_form: office_client.add
+    _title: 'Add Client'
+  requirements:
+    _entity_create_access: 'office_client'
+
+entity.office_client.edit_form:
+  path: '/admin/office/client/{office_client}/edit'
+  defaults:
+    _entity_form: office_client.edit
+    _title: 'Edit Client'
+  requirements:
+    _entity_access: 'office_client.edit'
+
+entity.office_client.delete_form:
+  path: '/admin/office/client/{office_client}/delete'
+  defaults:
+    _entity_form: office_client.delete
+    _title: 'Delete Client'
+  requirements:
+    _entity_access: 'office_client.delete'

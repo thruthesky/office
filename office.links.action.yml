@@ -1,13 +1,20 @@
-entity.employee.add_form:
-  route_name: entity.employee.add_form
+entity.office_employee.add_form:
+  route_name: entity.office_employee.add_form
   title: 'Add Employee'
   appears_on:
-    - entity.employee.collection
-    - entity.employee.canonical
+    - entity.office_employee.collection
+    - entity.office_employee.canonical
 
-entity.group.add_form:
-  route_name: entity.group.add_form
+entity.office_group.add_form:
+  route_name: entity.office_group.add_form
   title: 'Add Group'
   appears_on:
-    - entity.group.collection
-    - entity.group.canonical
+    - entity.office_group.collection
+    - entity.office_group.canonical
+
+entity.office_client.add_form:
+  route_name: entity.office_client.add_form
+  title: 'Add Client'
+  appears_on:
+    - entity.office_client.collection
+    - entity.office_client.canonical

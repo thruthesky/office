@@ -1,33 +1,53 @@
 # Employee routing definition
-entity.employee.canonical:
-  route_name: entity.employee.canonical
-  base_route: entity.employee.canonical
+entity.office_employee.canonical:
+  route_name: entity.office_employee.canonical
+  base_route: entity.office_employee.canonical
   title: 'View'
 
-entity.employee.edit_form:
-  route_name: entity.employee.edit_form
-  base_route: entity.employee.canonical
+entity.office_employee.edit_form:
+  route_name: entity.office_employee.edit_form
+  base_route: entity.office_employee.canonical
   title: Edit
 
-entity.employee.delete_form:
-  route_name:  entity.employee.delete_form
-  base_route:  entity.employee.canonical
+entity.office_employee.delete_form:
+  route_name:  entity.office_employee.delete_form
+  base_route:  entity.office_employee.canonical
   title: Delete
 
 
 # Group routing definition
-entity.group.canonical:
-  route_name: entity.group.canonical
-  base_route: entity.group.canonical
+entity.office_group.canonical:
+  route_name: entity.office_group.canonical
+  base_route: entity.office_group.canonical
   title: 'View'
 
-entity.group.edit_form:
-  route_name: entity.group.edit_form
-  base_route: entity.group.canonical
+entity.office_group.edit_form:
+  route_name: entity.office_group.edit_form
+  base_route: entity.office_group.canonical
   title: Edit
 
-entity.group.delete_form:
-  route_name:  entity.group.delete_form
-  base_route:  entity.group.canonical
+entity.office_group.delete_form:
+  route_name:  entity.office_group.delete_form
+  base_route:  entity.office_group.canonical
   title: Delete
 
+# Client routing definition
+office_client.settings_tab:
+  route_name: office_client.settings
+  title: 'Settings'
+  base_route: office_client.settings
+
+entity.office_client.canonical:
+  route_name: entity.office_client.canonical
+  base_route: entity.office_client.canonical
+  title: 'View'
+
+entity.office_client.edit_form:
+  route_name: entity.office_client.edit_form
+  base_route: entity.office_client.canonical
+  title: Edit
+
+entity.office_client.delete_form:
+  route_name:  entity.office_client.delete_form
+  base_route:  entity.office_client.canonical
+  title: Delete
