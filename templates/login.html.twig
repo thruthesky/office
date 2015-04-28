@@ -1,0 +1,37 @@
+<div{{ attributes.addClass( data.class.office ) }}>
+    <h2>Login</h2>
+
+
+    {% if data.error.code %}
+        <div class="office-message office-error">
+            {{ data.error.message }}
+        </div>
+    {% endif %}
+    <form class="office-login" method="post">
+        <input type="hidden" name="mode" value="submit">
+        <fieldset>
+            <legend>Login</legend>
+            <div class="row">
+                <span class="caption">
+                    <label for="name">User ID</label>
+                </span>
+                <span class="value">
+                    <span class="element"><input type="text" name="id" placeholder="Username"></span>
+                </span>
+            </div>
+
+            <div class="row">
+                <span class="caption">
+                    <label for="password">Password</label>
+                </span>
+                <span class="value">
+                    <span class="element"><input type="password" name="password" placeholder="Password"></span>
+                </span>
+            </div>
+            <div class="buttons">
+                <input class="button" type="submit" value="Sign in">
+                <a href="/user/newAccount"><span class="button" role="create-account">Register</span></a>
+            </div>
+        </fieldset>
+    </form>
+</div>

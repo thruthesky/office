@@ -2,6 +2,7 @@
 namespace Drupal\office\Controller;
 use Drupal\office\x;
 use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class Office extends ControllerBase {
 	public function pageAdmin() {
@@ -16,6 +17,7 @@ class Office extends ControllerBase {
 			<div class='button'><a href='/admin/office/group'>Office Group Management</a></div>
 		</div>
 ";
+
 		$render_array = [
 			'#type' => 'markup',
 			'#markup' => $markup,
@@ -28,5 +30,17 @@ class Office extends ControllerBase {
 			'#theme' => 'office',
 			'#data' => [],
 		];
+	}
+	public function login() {
+		$data = [];
+
+		if ( x::isFromSubmit() ) {
+			if ( ! x::loginFormSubmit($data) ) return new RedirectResponse('/office');
+		}
+		return [
+			'#theme' => 'login',
+			'#data' => $data,
+		];
+
 	}
 }

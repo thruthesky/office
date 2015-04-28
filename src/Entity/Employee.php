@@ -104,6 +104,17 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
 			->setLabel(t('UUID'))
 			->setDescription(t('The UUID of the Employee entity.'))
 			->setReadOnly(TRUE);
+
+		$fields['langcode'] = BaseFieldDefinition::create('language')
+			->setLabel(t('Language code'))
+			->setDescription(t('The language code of Employee entity.'));
+		$fields['created'] = BaseFieldDefinition::create('created')
+			->setLabel(t('Created'))
+			->setDescription(t('The time that the entity was created.'));
+		$fields['changed'] = BaseFieldDefinition::create('changed')
+			->setLabel(t('Changed'))
+			->setDescription(t('The time that the entity was last edited.'));
+
 		$fields['user_id'] = BaseFieldDefinition::create('entity_reference')
 			->setLabel(t('Employee Username'))
 			->setDescription(t('The user ID of the Employee entity author.'))
@@ -129,34 +140,41 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
 			))
 			->setDisplayConfigurable('form', TRUE)
 			->setDisplayConfigurable('view', TRUE);
-		$fields['name'] = BaseFieldDefinition::create('string')
-			->setLabel(t('Name'))
-			->setDescription(t('The name of the Employee entity.'))
+
+
+		$fields['group_id'] = BaseFieldDefinition::create('integer')
+			->setLabel(t('group_id'))
+			->setDescription(t('The Group ID of the Employee'));
+
+
+		$fields['first_name'] = BaseFieldDefinition::create('string')
+			->setLabel(t('First Name'))
+			->setDescription(t('The first name of the Employee entity.'))
 			->setSettings(array(
 				'default_value' => '',
 				'max_length' => 50,
 				'text_processing' => 0,
-			))
-			->setDisplayOptions('view', array(
-				'label' => 'above',
-				'type' => 'string',
-				'weight' => -4,
-			))
-			->setDisplayOptions('form', array(
-				'type' => 'string_textfield',
-				'weight' => -4,
-			))
-			->setDisplayConfigurable('form', TRUE)
-			->setDisplayConfigurable('view', TRUE);
-		$fields['langcode'] = BaseFieldDefinition::create('language')
-			->setLabel(t('Language code'))
-			->setDescription(t('The language code of Employee entity.'));
-		$fields['created'] = BaseFieldDefinition::create('created')
-			->setLabel(t('Created'))
-			->setDescription(t('The time that the entity was created.'));
-		$fields['changed'] = BaseFieldDefinition::create('changed')
-			->setLabel(t('Changed'))
-			->setDescription(t('The time that the entity was last edited.'));
+			));
+
+		$fields['last_name'] = BaseFieldDefinition::create('string')
+			->setLabel(t('Last Name'))
+			->setDescription(t('The last name of the Employee entity.'))
+			->setSettings(array(
+				'default_value' => '',
+				'max_length' => 50,
+				'text_processing' => 0,
+			));
+
+		$fields['middle_name'] = BaseFieldDefinition::create('string')
+			->setLabel(t('Middle Name'))
+			->setDescription(t('The middle name of the Employee entity.'))
+			->setSettings(array(
+				'default_value' => '',
+				'max_length' => 50,
+				'text_processing' => 0,
+			));
+
+
 		$fields['address'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Address'))
 			->setDescription(t('The address of the Employee.'))
@@ -164,23 +182,27 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
 				'default_value' => '',
 				'max_length' => 255,
 				'text_processing' => 0,
-			))
-			->setDisplayOptions('view', array(
-				'label' => 'above',
-				'type' => 'string',
-				'weight' => -4,
-			))
-			->setDisplayOptions('form', array(
-				'type' => 'string_textfield',
-				'weight' => -4,
-			))
-			->setDisplayConfigurable('form', TRUE)
-			->setDisplayConfigurable('view', TRUE);
+			));
 
-		$fields['group_id'] = BaseFieldDefinition::create('integer')
-			->setLabel(t('group_id'))
-			->setDescription(t('The Group ID of the Employee'));
+
+		$fields['mobile'] = BaseFieldDefinition::create('string')
+			->setLabel(t('Mobile Number'))
+			->setDescription(t('The mobile number of the Employee.'))
+			->setSettings(array(
+				'default_value' => '',
+				'max_length' => 32,
+				'text_processing' => 0,
+			));
+
+		$fields['landline'] = BaseFieldDefinition::create('string')
+			->setLabel(t('Landline Number'))
+			->setDescription(t('The landline number of the Employee.'))
+			->setSettings(array(
+				'default_value' => '',
+				'max_length' => 32,
+				'text_processing' => 0,
+			));
+
 		return $fields;
 	}
-
 }

@@ -8,8 +8,12 @@ if ( ! function_exists('di') ) {
 
 function office_theme() {
 	$themes = [];
-	$names = ['office', 'employee.list', 'employee.view', 'employee.add'];
+	$names = [
+		'office', 'employee.list', 'employee.view', 'employee.edit',
+		'login',
+	];
 	foreach($names as $name) {
+
 		$themes[ $name ] = [
 			'variables' => [ 'data' => null],
 			'template' => $name,
@@ -20,3 +24,17 @@ function office_theme() {
 
 
 
+
+function office_preprocess(&$variables, $hook)
+{
+	$request = \Drupal::request();
+	$uri = $request->getRequestUri();
+	if ( ! x::isOfficePage() ) return;
+
+	$variables['dir_office'] = drupal_get_path('module', 'office');
+
+	$variables['#attached']['library'][] = 'office/default';
+	$variables['data']['class']['office'][] = 'office';
+	$variables['data']['class']['office'][] = $hook;
+
+}

@@ -16,6 +16,15 @@ entity.office.front:
     _title: 'Xoffice Front Page'
   requirements:
     _permission: 'access content'
+# public
+entity.office.login:
+  path: '/office/login'
+  defaults:
+    _controller: Drupal\office\Controller\Office::login
+    _title: 'Office'
+  requirements:
+    _permission: 'access content'
+
 
 #### -------------- Employee --------------
 

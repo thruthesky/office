@@ -1,4 +1,9 @@
-<h3>필고 온라인데스크</h3>
-
-
-[ <a href="/office/employee/add">직원으로 등록하기</a> ]
+<div{{ attributes.addClass( data.class.office ) }}>
+<h2>Online Office</h2>
+    <div class="office-button-group rows">
+        <div class="button"><a href="/office/client/add"><span>고객으로 등록하기</span></a></div>
+        <div class="button"><a href="/office/employee/add"><span>직원으로 등록하기</span></a></div>
+        <div class="button"><a href="/office/group/add"><span>그룹 등록하기</span></a></div>
+        <div class="button"><a href="/office/issue/list"><span>전체 이슈보기</span></a></div>
+    </div>
+</div>

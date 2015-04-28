@@ -6,6 +6,7 @@ use Drupal\office\Entity\Group;
 use Drupal\office\x;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\user\Entity\User;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class EmployeeController extends ControllerBase {
 	public function collection() {
@@ -26,20 +27,32 @@ class EmployeeController extends ControllerBase {
 			'#data' => $data,
 		];
 	}
+
+	/**
+	 * Employee add/edit
+	 *
+	 * @return array
+	 */
 	public function edit() {
 		$data = [];
-		if ( x::isFromSubmit() ) {
-			$re = x::employeeFormSubmit();
-			if ( $re ) {
-				$data['error']['code'] = $re;
-				$data['error']['message'] = x::errorMessage($re);
+		$data['mode'] = x::g('mode');
+		if ( x::login() ) {
+			if (x::isFromSubmit()) {
+				if ( x::employeeFormSubmit($data) ) {
+					// error
+				}
+				else {
+				}
 			}
+			$data['employee'] = Employee::loadByUserID(x::myUid());
+			$data['groups'] = Group::loadMultiple();
+			return [
+				'#theme' => 'employee.edit',
+				'#data' => $data,
+			];
 		}
-		$data['employee'] = Employee::loadByUserID(x::myUid());
-		$data['groups'] = Group::loadMultiple();
-		return [
-			'#theme' => 'employee.add',
-			'#data' => $data,
-		];
+		else {
+			return new RedirectResponse('/office/login');
+		}
 	}
 }

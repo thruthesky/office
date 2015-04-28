@@ -1,0 +1,48 @@
+.office {
+    font-size:9pt;
+    font-family: gulim, arial, sans-serif;
+}
+h2 {
+    margin:0;
+    padding:0;
+}
+
+.office .button {
+    margin:0;
+    padding:0;
+    background-color:transparent;
+    color:black;
+}
+
+.office .button span {
+    display:block;
+    margin:0;
+    padding:0.4em;
+    background-color:#c3d8e4;
+    color:black;
+}
+
+/** ---------------------- OFFICE Button Group by Rows ---------------------- **/
+.office-button-group.rows {
+
+}
+.office-button-group.rows > div.button {
+    margin:0.2em 0;
+}
+
+/** --------------------- Office Message Box ------------------ **/
+.office-message {
+    background-color: #0071B3;
+    color:white;
+    padding:1em;
+}
+
+/** ---------------------- Office Error Message ----------------- **/
+.office-error {
+    background-color:#d40000;
+}
+
+/** ---------------------- Office Error Message ----------------- **/
+.office-submit {
+    background-color:#9090F0;
+}

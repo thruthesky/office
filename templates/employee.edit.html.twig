@@ -1,0 +1,57 @@
+<div{{ attributes.addClass( data.class.office ) }}>
+
+    {% include dir_office ~ '/templates/menu.html.twig' %}
+
+
+    {% if data.mode == 'submit' %}
+        {% if data.error.code %}
+            <div class="office-message office-error">
+                {{ data.error.message }}
+            </div>
+        {% else %}
+            <div class="office-message office-submit">
+                Your information has been updated successfully.
+            </div>
+        {% endif %}
+    {% endif %}
+
+
+    <form action="/office/employee/add">
+        <input type="hidden" name="mode" value="submit">
+        <input type="hidden" name="eid" value="{{ data.employee.id.value }}">
+
+
+        <select name="group_id">
+            <option value="">Select your group</option>
+            {% for group in data.groups %}
+                <option value="{{ group.id.value }}"{{ data.employee.group_id.value == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
+            {% endfor %}
+        </select>
+
+        <br>
+
+        First Name: <input type="text" name="first_name" value="{{ data.employee.first_name.value }}"><br>
+        Middle Name: <input type="text" name="middle_name" value="{{ data.employee.middle_name.value }}"><br>
+        Last Name: <input type="text" name="last_name" value="{{ data.employee.last_name.value }}"><br>
+
+        Mobile Number: <input type="text" name="mobile" value="{{ data.employee.mobile.value }}"><br>
+        Landline Number: <input type="text" name="landline" value="{{ data.employee.landline.value }}"><br>
+
+
+
+
+        Address : <input type="text" name="address" value="{{ data.employee.address.value }}">
+
+        <br>
+
+
+
+
+
+        <input type="submit">
+
+    </form>
+
+
+
+</div>
