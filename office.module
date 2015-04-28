@@ -9,8 +9,9 @@ if ( ! function_exists('di') ) {
 function office_theme() {
 	$themes = [];
 	$names = [
-		'office', 'employee.list', 'employee.view', 'employee.edit',
-		'login',
+		'office', 'login', 'mydesk',
+		'employee.list', 'employee.view', 'employee.edit',
+		'client.list', 'client.view', 'client.edit',
 	];
 	foreach($names as $name) {
 

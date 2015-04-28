@@ -1,9 +1,58 @@
 <div{{ attributes.addClass( data.class.office ) }}>
-<h2>Online Office</h2>
-    <div class="office-button-group rows">
-        <div class="button"><a href="/office/client/add"><span>고객으로 등록하기</span></a></div>
-        <div class="button"><a href="/office/employee/add"><span>직원으로 등록하기</span></a></div>
-        <div class="button"><a href="/office/group/add"><span>그룹 등록하기</span></a></div>
-        <div class="button"><a href="/office/issue/list"><span>전체 이슈보기</span></a></div>
+    <h2>Online Office</h2>
+    {% include dir_office ~ '/templates/menu.html.twig' %}
+
+    <div class="office-message">
+        You have 3 tasks to do!<br>
+        You have 2 urgent task to do!<br>
+        You have 5 tasks to watch!<br>
     </div>
+
+    <a href="#">Getting Started Guide</a>
+    After reading this guideline, you will be able to manage online office.<br>
+
+
+    <div>
+
+    1. Terms<br>
+
+    Group - is a group or a company or a project.<br>
+
+    Task - is a work to do. Tasks belong to a group.<br>
+
+    2. Create a group<br>
+
+    * click on Office and create a group.<br>
+
+    * If you are not admin, you may not create a group.<br>
+
+    3. Create categories of task.<br>
+
+    * Click the group and click category menu.<br>
+
+    * Input category like "Cars", "Clothes", "Shoes".<br>
+
+    4. Create a task<br>
+
+    * Click group and click "create a task" button<br>
+
+    * Select category and fill other things<br>
+
+    * Click Submit<br>
+
+    5. Track your task<br>
+
+    * Click on "My Desk" and see the report.<br>
+
+
+
+        Advisory :<br>
+        1. It is okay not to register as a client but recommanded.<br>
+        2. If you are an Employee, you must registered as employee.<br>
+
+
+
+
+    </div>
+
 </div>

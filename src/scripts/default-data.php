@@ -1,7 +1,7 @@
 <?php
 use Drupal\office\Entity\Employee;
 use Drupal\office\Entity\Group;
-use Drupal\office\Entity\Issue;
+use Drupal\office\Entity\Task;
 set_default_data();
 function set_default_data() {
 	$group_id = 0;
@@ -26,12 +26,12 @@ function set_default_data() {
 	$employee->save();
 
 
-	$issue = Issue::create();
-	$issue->set('name', "This is the first issue!");
-	$issue->set('description', "This is a test issue created by default-data.");
-	$issue->set('group_id', $group_id);
-	$issue->set('client_id', 1); // admin
-	$issue->save();
+	$task = Task::create();
+	$task->set('name', "This is the first task!");
+	$task->set('description', "This is a test task created by default-data.");
+	$task->set('group_id', $group_id);
+	$task->set('client_id', 1); // admin
+	$task->save();
 
 
 

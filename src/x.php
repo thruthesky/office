@@ -181,4 +181,7 @@ class x {
 		if ( empty($in['address']) ) return self::errorInfoArray(self::error_input_address, $data);
 		return false;
 	}
+
+	public static function clientFormSubmit($data) {
+	}
 }

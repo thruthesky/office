@@ -185,3 +185,33 @@ entity.office_client.delete_form:
     _title: 'Delete Client'
   requirements:
     _entity_access: 'office_client.delete'
+
+
+
+# public
+entity.office.client.list:
+  path: '/office/client/list'
+  defaults:
+    _controller: Drupal\office\Controller\ClientController::collection
+  requirements:
+    _permission: 'access content'
+
+# public
+entity.office.client.add:
+  path: '/office/client/add'
+  defaults:
+    _controller: Drupal\office\Controller\ClientController::edit
+  requirements:
+    _permission: 'access content'
+
+
+#### ----------------- My Desk --------------------
+
+
+entity.office.mydesk:
+  path: '/office/mydesk'
+  defaults:
+    _controller: Drupal\office\Controller\Office::mydesk
+    _title: 'Office'
+  requirements:
+    _permission: 'access content'

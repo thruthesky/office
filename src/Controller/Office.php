@@ -33,7 +33,6 @@ class Office extends ControllerBase {
 	}
 	public function login() {
 		$data = [];
-
 		if ( x::isFromSubmit() ) {
 			if ( ! x::loginFormSubmit($data) ) return new RedirectResponse('/office');
 		}
@@ -41,6 +40,13 @@ class Office extends ControllerBase {
 			'#theme' => 'login',
 			'#data' => $data,
 		];
+	}
 
+	public function mydesk() {
+		$data = [];
+		return [
+			'#theme' => 'mydesk',
+			'#data' => $data,
+		];
 	}
 }

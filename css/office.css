@@ -7,14 +7,16 @@ h2 {
     padding:0;
 }
 
-.office .button {
+/** ---------------- OFFICE BUTTON ------------------ **/
+
+.office-button-group > .button {
     margin:0;
     padding:0;
     background-color:transparent;
     color:black;
 }
 
-.office .button span {
+.office-button-group > .button span {
     display:block;
     margin:0;
     padding:0.4em;
@@ -23,6 +25,23 @@ h2 {
 }
 
 /** ---------------------- OFFICE Button Group by Rows ---------------------- **/
+.office-button-group.top-menu {
+    margin: 0.4em 0;
+}
+.office-button-group.top-menu:after {
+    display:block;
+    content:'';
+    clear:both;
+}
+.office-button-group.top-menu > .button {
+    float:left;
+}
+.office-button-group.top-menu  > .button span {
+    border:1px solid white;
+    box-sizing: border-box;
+    background-color: #dd5522;
+}
+
 .office-button-group.rows {
 
 }

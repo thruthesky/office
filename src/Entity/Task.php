@@ -1,19 +1,19 @@
 <?php
 namespace Drupal\office\Entity;
-use Drupal\office\IssueInterface;
+use Drupal\office\TaskInterface;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
 
 /**
- * Defines the Issue entity.
+ * Defines the Task entity.
  *
  *
  * @ContentEntityType(
- *   id = "office_issue",
- *   label = @Translation("Issue entity"),
- *   base_table = "office_issue",
+ *   id = "office_task",
+ *   label = @Translation("Task entity"),
+ *   base_table = "office_task",
  *   fieldable = TRUE,
  *   entity_keys = {
  *     "id" = "id",
@@ -22,7 +22,7 @@ use Drupal\user\UserInterface;
  *   }
  * )
  */
-class Issue extends ContentEntityBase implements IssueInterface {
+class Task extends ContentEntityBase implements TaskInterface {
 
 	/**
 	 * {@inheritdoc}
@@ -72,20 +72,20 @@ class Issue extends ContentEntityBase implements IssueInterface {
 	public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
 		$fields['id'] = BaseFieldDefinition::create('integer')
 			->setLabel(t('ID'))
-			->setDescription(t('The ID of the Issue entity.'))
+			->setDescription(t('The ID of the Task entity.'))
 			->setReadOnly(TRUE);
 		$fields['uuid'] = BaseFieldDefinition::create('uuid')
 			->setLabel(t('UUID'))
-			->setDescription(t('The UUID of the Issue entity.'))
+			->setDescription(t('The UUID of the Task entity.'))
 			->setReadOnly(TRUE);
 		$fields['client_id'] = BaseFieldDefinition::create('entity_reference')
 			->setLabel(t('Client User ID'))
-			->setDescription(t('The client user ID of the Issue entity author.'))
+			->setDescription(t('The client user ID of the Task entity author.'))
 			->setSetting('target_type', 'user');
 
 		$fields['name'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Name'))
-			->setDescription(t('The name(subject) of the Issue entity.'))
+			->setDescription(t('The name(subject) of the Task entity.'))
 			->setSettings(array(
 				'default_value' => '',
 				'max_length' => 255,
@@ -93,7 +93,7 @@ class Issue extends ContentEntityBase implements IssueInterface {
 			));
 		$fields['langcode'] = BaseFieldDefinition::create('language')
 			->setLabel(t('Language code'))
-			->setDescription(t('The language code of Issue entity.'));
+			->setDescription(t('The language code of Task entity.'));
 		$fields['created'] = BaseFieldDefinition::create('created')
 			->setLabel(t('Created'))
 			->setDescription(t('The time that the entity was created.'));
@@ -102,7 +102,7 @@ class Issue extends ContentEntityBase implements IssueInterface {
 			->setDescription(t('The time that the entity was last edited.'));
 		$fields['description'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Description'))
-			->setDescription(t('The description of the Issuee.'))
+			->setDescription(t('The description of the Task.'))
 			->setSettings(array(
 				'default_value' => '',
 				'max_length' => 255,

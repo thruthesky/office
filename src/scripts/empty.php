@@ -1,7 +1,7 @@
 <?php
 use Drupal\office\Entity\Employee;
 use Drupal\office\Entity\Group;
-use Drupal\office\Entity\Issue;
+use Drupal\office\Entity\Task;
 
 empty_office();
 
@@ -22,10 +22,10 @@ function empty_office() {
 	}
 
 
-	$issues = Issue::loadMultiple();
-	if ( $issues ) {
-		foreach ( $issues as $issue ) {
-			$issue->delete();
+	$tasks = Task::loadMultiple();
+	if ( $tasks ) {
+		foreach ( $tasks as $task ) {
+			$task->delete();
 		}
 	}
 
