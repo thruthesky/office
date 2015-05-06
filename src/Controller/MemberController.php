@@ -13,15 +13,19 @@ class MemberController extends ControllerBase {
 		$data = x::officeInformation();
 
 
+		$db = \Drupal::entityQuery('office_member');
 		if ( x::admin() ) {
-			$ids = \Drupal::entityQuery('office_member')->execute();
+
 		}
 		else {
-			
+			$my_group_id = $data['group']->id();
+			$db->condition('group_id', $my_group_id);
 		}
 
+		$member_ids = $db->execute();
 
-		$entities = \Drupal::entityManager()->getStorage('office_member')->loadMultiple($ids);
+
+		$entities = \Drupal::entityManager()->getStorage('office_member')->loadMultiple($member_ids);
 		$data['members'] = $entities;
 		return [
 			'#theme' => 'member.list',
@@ -45,7 +49,7 @@ class MemberController extends ControllerBase {
 	 * @return array
 	 */
 	public function edit() {
-		$data = [];
+		$data = x::officeInformation();
 		$data['mode'] = x::g('mode');
 		if ( ! x::login() ) return x::loginResponse();
 		if (x::isFromSubmit())  Member::formSubmit($data);

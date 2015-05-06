@@ -362,6 +362,12 @@ class x {
 		return $rets;
 	}
 
+	/**
+	 * @param $id
+	 * @return array
+	 *
+	 *  - monday ~ sunday 에 Y 또는 빈문자열 표시로 리턴한다.
+	 */
 	public static function getGroupWorkingDays($id) {
 		$rets = [];
 		$rows = self::config( 'group_' . $id . '_work' );
@@ -374,6 +380,15 @@ class x {
 	}
 
 
+	/**
+	 *
+	 * 그룹만의 쉬는 날. 만약 월~금 일하는데, 특별히 5월 5일(화)요일만 쉬게 한다는 등.
+	 *
+	 * @param $id
+	 * @return array
+	 *
+	 * @todo 날짜 값을 입력 받아서, 해당 날짜만 리턴 할 것.
+	 */
 	public static function getGroupDayoffs($id) {
 		$rets = [];
 		$rows = self::config( 'group_' . $id . '_dayoff' );
@@ -497,6 +512,8 @@ class x {
 	 *
 	 * 만약 $uid 가 0 이라면, 전체가 근무하는 시간이다.
 	 *
+	 *  - 예를 들어 일요일은 그룹이 원래 쉬는 날인데, 특별히 전체 인원이 근무를 하는 경우 등이다.
+	 *
 	 * @param $group_id
 	 * @param $uid
 	 * @param $date
@@ -551,13 +568,13 @@ class x {
 
 	public static function messageNotOfficeMember(array & $data=null) {
 		$data['code'] = 'error not-a-member';
-		$data['message'] = 'You are not a member of office. Please join the office.';
+		$data['message'] = 'You (or the user) are not a member of office. Please join the office.';
 		return ['code'=>$data['code'], 'message'=>$data['message']];
 	}
 
 	public static function messageNotGroupMember(array & $data=null) {
 		$data['code'] = 'error not-a-member';
-		$data['message'] = 'You are not a member of any group. Please select a group first.';
+		$data['message'] = 'You (or the user) are not a member of any group. Please select a group first.';
 		return ['code'=>$data['code'], 'message'=>$data['message']];
 	}
 
@@ -565,12 +582,19 @@ class x {
 	 *
 	 * 그룹이 쉬는날인지 근무하는 날인지, 근무를 하면 근무 시간과 끝 시간을 배열로 리턴한다.
 	 *
+	 * - 예를 들어 그룹이 일요일 쉬는데,
+	 *      -- 특별히 전체 인원이 일요일 일하는지,
+	 *      -- 월~토 요일인지,
+	 *
+	 *
 	 * @param $group_id
 	 * @param $date
 	 *
 	 *
 	 *
 	 * @return array
+	 *
+	 *      - 그룹이 전체 쉬는 날이면, 빈 array 를 리턴한다.
 	 *
 	 *      - 리턴 예
 	 *
@@ -582,27 +606,37 @@ class x {
 	 */
 	public static function getGroupWorkSchedule($group_id, $date) {
 
-		// 그룹만의 일하는 날인가? 개별 시간표에서 사용자 이름이 없는 경우,
+		// #3-3
 		$work_schedule = self::getMemberWorkSchedule($group_id, 0, $date);
 		if ( $work_schedule ) {
-			di($work_schedule);
+			return [
+				$work_schedule['begin'],
+				$work_schedule['end']
+			];
 		}
 
 
 		// 그룹만의 dayoff 인가?
+		// 그룹 정보 설정에서 쉬는 날로 지정 한 경우,
 		$dayoff = self::getGroupDayoffs($group_id);
 		if ( isset($dayoff[$date]) ) {
-			// 그룹 쉬는 날
-
+			// 그룹 쉬는 날이다.
+			return [];
 		}
 
 		// 그룹이 원래 쉬는 날인가?
+		//
+		//
 		$day = strtolower(date('l', strtotime($date)));
 		$days = self::getGroupWorkingDays($group_id);
 		if ( $days[$day] == 'Y' ) {
 			// 그룹 근무 하는 날
+			//
 			$work_hours = self::getGroupWorkingHours($group_id);
-			return $work_hours;
+			if ( empty($work_hours) ) {
+				return [];
+			}
+			else return $work_hours; // 정상 근무 시간.
 		}
 		else {
 			// 그룹 쉬는 날
@@ -673,11 +707,13 @@ class x {
 	 *
 	 * @endcode
 	 */
-	public static function checkMember() {
+	public static function checkMember($uid=0) {
 		if ( ! x::login() ) {
 			return x::messageLoginFirst();
 		}
-		$member = Member::loadByUserID(x::myUid());
+		if ( empty($uid) ) $uid = x::myUid();
+
+		$member = Member::loadByUserID($uid);
 		if ( empty($member) ) {
 			return x::messageNotOfficeMember();
 		}
@@ -709,6 +745,7 @@ class x {
 
 	public static function officeInformation() {
 		$info = [];
+		$info['member'] = Member::loadByUserID(x::myUid());
 		$group = Group::myGroup(x::myUid());
 		if ( $group ) {
 			$info['group'] = $group;
@@ -716,5 +753,38 @@ class x {
 		}
 		return $info;
 	}
+
+
+	public static function messageNotYourGroup(array & $data=null) {
+		$data['code'] = 'error not-your-group';
+		$data['message'] = 'This is not your group. You are not the admin of the group.';
+		return ['code'=>$data['code'], 'message'=>$data['message']];
+	}
+
+	public static function checkGroup($uid) {
+		$member = Member::loadByUserID($uid);
+		$group_id = $member->get('group_id')->target_id;
+		if ( ! x::getGroupWorkingHours($group_id) ) return x::messageHasNoWorkingHours();
+		$days = x::getGroupWorkingDays($group_id);
+		foreach( $days as $day => $v ) {
+			if ($v == 'Y') {
+				return [];
+			}
+		}
+		return x::messageHasNoWorkingDays();
+	}
+
+	private static function messageHasNoWorkingDays() {
+		$data['code'] = 'error group-has-no-working-days';
+		$data['message'] = 'The group has no working days through Sunday to Saturday.';
+		return ['code'=>$data['code'], 'message'=>$data['message']];
+	}
+
+	private static function messageHasNoWorkingHours() {
+		$data['code'] = 'error group-has-no-working-hours';
+		$data['message'] = 'The group has no working hours. Please ask the group admin to set it.';
+		return ['code'=>$data['code'], 'message'=>$data['message']];
+	}
+
 
 }

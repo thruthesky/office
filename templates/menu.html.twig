@@ -1,61 +1,59 @@
 <div class="office-button-group rows submenu-office">
 
-
     <div class="button">
-        <span>
-            OFFICE:
-            <a href="/office">Front Desk</a>
+        <span class="caption">
+            OFFICE
         </span>
+        <a href="/office">Front Desk</a>
     </div>
 
-
-
-
     <div class="button">
-        <span>
-            MY DESK:
-            <a href="/office/attendance_list">ATTENDANCE LIST</a>
+        <span class="caption">MY DESK</span>
+            <a href="/office/attendance_list/?mode=submit&date={{ 'now' | date("Y-m-d") }}">ATTENDANCE LIST</a>
             <a href="/office/attend">ATTEND</a>
             <a href="/office/leave">LEAVE</a>
-        </span>
     </div>
 
 
     <div class="button">
-        <span>
-            MY PAGE:
-            <a href="/office/member/add">Office Member Registration</a>
-        </span>
+        <span class="caption">MY PAGE</span>
+        <a href="/office/member/add">Office Member Registration</a>
     </div>
+
 
     {% if is_admin %}
     <div class="button">
-        <span>
-            ALL GROUP:
+        <span class="caption">ALL GROUP</span>
+
             <a href="/office/group/list">LIST</a>
             <a href="/office/group/add">CREATE</a>
             <a href="/office/member/list">ALL Group Member List</a>
-        </span>
     </div>
     {% endif %}
+
 
     {% if data.is_group_admin %}
         <div class="button">
-        <span>
-            GROUP ADMIN Page:
+        <span class="caption">Group Admin Page</span>
+
+            <a href="/office/group/{{ data.group.id.value }}/edit">Group Information Update</a>
+            <a href="/office/group/{{ data.group.id.value }}/workinghours">Work Schedules</a>
+
+
             <a href="/office/member/list">MEMBER LIST</a>
-        </span>
+
         </div>
     {% endif %}
 
-
     <div class="button">
-        <span>
-            TASK :
+        <span class="caption">TASK</span>
             <a href="/office/task/list">LIST</a>
             <a href="/office/task/add">CREATE</a>
-        </span>
     </div>
 
+</div>
 
+<div class="information">
+    <div>Welcome, {{ data.member.user_id.entity.name.value }}</div>
+    <div>Your Group : {{ data.group.name.value }}</div>
 </div>

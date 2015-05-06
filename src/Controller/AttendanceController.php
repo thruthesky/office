@@ -11,24 +11,29 @@ class AttendanceController extends ControllerBase {
 
 	public function attendance_list() {
 		$date = x::in('date');
-		$data = [];
+		$request = \Drupal::request();
+		$uid = $request->get('uid');
+		if ( empty($uid) ) $uid = x::myUid();
+		$data = x::officeInformation();
 		$data['input'] = x::input();
-		if ( $re = x::checkMember() ) {
+		if ( $re = x::checkMember($uid) ) {
+			$data = array_merge($data, $re);
+		}
+		else if ( $re = x::checkGroup($uid) ) {
 			$data = array_merge($data, $re);
 		}
 		else if ( x::isFromSubmit() && $date ) {
 			$Ym = date("Ym", strtotime($date));
-			$member = Member::loadByUserID(x::myUid());
+			$member = Member::loadByUserID($uid);
 			if ( empty($member) ) x::messageNotOfficeMember($data);
 			else if ( empty($member->get('group_id')->target_id) ) x::messageNotGroupMember($data);
 			else {
 				$data['group'] = $member->get('group_id')->entity;
-				$re = Attendance::getAttendanceOfMonth(x::myUid(), $Ym);
+				$re = Attendance::getAttendanceOfMonth($uid, $Ym);
 				$data = array_merge($data,$re);
 			}
 		}
 		else x::messageSelectDate($data);
-
 
 		return [
 			'#theme' => 'attendance.list',

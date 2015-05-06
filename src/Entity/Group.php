@@ -54,6 +54,21 @@ use Drupal\user\UserInterface;
  * )
  */
 class Group extends ContentEntityBase implements GroupInterface {
+	/**
+	 *
+	 * 관리자이거나 나의 소유 그룹이면 참을 리턴한다.
+	 *
+	 * @param $group_id
+	 * @param $myUid
+	 * @return bool
+	 */
+	public static function isAdmin($group_id, $myUid) {
+		if ( x::admin() ) return true;
+		$group = self::myGroup($myUid);
+		//di("group id:$group_id");
+		//di($group->id());
+		return $group->id() == $group_id;
+	}
 
 
 	/**

@@ -4,7 +4,8 @@
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
 
-
+    {% if data.code %}
+    {% else %}
 
     <form class='group' action="/office/group/add">
         <fieldset>
@@ -114,5 +115,6 @@
 
     <a href="/office/group/{{ data.group.id.value }}/workinghours"> [ GROUP WORK HOUR SCHEDULES ] </a>
 
+    {% endif %}
 
 </div>

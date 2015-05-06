@@ -87,7 +87,7 @@ class Attendance extends ContentEntityBase implements AttendanceInterface {
 		$user = User::load($uid);
 		$member = Member::loadByUserID($uid);
 		$id = $member->get('group_id')->target_id;
-		di($id);
+		//di($id);
 		$work_hour = x::getGroupWorkingHours($id);
 		$ret['work_hour_begin'] = $work_hour[0];
 		$ret['work_hour_end'] = $work_hour[1];
@@ -244,7 +244,7 @@ class Attendance extends ContentEntityBase implements AttendanceInterface {
 		if ( $member_work ) {
 			if ( empty($member_work['begin']) ) {
 				// No work for the member.
-				return "Dayoff";
+				return "Personal Dayoff";
 			}
 			else {
 				// Different working hours for the member.
@@ -258,9 +258,10 @@ class Attendance extends ContentEntityBase implements AttendanceInterface {
 		}
 		// 회사 근무일인가? 쉬는 날인가?
 		else {
+			// 그룹 전체 일하는날인가?
 			$group_work = x::getGroupWorkSchedule($group_id, $date);
 			if ( empty($group_work) ) {
-				return 'No work';
+				return 'Group has no work';
 			}
 			else {
 				$work['begin'] = $group_work[0];

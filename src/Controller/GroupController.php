@@ -35,17 +35,24 @@ class GroupController extends ControllerBase {
 	 */
 	public function edit(GroupInterface $office_group=NULL) {
 		x::log(__METHOD__);
-		$data = [];
-		$data['mode'] = x::g('mode');
+		$data = array_merge(x::input(), x::officeInformation());
+
+		if ( $office_group ) $group_id = $office_group->id();
+		else $group_id = x::in('group_id');
 		if ( x::login() ) {
-			if (x::isFromSubmit()) {
-				$group_id = Group::formSubmit($data);
-				$office_group = Group::load($group_id);
+			if ( Group::isAdmin($group_id, x::myUid()) ) {
+				if (x::isFromSubmit()) {
+					$group_id = Group::formSubmit($data);
+					$office_group = Group::load($group_id);
+				}
+				if ( $office_group ) {
+					$data['group'] = $office_group;
+					$data['config']['work'] = x::getGroupWorkingDays($office_group->id());
+					$data['config']['dayoffs'] = x::getGroupDayoffs($office_group->id());
+				}
 			}
-			if ( $office_group ) {
-				$data['group'] = $office_group;
-				$data['config']['work'] = x::getGroupWorkingDays($office_group->id());
-				$data['config']['dayoffs'] = x::getGroupDayoffs($office_group->id());
+			else {
+				x::messageNotYourGroup($data);
 			}
 			//di($data['config']);
 			return [
@@ -60,8 +67,7 @@ class GroupController extends ControllerBase {
 
 	public function workinghours(GroupInterface $office_group=NULL) {
 		x::log(__METHOD__);
-		$data = [];
-		$data['mode'] = x::in('mode');
+		$data = array_merge(x::input(), x::officeInformation());
 
 		if ( x::in('mode') == 'submit' ) {
 			$group_id = x::in('group_id');

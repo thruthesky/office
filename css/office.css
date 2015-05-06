@@ -9,19 +9,27 @@ h2 {
 
 /** ---------------- OFFICE BUTTON ------------------ **/
 
-.office-button-group > .button {
-    margin:0;
+.office-button-group .button {
+    margin:0.2em 0;
     padding:0;
-    background-color:transparent;
+    background-color:#d0d0ff;
     color:black;
 }
 
-.office-button-group > .button span {
-    display:block;
+.office-button-group .button .caption {
+    display: inline-block;
     margin:0;
     padding:0.4em;
+    box-sizing: border-box;
+    width:100px;
     background-color:#c3d8e4;
     color:black;
+    font-weight: bold;
+}
+.office-button-group .button a {
+    display: inline-block;
+    padding: 0.4em 1em;
+    box-sizing: border-box;
 }
 
 /** ---------------------- OFFICE Button Group by Rows ---------------------- **/
