@@ -1,5 +1,5 @@
 <?php
-use Drupal\office\Entity\Employee;
+use Drupal\office\Entity\Member;
 use Drupal\office\x;
 if ( ! function_exists('di') ) {
 	function di( $obj ) { echo "<pre>"; print_r($obj); echo "</pre>"; }
@@ -10,11 +10,12 @@ function office_theme() {
 	$themes = [];
 	$names = [
 		'office', 'login', 'mydesk',
-		'employee.list', 'employee.view', 'employee.edit',
-		'client.list', 'client.view', 'client.edit',
+		'member.list', 'member.view', 'member.edit',
+		'task.edit','task.list',
+		'group.edit', 'group.list', 'group.workinghours',
+		'attendance.list',
 	];
 	foreach($names as $name) {
-
 		$themes[ $name ] = [
 			'variables' => [ 'data' => null],
 			'template' => $name,
@@ -32,6 +33,10 @@ function office_preprocess(&$variables, $hook)
 	$uri = $request->getRequestUri();
 	if ( ! x::isOfficePage() ) return;
 
+	if ( $hook == 'page' ) {
+		// x::gs(2);
+	}
+
 	$variables['dir_office'] = drupal_get_path('module', 'office');
 
 	$variables['#attached']['library'][] = 'office/default';
@@ -39,3 +44,7 @@ function office_preprocess(&$variables, $hook)
 	$variables['data']['class']['office'][] = $hook;
 
 }
+
+
+
+

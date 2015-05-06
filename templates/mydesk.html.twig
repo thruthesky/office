@@ -1,7 +1,21 @@
 <div{{ attributes.addClass( data.class.office ) }}>
     <h2>My Desk</h2>
-    {% include dir_office ~ '/templates/menu.html.twig' %}
 
+    {% include dir_office ~ '/templates/menu.html.twig' %}
+    {% include dir_office ~ '/templates/message.html.twig' %}
+
+    <div>
+        Welcome, {{ data.member.user_id.entity.name.value }}
+    </div>
+
+    <div class="group">
+        <div>
+            Your Group : <b>{{ data.my.group_id.entity.name.value }}</b>
+        </div>
+        <div>
+            Work Schedule For {{ data.today }} : {{ data.work.begin }} ~ {{ data.work.end }}
+        </div>
+    </div>
     
 
     <div class="task">Assigned To Me</div>

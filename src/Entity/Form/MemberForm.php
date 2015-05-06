@@ -4,14 +4,14 @@ use Drupal\office;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\Language;
-use Drupal\office\Entity\Employee;
+use Drupal\office\Entity\Member;
 
-class EmployeeForm extends ContentEntityForm {
+class MemberForm extends ContentEntityForm {
 	/**
 	 * Overrides Drupal\Core\Entity\EntityFormController::buildForm().
 	 */
 	public function buildForm(array $form, FormStateInterface $form_state) {
-		/* @var $entity \Drupal\office\Entity\Employee */
+		/* @var $entity \Drupal\office\Entity\Member */
 		$form = parent::buildForm($form, $form_state);
 		$entity = $this->entity;
 		$form['langcode'] = array(
@@ -43,15 +43,15 @@ class EmployeeForm extends ContentEntityForm {
 		$status = $entity->save();
 
 		if ($status) {
-			drupal_set_message($this->t('Saved the %label Employee.', array(
+			drupal_set_message($this->t('Saved the %label Member.', array(
 				'%label' => $entity->label(),
 			)));
 		}
 		else {
-			drupal_set_message($this->t('The %label Employee was not saved.', array(
+			drupal_set_message($this->t('The %label Member was not saved.', array(
 				'%label' => $entity->label(),
 			)));
 		}
-		$form_state->setRedirect('entity.office_employee.edit_form', ['office_employee' => $entity->id()]);
+		$form_state->setRedirect('entity.office_member.edit_form', ['office_member' => $entity->id()]);
 	}
 }

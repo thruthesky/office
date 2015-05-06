@@ -1,30 +1,31 @@
 <?php
 namespace Drupal\office\Entity;
-use Drupal\office\EmployeeInterface;
+use Drupal\office\MemberInterface;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\office\x;
 use Drupal\user\UserInterface;
 
 /**
- * Defines the Employee entity.
+ * Defines the Member entity.
  *
  *
  * @ContentEntityType(
- *   id = "office_employee",
- *   label = @Translation("Employee entity"),
+ *   id = "office_member",
+ *   label = @Translation("Member entity"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\office\Entity\Controller\EmployeeListController",
+ *     "list_builder" = "Drupal\office\Entity\Controller\MemberListController",
  *     "form" = {
- *       "default" = "Drupal\office\Entity\Form\EmployeeForm",
- *       "add" = "Drupal\office\Entity\Form\EmployeeForm",
- *       "edit" = "Drupal\office\Entity\Form\EmployeeForm",
- *       "delete" = "Drupal\office\Entity\Form\EmployeeDeleteForm"
+ *       "default" = "Drupal\office\Entity\Form\MemberForm",
+ *       "add" = "Drupal\office\Entity\Form\MemberForm",
+ *       "edit" = "Drupal\office\Entity\Form\MemberForm",
+ *       "delete" = "Drupal\office\Entity\Form\MemberDeleteForm"
  *     }
  *   },
- *   admin_permission = "administer employee",
- *   base_table = "office_employee",
+ *   admin_permission = "administer member",
+ *   base_table = "office_member",
  *   fieldable = TRUE,
  *   entity_keys = {
  *     "id" = "id",
@@ -32,21 +33,18 @@ use Drupal\user\UserInterface;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "entity.office_employee.canonical",
- *     "delete-form" = "entity.office_employee.delete_form",
- *     "edit-form" = "entity.office_employee.edit_form",
- *     "collection" = "entity.office_employee.collection"
+ *     "canonical" = "entity.office_member.canonical",
+ *     "delete-form" = "entity.office_member.delete_form",
+ *     "edit-form" = "entity.office_member.edit_form",
+ *     "collection" = "entity.office_member.collection"
  *   },
- *   field_ui_base_route = "employee.settings",
+ *   field_ui_base_route = "member.settings",
  * )
  */
-class Employee extends ContentEntityBase implements EmployeeInterface {
+class Member extends ContentEntityBase implements MemberInterface {
 
 	public static function loadByUserID($uid) {
-		$employees = \Drupal::entityManager()->getStorage('office_employee')->loadByProperties(['user_id'=>$uid]);
-		if ( $employees ) $employee = reset($employees);
-		else $employee = NULL;
-		return $employee;
+		return x::loadEntityByUserID('office_member', $uid);
 	}
 
 
@@ -98,16 +96,16 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
 	public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
 		$fields['id'] = BaseFieldDefinition::create('integer')
 			->setLabel(t('ID'))
-			->setDescription(t('The ID of the Employee entity.'))
+			->setDescription(t('The ID of the Member.'))
 			->setReadOnly(TRUE);
 		$fields['uuid'] = BaseFieldDefinition::create('uuid')
 			->setLabel(t('UUID'))
-			->setDescription(t('The UUID of the Employee entity.'))
+			->setDescription(t('The UUID of the Member.'))
 			->setReadOnly(TRUE);
 
 		$fields['langcode'] = BaseFieldDefinition::create('language')
 			->setLabel(t('Language code'))
-			->setDescription(t('The language code of Employee entity.'));
+			->setDescription(t('The language code of Member.'));
 		$fields['created'] = BaseFieldDefinition::create('created')
 			->setLabel(t('Created'))
 			->setDescription(t('The time that the entity was created.'));
@@ -116,8 +114,8 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
 			->setDescription(t('The time that the entity was last edited.'));
 
 		$fields['user_id'] = BaseFieldDefinition::create('entity_reference')
-			->setLabel(t('Employee Username'))
-			->setDescription(t('The user ID of the Employee entity author.'))
+			->setLabel(t('Member Username'))
+			->setDescription(t('The user ID of the Member.'))
 			->setRevisionable(TRUE)
 			->setSetting('target_type', 'user')
 			->setSetting('handler', 'default')
@@ -142,42 +140,51 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
 			->setDisplayConfigurable('view', TRUE);
 
 
-		$fields['group_id'] = BaseFieldDefinition::create('integer')
+		$fields['group_id'] = BaseFieldDefinition::create('entity_reference')
 			->setLabel(t('group_id'))
-			->setDescription(t('The Group ID of the Employee'));
+			->setDescription(t('The Group ID of the Member'))
+			->setSetting('target_type', 'office_group');
+
+
+
+
+		$fields['type'] = BaseFieldDefinition::create('string')
+			->setLabel(t('Member Type'))
+			->setDescription(t('The type the Member.'))
+			->setSettings(array(
+				'default_value' => '',
+				'max_length' => 1,
+			));
 
 
 		$fields['first_name'] = BaseFieldDefinition::create('string')
 			->setLabel(t('First Name'))
-			->setDescription(t('The first name of the Employee entity.'))
+			->setDescription(t('The first name of the Member.'))
 			->setSettings(array(
 				'default_value' => '',
-				'max_length' => 50,
-				'text_processing' => 0,
+				'max_length' => 32,
 			));
 
 		$fields['last_name'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Last Name'))
-			->setDescription(t('The last name of the Employee entity.'))
+			->setDescription(t('The last name of the Member.'))
 			->setSettings(array(
 				'default_value' => '',
-				'max_length' => 50,
-				'text_processing' => 0,
+				'max_length' => 32,
 			));
 
 		$fields['middle_name'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Middle Name'))
-			->setDescription(t('The middle name of the Employee entity.'))
+			->setDescription(t('The middle name of the Member.'))
 			->setSettings(array(
 				'default_value' => '',
-				'max_length' => 50,
-				'text_processing' => 0,
+				'max_length' => 32,
 			));
 
 
 		$fields['address'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Address'))
-			->setDescription(t('The address of the Employee.'))
+			->setDescription(t('The address of the Member.'))
 			->setSettings(array(
 				'default_value' => '',
 				'max_length' => 255,
@@ -187,7 +194,7 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
 
 		$fields['mobile'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Mobile Number'))
-			->setDescription(t('The mobile number of the Employee.'))
+			->setDescription(t('The mobile number of the Member.'))
 			->setSettings(array(
 				'default_value' => '',
 				'max_length' => 32,
@@ -196,7 +203,7 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
 
 		$fields['landline'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Landline Number'))
-			->setDescription(t('The landline number of the Employee.'))
+			->setDescription(t('The landline number of the Member.'))
 			->setSettings(array(
 				'default_value' => '',
 				'max_length' => 32,
@@ -204,5 +211,60 @@ class Employee extends ContentEntityBase implements EmployeeInterface {
 			));
 
 		return $fields;
+	}
+
+
+
+	/**
+	 *
+	 * Creates/Updates Member Form Submit
+	 *
+	 * @param array $data
+	 * @return null|void
+	 * - if there is no error, null is returned
+	 * - if there is error, error code is return.
+	 */
+	public static function formSubmit(array &$data) {
+		if ( ! x::login() ) return x::errorInfoArray(x::error_login_first, $data);
+		$in = x::input();
+
+
+		/**
+		 * @note do not return here, so the data will be saved.
+		 */
+		if ($re = self::validateFormSubmit($data)) {
+			// error
+		}
+
+
+		$entity = self::loadByUserID(x::myUid());
+		if ( $entity ) {
+			// loaded
+		}
+		else {
+			$entity = Member::create();
+		}
+		$entity->set('first_name', $in['first_name']);
+		$entity->set('middle_name', $in['middle_name']);
+		$entity->set('last_name', $in['last_name']);
+		$entity->set('mobile', $in['mobile']);
+		$entity->set('landline', $in['landline']);
+		$entity->set('address', $in['address']);
+		$entity->set('user_id', x::myUid());
+		$entity->set('group_id', $in['group_id']);
+		$entity->save();
+		return NULL;
+	}
+
+	private static function validateFormSubmit(array &$data) {
+		$in = x::input();
+		if ( empty($in['group_id']) ) return x::errorInfoArray(x::error_select_group, $data);
+		if ( empty($in['first_name']) ) return x::errorInfoArray(x::error_input_first_name, $data);
+		if ( empty($in['last_name']) ) return x::errorInfoArray(x::error_input_last_name, $data);
+		if ( empty($in['middle_name']) ) return x::errorInfoArray(x::error_input_middle_name, $data);
+		if ( empty($in['mobile']) ) return x::errorInfoArray(x::error_input_mobile, $data);
+		if ( empty($in['landline']) ) return x::errorInfoArray(x::error_input_landline, $data);
+		if ( empty($in['address']) ) return x::errorInfoArray(x::error_input_address, $data);
+		return false;
 	}
 }

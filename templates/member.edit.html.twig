@@ -1,0 +1,45 @@
+<div{{ attributes.addClass( data.class.office ) }}>
+
+    {% include dir_office ~ '/templates/menu.html.twig' %}
+    {% include dir_office ~ '/templates/message.html.twig' %}
+
+
+    <form action="/office/member/add">
+        <input type="hidden" name="mode" value="submit">
+
+
+
+        <select name="group_id">
+            <option value="">Select your group</option>
+            {% for group in data.groups %}
+                <option value="{{ group.id.value }}"{{ data.member.group_id.entity.id.value == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
+            {% endfor %}
+        </select>
+
+        <br>
+
+        First Name: <input type="text" name="first_name" value="{{ data.member.first_name.value }}"><br>
+        Middle Name: <input type="text" name="middle_name" value="{{ data.member.middle_name.value }}"><br>
+        Last Name: <input type="text" name="last_name" value="{{ data.member.last_name.value }}"><br>
+
+        Mobile Number: <input type="text" name="mobile" value="{{ data.member.mobile.value }}"><br>
+        Landline Number: <input type="text" name="landline" value="{{ data.member.landline.value }}"><br>
+
+
+
+
+        Address : <input type="text" name="address" value="{{ data.member.address.value }}">
+
+        <br>
+
+
+
+
+
+        <input type="submit">
+
+    </form>
+
+
+
+</div>

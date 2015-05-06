@@ -1,21 +1,28 @@
 <?php
-
-use Drupal\office\Entity\Employee;
-use Drupal\office\Entity\Group;
-
-function office_uninstall() {
-
-	$employees = Employee::loadMultiple();
-	if ( $employees ) {
-		foreach ( $employees as $employee ) {
-			$employee->delete();
-		}
-	}
-
-	$groups = Group::loadMultiple();
-	if ( $groups ) {
-		foreach ( $groups as $group ) {
-			$group->delete();
-		}
-	}
+function office_schema()
+{
+	$schema['office_config'] = array(
+		'description' => 'The configuration table for office.',
+		'fields' => array(
+			'idx'     => array('type' => 'serial','unsigned'=>TRUE,'not null'=>TRUE),
+			'code'     => array('type' => 'varchar','length' => 64),
+			'category'     => array('type' => 'varchar','length' => 64),
+			'value'     => array('type' => 'varchar','length' => 6000,'not null' => TRUE, 'default' => ''),
+		),
+		'primary key' => array('idx'),
+		'unique keys' => array(
+			array('code','category'),
+		),
+		'indexes' => array(
+			'category' => array('category'),
+		),
+	);
+	return $schema;
+}
+function office_install()
+{
+}
+function office_uninstall()
+{
+	db_drop_table('office_config');
 }

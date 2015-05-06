@@ -7,6 +7,9 @@ default:
       css/office.css: {}
   dependencies:
     - core/jquery
+    - core/jquery.ui
+    - core/jquery.ui.autocomplete
+    - core/jquery.ui.datepicker
 Admin:
   version: 1.x
   js:
@@ -16,3 +19,4 @@ Admin:
       css/admin.css: {}
   dependencies:
     - core/jquery
+

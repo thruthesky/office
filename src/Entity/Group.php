@@ -12,6 +12,8 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\office\GroupInterface;
+use Drupal\office\x;
+use Drupal\user\Entity\User;
 use Drupal\user\UserInterface;
 
 /**
@@ -52,7 +54,6 @@ use Drupal\user\UserInterface;
  * )
  */
 class Group extends ContentEntityBase implements GroupInterface {
-
 
 
 	/**
@@ -171,7 +172,112 @@ class Group extends ContentEntityBase implements GroupInterface {
 			->setLabel(t('Changed'))
 			->setDescription(t('The time that the entity was last edited.'));
 
+
+		$fields['description'] = BaseFieldDefinition::create('string')
+			->setLabel(t('Description'))
+			->setDescription(t('Description of the project.'))
+			->setSettings(array(
+				'default_value' => '',
+				'max_length' => 255,
+			));
+
+
+		$fields['view_status'] = BaseFieldDefinition::create('string')
+			->setLabel(t('View status'))
+			->setDescription(t('View status of the project.'))
+			->setSettings(array(
+				'default_value' => '',
+				'max_length' => 1,
+			));
+
+		$fields['create_status'] = BaseFieldDefinition::create('string')
+			->setLabel(t('Create status'))
+			->setDescription(t('Create status of the project.'))
+			->setSettings(array(
+				'default_value' => '',
+				'max_length' => 1,
+			));
+
 		return $fields;
+	}
+
+
+
+	/**
+	 * @param array $data
+	 * @return mixed
+	 *      - returns group id
+	 *      - or error information if there is any error.
+	 *
+	 *
+	 */
+	public static function formSubmit(array & $data) {
+		x::log(__METHOD__);
+		if ( ! x::login() ) return x::errorInfoArray(x::error_login_first, $data);
+		$in = x::input();
+
+		/**
+		 * @note do not return here, so the data will be saved.
+		 */
+		if ($re = self::validateFormSubmit($data)) {
+			if ( x::error_group_name_exist ) return x::in('group_id');
+			// error
+		}
+
+		$group_id = x::in('group_id');
+		if ( $group_id ) {
+			$group = Group::load($group_id);
+		}
+		else {
+			$group = Group::create();
+		}
+		$group->set('name', x::in('name'));
+		if ( x::in('owner') ) {
+			$group->set('user_id', x::getUserID(x::in('owner')));
+		}
+		else {
+			$group->set('user_id', x::myUid());
+		}
+		$group->set('description', x::in('description'));
+		$group->set('view_status', x::in('view_status'));
+		$group->set('create_status', x::in('create_status'));
+		$group->save();
+		$id = $group->id();
+
+		x::config("group_{$id}_work", 'sunday', x::in('work_sunday'));
+		x::config("group_{$id}_work", 'monday', x::in('work_monday'));
+		x::config("group_{$id}_work", 'tuesday', x::in('work_tuesday'));
+		x::config("group_{$id}_work", 'wednesday', x::in('work_wednesday'));
+		x::config("group_{$id}_work", 'thursday', x::in('work_thursday'));
+		x::config("group_{$id}_work", 'friday', x::in('work_friday'));
+		x::config("group_{$id}_work", 'saturday', x::in('work_saturday'));
+
+
+		return $id;
+	}
+
+	private static function validateFormSubmit(array &$data) {
+		$group_id = x::in('group_id');
+
+			// check if group exits.
+			$entities = \Drupal::entityManager()->getStorage('office_group')->loadByProperties(['name'=>x::in('name')]);
+			if ( $entities ) {
+				foreach( $entities as $entity ) {
+					$eid = $entity->id();
+					if ( $eid != $group_id ) {
+						return x::errorInfoArray(x::error_group_name_exist, $data);
+					}
+				}
+			}
+
+		if ( ! x::in('name') ) return x::errorInfoArray(x::error_input_name, $data);
+		// if ( ! x::getUserID(x::in('owner')) ) return x::errorInfoArray(x::error_wrong_owner, $data);
+		return false;
+	}
+
+	public static function myGroup($uid) {
+		if ( empty($uid) ) return null;
+		return x::loadEntityByUserID('office_group', $uid);
 	}
 
 }

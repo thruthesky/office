@@ -1,0 +1,28 @@
+<div{{ attributes.addClass( data.class.office ) }}>
+
+    {% include dir_office ~ '/templates/menu.html.twig' %}
+    {% include dir_office ~ '/templates/message.html.twig' %}
+    <h1>Task List</h1>
+
+
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <td>Category</td>
+            <td>Title</td>
+            <td>Assigned To</td>
+            <td>Edit/View</td>
+        </tr>
+        {% for task in data.tasks %}
+            <tr>
+                <td></td>
+                <td>
+                    <a href="/office/group/{{ task.id.value  }}">
+                        {{ task.title.value }}
+                    </a>
+                </td>
+                <td>{{ task.worker }}</td>
+                <td>Edit/View</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

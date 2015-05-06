@@ -1,32 +1,23 @@
 <?php
-use Drupal\office\Entity\Employee;
+
 use Drupal\office\Entity\Group;
 use Drupal\office\Entity\Task;
 
 empty_office();
 
+function delete_all_entity_item($entity_type)
+{
+	$entities = \Drupal::entityManager()->getStorage($entity_type)->loadMultiple();
+	if ( $entities ) {
+		foreach ( $entities as $entitiy ) {
+			$entitiy->delete();
+		}
+	}
+}
+
 function empty_office() {
-
-	$employees = Employee::loadMultiple();
-	if ( $employees ) {
-		foreach ( $employees as $employee ) {
-			$employee->delete();
-		}
-	}
-
-	$groups = Group::loadMultiple();
-	if ( $groups ) {
-		foreach ( $groups as $group ) {
-			$group->delete();
-		}
-	}
-
-
-	$tasks = Task::loadMultiple();
-	if ( $tasks ) {
-		foreach ( $tasks as $task ) {
-			$task->delete();
-		}
-	}
-
+	delete_all_entity_item('office_member');
+	delete_all_entity_item('office_group');
+	delete_all_entity_item('office_task');
+	delete_all_entity_item('office_attendance');
 }

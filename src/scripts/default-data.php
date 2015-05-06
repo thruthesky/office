@@ -1,6 +1,6 @@
 <?php
-use Drupal\office\Entity\Employee;
 use Drupal\office\Entity\Group;
+use Drupal\office\Entity\Member;
 use Drupal\office\Entity\Task;
 set_default_data();
 function set_default_data() {
@@ -18,19 +18,21 @@ function set_default_data() {
 		$group_id = $group->id();
 	}
 
-	$employee = Employee::create();
-	$employee->set('first_name', "First Name: admin");
-	$employee->set('address', "This is ADMIN address");
-	$employee->set('group_id', $group_id);
-	$employee->set('user_id', 1); // admin
-	$employee->save();
+	$entity = Member::create();
+	$entity->set('first_name', "First Name: admin");
+	$entity->set('address', "This is ADMIN address");
+	$entity->set('group_id', $group_id);
+	$entity->set('user_id', 1); // admin
+	$entity->save();
 
 
 	$task = Task::create();
-	$task->set('name', "This is the first task!");
+	$task->set('title', "This is the first task!");
 	$task->set('description', "This is a test task created by default-data.");
 	$task->set('group_id', $group_id);
-	$task->set('client_id', 1); // admin
+	$task->set('creator_id', 1); // admin
+	$task->set('worker_id', 1); // admin
+	$task->set('in_charge_id', 1); // admin
 	$task->save();
 
 

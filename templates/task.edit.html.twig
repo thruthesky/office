@@ -1,0 +1,76 @@
+
+
+<div{{ attributes.addClass( data.class.office ) }}>
+
+    {% include dir_office ~ '/templates/menu.html.twig' %}
+    {% include dir_office ~ '/templates/message.html.twig' %}
+
+    <form action="/office/task/add">
+        <input type="hidden" name="mode" value="submit">
+        <input type="hidden" name="task_id" value="{{ data.task.id.value }}">
+
+
+
+        <select name="group_id">
+            <option value="">Select service group</option>
+            {% for group in data.groups %}
+                <option value="{{ group.id.value }}"{{ data.task.group_id.value == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
+            {% endfor %}
+        </select>
+
+<br>
+
+        Title: <input type="text" name="title" value="{{ data.task.title.value }}"><br>
+        Summary: <input type="text" name="summary" value="{{ data.task.summary.value }}"><br>
+        Description: <input type="text" name="description" value="{{ data.task.description.value }}"><br>
+
+        Priority :
+        <input id='priority8' type="radio" name="priority" value="8"{{ data.task.priority.value == '8' ? ' checked=1' }}>
+        <label for="priority8">Very Important & Urgent</label>
+
+
+        <input id='priority6' type="radio" name="priority" value="6"{{ data.task.priority.value == '6' ? ' checked=1' }}>
+        <label for="priority6">Just Normal</label>
+
+        <input id='priority4' type="radio" name="priority" value="4"{{ data.task.priority.value == '4' ? ' checked=1' }}>
+        <label for="priority4">Low</label>
+
+        <input id='priority2' type="radio" name="priority" value="2"{{ data.task.priority.value == '2' ? ' checked=1' }}>
+        <label for="priority2">None( Don't care )</label>
+        <br>
+
+        View status:
+
+        <input id='view_status_open' type="radio" name="view_status" value="O"{{ data.task.view_status.value == 'O' ? ' checked=1' }}>
+        <label for="view_status_open">Public</label>
+        <input id='view_status_close' type="radio" name="view_status" value="C"{{ data.task.view_status.value == 'C' ? ' checked=1' }}>
+        <label for="view_status_close">Private</label>
+        <br>
+
+
+        Work Flowchart : <br>
+        Requirement: <br>
+
+
+
+        <label for="worker">Service For (Client) :</label>
+        <input id="worker" name="client" value="{{ data.task.client_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
+        <br>
+
+        <label for="worker">Assigned To(Worker) :</label>
+        <input id="worker" name="worker" value="{{ data.task.worker_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
+        <br>
+
+        <label for="in_charge">Person in charge :</label>
+        <input id="in_charge" name="in_charge" value="{{ data.task.in_charge_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
+        who will take the responsibility.<br>
+
+        Upload files:
+
+        <input type="submit">
+
+    </form>
+
+
+
+</div>

@@ -1,0 +1,118 @@
+
+<div{{ attributes.addClass( data.class.office ) }}>
+
+    {% include dir_office ~ '/templates/menu.html.twig' %}
+    {% include dir_office ~ '/templates/message.html.twig' %}
+
+
+
+    <form class='group' action="/office/group/add">
+        <fieldset>
+            <legend>GROUP ADD</legend>
+            <input type="hidden" name="mode" value="submit">
+            <input type="hidden" name="group_id" value="{{ data.group.id.value }}">
+
+            <br>
+            Group Name: <input type="text" name="name" value="{{ data.group.name.value }}"><br>
+
+
+            {% if is_admin %}
+            <div>
+            Group Owner: <input type="text" name="owner" value="{{ data.owner.username }}">
+            </div>
+            {% endif %}
+
+            Group Description : <input type="text" name="description" value="{{ data.group.description.value }}"><br>
+            Group View Status :
+
+            <div class="row">
+            <span class="caption">
+                Group View Status
+            </span>
+            <span class="value">
+                <span class="elements">
+                    <span class="element">
+                        <input type="radio" name="view_status" id="view_status_open" value="O"{{ data.group.view_status.value == 'O' ? ' checked=1'}}>
+                        <label for="view_status_open">Public</label>
+                    </span>
+                    <span class="element">
+                    <input type="radio" name="view_status" id="view_status_close" value="C"{{ data.group.view_status.value == 'C' ? ' checked=1'}}>
+                    <label for="view_status_close">Private</label>
+                    </span>
+                </span>
+            </span>
+            </div>
+
+
+            Group Task Create Status :
+
+            <div class="row">
+            <span class="caption">
+                Create Status
+            </span>
+            <span class="value">
+                <div class="text">Who can create tasks?</div>
+                <span class="elements">
+                    <span class="element">
+                        <input type="radio" name="create_status" id="create_status_anyone" value="A"{{ data.group.create_status.value == 'A' ? ' checked=1'}}>
+                        <label for="create_status_anyone">Anyone</label>
+                    </span>
+
+                    <span class="element">
+                    <input type="radio" name="create_status" id="create_status_member" value="M"{{ data.group.create_status.value == 'M' ? ' checked=1'}}>
+                    <label for="create_status_member">Member of the group</label>
+                    </span>
+
+                </span>
+            </span>
+            </div>
+
+            Group Rest Days :
+
+            Working days:
+            <input type="checkbox" id="work_sunday" name="work_sunday" value="Y"{{ data.config.work.sunday=='Y' ? ' checked=1' }}> <label for="work_sunday">Sunday</label>,
+            <input type="checkbox" id="work_monday" name="work_monday" value="Y"{{ data.config.work.monday=='Y' ? ' checked=1' }}> <label for="work_monday">Monday</label>,
+            <input type="checkbox" id="work_tuesday" name="work_tuesday" value="Y"{{ data.config.work.tuesday=='Y' ? ' checked=1' }}> <label for="work_tuesday">Tuesday</label>,
+            <input type="checkbox" id="work_wednesday" name="work_wednesday" value="Y"{{ data.config.work.wednesday == 'Y' ? ' checked=1' }}> <label for="work_wednesday">Wednesday</label>,
+            <input type="checkbox" id="work_thursday" name="work_thursday" value="Y"{{ data.config.work.thursday=='Y' ? ' checked=1' }}> <label for="work_thursday">Thursday</label>,
+            <input type="checkbox" id="work_friday" name="work_friday" value="Y"{{ data.config.work.friday=='Y' ? ' checked=1' }}> <label for="work_friday">Friday</label>,
+            <input type="checkbox" id="work_saturday" name="work_saturday" value="Y"{{ data.config.work.saturday=='Y' ? ' checked=1' }}> <label for="work_saturday">Saturday</label>
+
+            <br>
+
+
+            {% if data.group.id %}
+                <div class="dayoffs">
+                    <div>
+                        Group Day Offs :
+                        <input type="text" name="dayoff" id="datepicker" placeholder="YYYY-MM-DD">
+                        <input type="text" name="reason" placeholder="Why is it day off?">
+                        <span class="add-dayoff">[ ADD ]</span>
+                    </div>
+                    <div class="dayoff-message"></div>
+                    <div>
+                        Year-Month-Day, Reason
+                    </div>
+                    <div class="rows">
+                        {% for date,reason in data.config.dayoffs %}
+                            <div class="row">
+                                <span class="date">{{ date }}</span>
+                                <span class="reason">{{ reason }}</span>
+                                <span class="delete">[ Delete ]</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+
+            <input type="submit">
+
+        </fieldset>
+    </form>
+
+
+    <a href="/office/group/{{ data.group.id.value }}/workinghours"> [ GROUP WORK HOUR SCHEDULES ] </a>
+
+
+</div>

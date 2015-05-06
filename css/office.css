@@ -50,18 +50,40 @@ h2 {
 }
 
 /** --------------------- Office Message Box ------------------ **/
-.office-message {
+.office .office-message {
+    margin: 0.2em 0!important;
     background-color: #0071B3;
     color:white;
     padding:1em;
 }
 
+
+
 /** ---------------------- Office Error Message ----------------- **/
-.office-error {
+.office .office-message.error {
+    margin: 0.2em 0!important;
     background-color:#d40000;
 }
 
-/** ---------------------- Office Error Message ----------------- **/
-.office-submit {
-    background-color:#9090F0;
+
+
+/** -------------------- Dayoff Message -------------------- **/
+.dayoffs {
+    margin:1em 0;
+    padding:1em;
+    box-sizing: border-box;
+    background-color:white;
+}
+.dayoff-message {
+    display:none;
+    background-color: #dd5522;
+    color:white;
+    padding:1em;
+    box-sizing: border-box;
+}
+
+
+
+.attendance-list tr td {
+    padding:8px;
 }

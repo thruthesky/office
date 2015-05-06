@@ -1,19 +1,61 @@
-<div class="office-button-group top-menu">
-    <div class="button" role="show-sub-menu" selector=".submenu-office">
-        <span>Office</span>
-    </div>
+<div class="office-button-group rows submenu-office">
+
 
     <div class="button">
-        <a href="/office/mydesk">
-            <span>My Desk</span>
-        </a>
+        <span>
+            OFFICE:
+            <a href="/office">Front Desk</a>
+        </span>
     </div>
 
-</div>
 
-<div class="office-button-group rows submenu-office" style="display:none;">
-    <div class="button"><a href="/office/client/add"><span>Register as Client</span></a></div>
-    <div class="button"><a href="/office/employee/add"><span>Register as Employee</span></a></div>
-    <div class="button"><a href="/office/group/add"><span>Create a Group / Company / Project</span></a></div>
-    <div class="button"><a href="/office/task/list"><span>List Tasks</span></a></div>
+
+
+    <div class="button">
+        <span>
+            MY DESK:
+            <a href="/office/attendance_list">ATTENDANCE LIST</a>
+            <a href="/office/attend">ATTEND</a>
+            <a href="/office/leave">LEAVE</a>
+        </span>
+    </div>
+
+
+    <div class="button">
+        <span>
+            MY PAGE:
+            <a href="/office/member/add">Office Member Registration</a>
+        </span>
+    </div>
+
+    {% if is_admin %}
+    <div class="button">
+        <span>
+            ALL GROUP:
+            <a href="/office/group/list">LIST</a>
+            <a href="/office/group/add">CREATE</a>
+            <a href="/office/member/list">ALL Group Member List</a>
+        </span>
+    </div>
+    {% endif %}
+
+    {% if data.is_group_admin %}
+        <div class="button">
+        <span>
+            GROUP ADMIN Page:
+            <a href="/office/member/list">MEMBER LIST</a>
+        </span>
+        </div>
+    {% endif %}
+
+
+    <div class="button">
+        <span>
+            TASK :
+            <a href="/office/task/list">LIST</a>
+            <a href="/office/task/add">CREATE</a>
+        </span>
+    </div>
+
+
 </div>

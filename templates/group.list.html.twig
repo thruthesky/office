@@ -1,0 +1,39 @@
+
+<div{{ attributes.addClass( data.class.office ) }}>
+
+    {% include dir_office ~ '/templates/menu.html.twig' %}
+    {% include dir_office ~ '/templates/message.html.twig' %}
+    <h1>Office Group List</h1>
+
+
+    <table cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td>No.</td>
+            <td>Name</td>
+            <td>Owner</td>
+            <td>No. of Members</td>
+            <td>No. of Tasks</td>
+            {% if is_admin %}
+                <td>Buttons</td>
+            {% endif %}
+        </tr>
+        {% for group in data.groups %}
+
+            <tr>
+                <td>{{ group.id.value }}</td>
+                <td>{{ group.user_id.entity.name.value }}</td>
+                <td>
+                    <a href="/office/group/{{ group.id.value  }}/edit">
+                        {{ group.name.value }}
+                    </a>
+                </td>
+                <td>0</td>
+                <td>0</td>
+
+                {% if is_admin or group.user_id.entity.id == user.id %}
+                    <td>[ Edit | <a href="/office/group/{{ group.id.value  }}/workinghours">Work Schedule</a> | Delete ]</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+</div>

@@ -1,0 +1,21 @@
+{# ----------------- NEW Error Reporting ----------------- #}
+{% if data.code %}
+    <div class="office-message {{ data.code }}">
+        {{ data.message }}
+    </div>
+{% endif %}
+
+
+
+{% if data.mode == 'submit' %}
+    {% if data.error.code %}
+        <div class="office-message office-error">
+            {{ data.error.message }}
+        </div>
+    {% else %}
+        <div class="office-message office-submit">
+            Your information has been updated successfully.
+        </div>
+    {% endif %}
+{% endif %}
+
