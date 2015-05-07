@@ -4,25 +4,171 @@
     {% include dir_office ~ '/templates/message.html.twig' %}
     <h1>Task List</h1>
 
+    <div class="office-message todo">@TODO - Remember search option, Labeling, </div>
 
-    <table cellpadding="0" cellspacing="0">
+    <form>
+
+        <div>
+            Group :
+            <select name="group_id">
+                <option value="">Select service group</option>
+                {% for group in groups %}
+                    <option value="{{ group.id.value }}"{{ input.group_id == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
+                {% endfor %}
+            </select>
+
+        </div>
+
+        <div>
+            Creator:
+            <input id="creator" name="creator" value="{{ input.creator }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
+        </div>
+
+        <div>
+            Assigned To :
+        </div>
+
+        <div>
+            In charge of :
+        </div>
+
+        <div>
+            Client ( Service For ) :
+        </div>
+
+        <div>
+            Sort Field :
+            Priority
+            Date
+        </div>
+        <div>
+            Sort in : DESC ASC
+        </div>
+
+        <div>
+            Show Fields:
+            <input type="checkbox" name="show_group" value="Y"{{ input.show_group == 'Y' ? ' checked=1' }}> Group,
+            <input type="checkbox" name="show_priority" value="Y"{{ input.show_priority == 'Y' ? ' checked=1' }}> Priority,
+            <input type="checkbox" name="show_date" value="Y"{{ input.show_date == 'Y' ? ' checked=1' }}> Date,
+            <input type="checkbox" name="show_creator" value="Y"{{ input.show_creator == 'Y' ? ' checked=1' }}> Creator,
+            <input type="checkbox" name="show_assigned" value="Y"{{ input.show_assigned == 'Y' ? ' checked=1' }}> Assigned To,
+            <input type="checkbox" name="show_in_charge" value="Y"{{ input.show_in_charge == 'Y' ? ' checked=1' }}> In charge of,
+            <input type="checkbox" name="show_client" value="Y"{{ input.show_client == 'Y' ? ' checked=1' }}> Service For,
+            <input type="checkbox" name="show_road_map" value="Y"{{ input.show_road_map == 'Y' ? ' checked=1' }}> Road-map.
+        </div>
+
+        <input type="submit">
+
+    </form>
+
+
+    <table width='100%' class="list">
         <tr>
-            <td>Category</td>
-            <td>Title</td>
-            <td>Assigned To</td>
-            <td>Edit/View</td>
+
+            {% if input.show_group == 'Y' %}
+                <td><span>Group</span></td>
+            {% endif %}
+
+            {% if input.show_roadmap == 'Y' %}
+                <td><span>Roadmap</span></td>
+            {% endif %}
+
+
+            <td><span>Title</span></td>
+
+            {% if input.show_priority == 'Y' %}
+                <td><span>Priority</span></td>
+            {% endif %}
+
+            {% if input.show_date == 'Y' %}
+                <td><span>Date</span></td>
+            {% endif %}
+
+            {% if input.show_creator == 'Y' %}
+                <td><span>Creator</span></td>
+            {% endif %}
+
+            {% if input.show_assigned == 'Y' %}
+                <td><span>Assigned To</span></td>
+            {% endif %}
+
+            {% if input.show_in_charge == 'Y' %}
+                <td><span>In charge of</span></td>
+            {% endif %}
+
+            {% if input.show_client == 'Y' %}
+                <td><span>Client</span></td>
+            {% endif %}
+
+            <td><span>...</span></td>
+
         </tr>
         {% for task in data.tasks %}
             <tr>
-                <td></td>
+
+                {% if input.show_group == 'Y' %}
+                    <td>
+                        <span>{{ task.group_id.entity.name.value }}</span>
+                    </td>
+                {% endif %}
+
+                {% if input.show_road_map == 'Y' %}
+                    <td>
+                        <span>{{ task.roadmap.value }}</span>
+                    </td>
+                {% endif %}
+
                 <td>
-                    <a href="/office/group/{{ task.id.value  }}">
-                        {{ task.title.value }}
+                    <a href="/office/task/{{ task.id.value  }}">
+                        <span>{{ task.title.value }}</span>
                     </a>
                 </td>
-                <td>{{ task.worker }}</td>
-                <td>Edit/View</td>
+                {% if input.show_priority == 'Y' %}
+                <td>
+                    <span>{{ task.priority_text }}</span>
+                </td>
+                {% endif %}
+
+                {% if input.show_date == 'Y' %}
+                <td>
+                    <span>{{ task.created.value | date('M d, Y') }}</span>
+                </td>
+                {% endif %}
+
+                {% if input.show_creator == 'Y' %}
+                    <td>
+                        <span>{{ task.creator_id.entity.name.value }}</span>
+                    </td>
+                {% endif %}
+
+                {% if input.show_assigned == 'Y' %}
+                    <td>
+                        <span>{{ task.worker_id.entity.name.value }}</span>
+                    </td>
+                {% endif %}
+
+
+                {% if input.show_in_charge == 'Y' %}
+                    <td>
+                        <span>{{ task.in_charge_id.entity.name.value }}</span>
+                    </td>
+                {% endif %}
+
+
+                {% if input.show_client == 'Y' %}
+                    <td>
+                        <span>{{ task.client_id.entity.name.value }}</span>
+                    </td>
+                {% endif %}
+
+                <td>
+                    {% if task.group_id.target_id == my.group_id.target_id %}
+                    <a href="/office/task/edit/{{ task.id.value }}"><span>Edit</span></a>
+                    {% endif %}
+                </td>
+
             </tr>
         {% endfor %}
     </table>
 </div>
+

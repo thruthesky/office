@@ -3,6 +3,7 @@ namespace Drupal\office;
 
 use Drupal\office\Entity\Group;
 use Drupal\office\Entity\Member;
+use Drupal\office\Entity\Task;
 use Drupal\user\Entity\User;
 use Drupal\user\UserAuth;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -580,11 +581,30 @@ class x {
 
 	/**
 	 *
-	 * 그룹이 쉬는날인지 근무하는 날인지, 근무를 하면 근무 시간과 끝 시간을 배열로 리턴한다.
+	 * 참고 : 그룹 개별 근무
 	 *
-	 * - 예를 들어 그룹이 일요일 쉬는데,
-	 *      -- 특별히 전체 인원이 일요일 일하는지,
-	 *      -- 월~토 요일인지,
+	 * 이 메소드는
+	 *
+	 *  - 그룹의 근무 시간 정보를 알고자 할 때,
+	 *  - 그룹이 근무하는 날인지 안하는 날인지 체크를 할 때 사용 할 수 있다.
+	 *  - 개인 별 근무 하는 날, 근무시간, 근무 하지 않는 날 정보는 이 함수를 통해서 얻을 수 없다.
+	 *
+	 *
+	 *      1. 그룹의 개별 근무 시간 정보가 존재하는지 먼저 확인하고,
+	 *          존재하면 그룹 개별 근무 시간 정보를 먼저 리턴한다.
+	 *          참고: 그룹 개별 근무
+	 *
+	 *      2. 그룹 근무 하는 날이면 그룹 근무 시간 정보를 리턴한다.
+	 *
+	 *      3. 그룹이 근무하는 날이 아니면, 빈 배열을 리턴한다.
+	 *
+	 * - 예를 들어 아래와 같은 경우, 근무 시간 정보를 얻을 수 있다.
+	 *
+	 *      -- 일요일 쉬는데, 이번주 일요일은 특별히 전체 인원이 일요일 일하는지, 일하지 않는지,
+	 *      -- 근무를 한다면, 근무 시간.
+	 *
+	 *      -- 수요일 일하는데, 이번주 수요일은 특별히 쉬는지.
+	 *      -- 또는 근무 시간이 바뀌었는지.
 	 *
 	 *
 	 * @param $group_id
@@ -594,7 +614,7 @@ class x {
 	 *
 	 * @return array
 	 *
-	 *      - 그룹이 전체 쉬는 날이면, 빈 array 를 리턴한다.
+	 *      - 개인별 또는 그룹이 전체 쉬는 날이면, 빈 array 를 리턴한다.
 	 *
 	 *      - 리턴 예
 	 *
@@ -608,6 +628,7 @@ class x {
 
 		// #3-3
 		$work_schedule = self::getMemberWorkSchedule($group_id, 0, $date);
+
 		if ( $work_schedule ) {
 			return [
 				$work_schedule['begin'],
@@ -743,10 +764,20 @@ class x {
 		return ['code'=>$code, 'message'=>$message];
 	}
 
+	/**
+	 * 회원의 정보를 리턴한다.
+	 *
+	 *  - 그룹 등의 정보를 리턴한다.
+	 *
+	 * @todo 여기서 리턴하는 값은 모든 Page 에 적용되므로 문서화 한다.
+	 *
+	 * @return array
+	 */
 	public static function officeInformation() {
 		$info = [];
 		$info['member'] = Member::loadByUserID(x::myUid());
-		$group = Group::myGroup(x::myUid());
+		$info['now'] = date('r');
+		$group = Member::group(x::myUid());
 		if ( $group ) {
 			$info['group'] = $group;
 			if ( $group->get('user_id')->target_id == x::myUid() ) $info['is_group_admin'] = 1;
@@ -784,6 +815,10 @@ class x {
 		$data['code'] = 'error group-has-no-working-hours';
 		$data['message'] = 'The group has no working hours. Please ask the group admin to set it.';
 		return ['code'=>$data['code'], 'message'=>$data['message']];
+	}
+
+	public static function priority() {
+		return Task::$config_priority;
 	}
 
 

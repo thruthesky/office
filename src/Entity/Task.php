@@ -25,6 +25,20 @@ use Drupal\user\UserInterface;
  */
 class Task extends ContentEntityBase implements TaskInterface {
 
+	public static $config_priority_value = [
+		8 => "Very Important & Urgent",
+		6 => "Normal",
+		4 => "Low",
+		2 => "None(Don't Care)",
+	];
+
+	public static $config_priority = [
+		'urgent'    => ['value'=>8, 'text'=>"Very Important & Urgent"],
+		'normal'    => ['value'=>6, 'text'=>"Normal"],
+		'low'       => ['value'=>4, 'text'=>"Low"],
+		'none'      => ['value'=>2, 'text'=>"None(Don't Care)"],
+	];
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -89,9 +103,6 @@ class Task extends ContentEntityBase implements TaskInterface {
 		$fields['changed'] = BaseFieldDefinition::create('changed')
 			->setLabel(t('Changed'))
 			->setDescription(t('The time that the entity was last edited.'));
-
-
-
 
 
 
@@ -163,14 +174,21 @@ class Task extends ContentEntityBase implements TaskInterface {
 				'max_length' => 1,
 			));
 
+
 		$fields['work_flowchart_id'] = BaseFieldDefinition::create('integer')
 			->setLabel(t('Work Flowchart'))
 			->setDescription(t('The work flowchart of the Task.'));
+
 
 		$fields['requirement_id'] = BaseFieldDefinition::create('integer')
 			->setLabel(t('Requirement'))
 			->setDescription(t('The requirement of the Task.'));
 
+
+
+		$fields['roadmap'] = BaseFieldDefinition::create('integer')
+			->setLabel(t('Roadmap Percentage'))
+			->setDescription(t('The roadmap percentage of the Task.'));
 
 
 		$fields['view_status'] = BaseFieldDefinition::create('string')
@@ -199,17 +217,20 @@ class Task extends ContentEntityBase implements TaskInterface {
 		}
 		else {
 			$task = task::create();
+			$task->set('creator_id', x::myUid());
 		}
 		$task->set('group_id', x::in('group_id', 0));
 		$task->set('title', x::in('title'));
 		$task->set('summary', x::in('summary'));
 		$task->set('description', x::in('description'));
-		$task->set('creator_id', x::myUid());
 		$task->set('client_id', x::getUserID(x::in('client')));
 		$task->set('worker_id', x::getUserID(x::in('worker')));
 		$task->set('in_charge_id', x::getUserID(x::in('in_charge')));
 
 		$task->set('priority', x::in('priority', 2));
+
+		$task->set('roadmap', x::in('roadmap', 0));
+
 		$task->set('view_status', x::in('view_status', 'O'));
 
 		$task->save();
@@ -236,9 +257,13 @@ class Task extends ContentEntityBase implements TaskInterface {
 	 * @return null|static
 	 */
 	public static function loadFull($id) {
+		if ( empty($id) ) return null;
 		$task = task::load($id);
-		//$task->worker = x::getUsernameByID( $task->get('worker_id')->value );
-		//$task->in_charge = x::getUsernameByID( $task->get('in_charge_id')->value );
+		$p = $task->get('priority')->value;
+		if ( isset(self::$config_priority_value[$p]) ) {
+			$task->priority_text = self::$config_priority_value[$p];
+		}
+
 		return $task;
 	}
 
@@ -246,7 +271,8 @@ class Task extends ContentEntityBase implements TaskInterface {
 		$tasks = [];
 		if ( empty($ids) ) return $tasks;
 		foreach( $ids as $id ) {
-			$tasks[] = self::loadFull($id);
+			$task = self::loadFull($id);
+			$tasks[] = $task;
 		}
 		return $tasks;
 	}

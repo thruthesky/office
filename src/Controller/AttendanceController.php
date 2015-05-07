@@ -14,8 +14,7 @@ class AttendanceController extends ControllerBase {
 		$request = \Drupal::request();
 		$uid = $request->get('uid');
 		if ( empty($uid) ) $uid = x::myUid();
-		$data = x::officeInformation();
-		$data['input'] = x::input();
+		$data = [];
 		if ( $re = x::checkMember($uid) ) {
 			$data = array_merge($data, $re);
 		}

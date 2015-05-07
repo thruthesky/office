@@ -30,7 +30,7 @@ class Office extends ControllerBase {
 		return $render_array;
 	}
 	public function pageFront() {
-		$data = x::officeInformation();
+		$data = [];
 		return [
 			'#theme' => 'office',
 			'#data' => $data,
@@ -48,14 +48,13 @@ class Office extends ControllerBase {
 	}
 
 	public function mydesk() {
-		$data = x::input();
+		$data = [];
 		if ( $re = x::checkMember() ) {
 			$data = array_merge($data, $re);
 		}
 		else {
-			$member = Member::loadByUserID(x::myUid());
-			$data['member'] = $member;
 			$data['today'] = date("M d, Y (D)");
+			$member = Member::loadByUserID(x::myUid());
 			$data['work'] = Attendance::getWorkingHours(x::myUid(), $member->get('group_id')->target_id, date("Ymd"));
 		}
 		return [

@@ -1,3 +1,6 @@
+/** -------------------- LAYOUT ------------------- **/
+
+
 .office {
     font-size:9pt;
     font-family: gulim, arial, sans-serif;
@@ -11,7 +14,6 @@ h2 {
 
 .office-button-group .button {
     margin:0.2em 0;
-    padding:0;
     background-color:#d0d0ff;
     color:black;
 }
@@ -26,6 +28,7 @@ h2 {
     color:black;
     font-weight: bold;
 }
+
 .office-button-group .button a {
     display: inline-block;
     padding: 0.4em 1em;
@@ -94,4 +97,21 @@ h2 {
 
 .attendance-list tr td {
     padding:8px;
+}
+
+/** ----------------------- Task List ------------------------- **/
+
+.office table.list span {
+    display:block;
+    padding:1em;
+    box-sizing:border-box;
+}
+
+
+
+/** -------------------------- TO DO ------------------------- **/
+
+.office .office-message.todo {
+    background-color: #e0e0d8;
+    color:#717171;
 }

@@ -64,10 +64,10 @@ class Group extends ContentEntityBase implements GroupInterface {
 	 */
 	public static function isAdmin($group_id, $myUid) {
 		if ( x::admin() ) return true;
-		$group = self::myGroup($myUid);
+		$group = Member::group($myUid);
 		//di("group id:$group_id");
 		//di($group->id());
-		return $group->id() == $group_id;
+		return $group->get('user_id')->target_id == $myUid;
 	}
 
 
@@ -290,7 +290,7 @@ class Group extends ContentEntityBase implements GroupInterface {
 		return false;
 	}
 
-	public static function myGroup($uid) {
+	public static function loadByUserID($uid) {
 		if ( empty($uid) ) return null;
 		return x::loadEntityByUserID('office_group', $uid);
 	}

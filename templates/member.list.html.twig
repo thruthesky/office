@@ -9,19 +9,20 @@
             <td>Address</td>
         </tr>
     {% for member in data.members %}
+
         <tr>
             <td>
-                <a href="/office/member/{{ member.get('id').value  }}">
+                <a href="/office/member/{{ member.user_id.entity.id }}">
                     {{ member.user_id.entity.name.value }}
                     ({{ member.first_name.value }})
                 </a>
             </td>
             <td>
-                <a href="/office/member/{{ member.get('id').value  }}">{{ member.get('address').value }}</a>
+                <a href="/office/member/{{ member.user_id.entity.id }}">{{ member.get('address').value }}</a>
             </td>
 
             <td>
-                <a href="/office/attendance_list?mode=submit&uid={{ member.get('id').value }}&date={{ 'now' | date('Y-m-d') }}">ATTEND LIST</a>
+                <a href="/office/attendance_list?mode=submit&uid={{ member.user_id.entity.id }}&date={{ 'now' | date('Y-m-d') }}">ATTEND LIST</a>
             </td>
         </tr>
     {% endfor %}

@@ -35,7 +35,7 @@ class GroupController extends ControllerBase {
 	 */
 	public function edit(GroupInterface $office_group=NULL) {
 		x::log(__METHOD__);
-		$data = array_merge(x::input(), x::officeInformation());
+
 
 		if ( $office_group ) $group_id = $office_group->id();
 		else $group_id = x::in('group_id');
@@ -67,8 +67,7 @@ class GroupController extends ControllerBase {
 
 	public function workinghours(GroupInterface $office_group=NULL) {
 		x::log(__METHOD__);
-		$data = array_merge(x::input(), x::officeInformation());
-
+		$data = [];
 		if ( x::in('mode') == 'submit' ) {
 			$group_id = x::in('group_id');
 			if ( x::in('for') == 'group' ) {
@@ -89,7 +88,6 @@ class GroupController extends ControllerBase {
 		$group_id = $office_group->id();
 		$data['work'] = x::getGroupWorkingHours($group_id);
 		$data['member_work'] = x::getIndividualTime($group_id);
-
 
 		return [
 			'#theme' => 'group.workinghours',

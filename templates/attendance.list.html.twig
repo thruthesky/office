@@ -10,10 +10,13 @@
     </form>
 
 
-    {% if data.group.id %}
+    {% if member.id %}
     <div>
 
-        <div>Your Group : <b>{{ data.group.name.value }}</b></div>
+        <div>
+            Attendance List For {{ member.user_id.entity.name.value }}
+        </div>
+        <div>Your Group : <b>{{ member.group_id.entity.name.value }}</b></div>
         Normal Working Hour
         <table>
             <tr>
@@ -36,7 +39,6 @@
             <td>Username</td>
             <td>Date</td>
             <td>Attend</td>
-            <td>Leave</td>
             <td>Etc</td>
             <td>Work Schedule</td>
         </tr>
@@ -48,11 +50,12 @@
                     ({{ day.day }})
                 </td>
                 <td>
-                    {{ day.attend }}
                     <div>{{ day.attend_time }}</div>
-                    {{ day.begin_status }}
+                    {% if day.begin_status %}
+                        <b>{{ day.begin_status | raw}}</b>
+                        {{ day.records | raw }}
+                    {% endif %}
                 </td>
-                <td>{{ day.leave }}</td>
                 <td>{{ day.etc }}</td>
                 <td>
                     {% if day.work_begin %}

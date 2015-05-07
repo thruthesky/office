@@ -44,7 +44,14 @@ use Drupal\user\UserInterface;
 class Member extends ContentEntityBase implements MemberInterface {
 
 	public static function loadByUserID($uid) {
+		if ( empty($uid) ) return null;
 		return x::loadEntityByUserID('office_member', $uid);
+	}
+
+	public static function group($uid) {
+		$member = self::loadByUserID($uid);
+		if ( empty($member) ) return null;
+		else return $member->get('group_id')->entity;
 	}
 
 

@@ -1,4 +1,5 @@
 <?php
+use Drupal\office\Entity\Group;
 use Drupal\office\Entity\Member;
 use Drupal\office\x;
 if ( ! function_exists('di') ) {
@@ -11,7 +12,7 @@ function office_theme() {
 	$names = [
 		'office', 'login', 'mydesk',
 		'member.list', 'member.view', 'member.edit',
-		'task.edit','task.list',
+		'task.edit','task.list', 'task.view',
 		'group.edit', 'group.list', 'group.workinghours',
 		'attendance.list',
 	];
@@ -33,6 +34,20 @@ function office_preprocess(&$variables, $hook)
 	$uri = $request->getRequestUri();
 	if ( ! x::isOfficePage() ) return;
 
+	$variables['office_module'] = 1;
+
+
+	if ( x::in('uid') ) $variables['member'] = Member::loadByUserID(x::in('uid'));
+	if ( x::myUid() ) $variables['my'] = Member::loadByUserID(x::myUid());
+	if ( x::in('code') ) $variables['data']['code'] = x::in('code');
+	if ( x::in('message') ) $variables['data']['message'] = x::in('message');
+
+	$variables['input'] = x::input();
+	$variables['office'] = x::officeInformation();
+	$variables['priority'] = x::priority();
+	$variables['groups'] = Group::loadMultiple();
+
+
 	if ( $hook == 'page' ) {
 		// x::gs(2);
 	}
@@ -42,6 +57,7 @@ function office_preprocess(&$variables, $hook)
 	$variables['#attached']['library'][] = 'office/default';
 	$variables['data']['class']['office'][] = 'office';
 	$variables['data']['class']['office'][] = $hook;
+
 
 }
 

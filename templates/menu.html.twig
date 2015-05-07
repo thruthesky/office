@@ -5,26 +5,21 @@
             OFFICE
         </span>
         <a href="/office">Front Desk</a>
+        <a href="/office/member/add">Office Member Registration</a>
     </div>
 
+    {% if office.member %}
     <div class="button">
         <span class="caption">MY DESK</span>
             <a href="/office/attendance_list/?mode=submit&date={{ 'now' | date("Y-m-d") }}">ATTENDANCE LIST</a>
             <a href="/office/attend">ATTEND</a>
-            <a href="/office/leave">LEAVE</a>
+
     </div>
-
-
-    <div class="button">
-        <span class="caption">MY PAGE</span>
-        <a href="/office/member/add">Office Member Registration</a>
-    </div>
-
+    {% endif %}
 
     {% if is_admin %}
     <div class="button">
         <span class="caption">ALL GROUP</span>
-
             <a href="/office/group/list">LIST</a>
             <a href="/office/group/add">CREATE</a>
             <a href="/office/member/list">ALL Group Member List</a>
@@ -32,13 +27,12 @@
     {% endif %}
 
 
-    {% if data.is_group_admin %}
+    {% if office.is_group_admin %}
         <div class="button">
         <span class="caption">Group Admin Page</span>
 
             <a href="/office/group/{{ data.group.id.value }}/edit">Group Information Update</a>
             <a href="/office/group/{{ data.group.id.value }}/workinghours">Work Schedules</a>
-
 
             <a href="/office/member/list">MEMBER LIST</a>
 
@@ -54,6 +48,7 @@
 </div>
 
 <div class="information">
-    <div>Welcome, {{ data.member.user_id.entity.name.value }}</div>
-    <div>Your Group : {{ data.group.name.value }}</div>
+    <div>Welcome, {{ office.member.user_id.entity.name.value }}</div>
+    <div>Your Group : {{ office.member.group_id.entity.name.value }}</div>
+    <div>Now : {{ office.now }}</div>
 </div>

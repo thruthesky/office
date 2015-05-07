@@ -161,7 +161,7 @@ entity.office.group.edit:
     _controller: Drupal\office\Controller\GroupController::edit
   requirements:
     _permission: 'access content'
-options:
+  options:
     parameters:
       office_group:
         type: entity:office_group
@@ -183,7 +183,7 @@ entity.office.workinghours:
     _title: 'Attendance'
   requirements:
     _permission: 'access content'
-options:
+  options:
     parameters:
       office_group:
         type: entity:office_group
@@ -216,10 +216,32 @@ entity.office.mydesk:
 entity.office.task_add:
   path: '/office/task/add'
   defaults:
+    _controller: Drupal\office\Controller\TaskController::add
+    _title: 'Task'
+  requirements:
+    _permission: 'access content'
+
+
+entity.office.task_edit_submit:
+  path: '/office/task/edit'
+  defaults:
     _controller: Drupal\office\Controller\TaskController::edit
     _title: 'Task'
   requirements:
     _permission: 'access content'
+
+entity.office.task_edit:
+  path: '/office/task/edit/{office_task}'
+  defaults:
+    _controller: Drupal\office\Controller\TaskController::edit
+    _title: 'Task'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      office_task:
+        type: entity:office_task
+
 
 entity.office.task_list:
   path: '/office/task/list'
@@ -230,6 +252,17 @@ entity.office.task_list:
     _permission: 'access content'
 
 
+entity.office.task_view:
+  path: '/office/task/{office_task}'
+  defaults:
+    _controller: Drupal\office\Controller\TaskController::view
+    _title: 'Task'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      office_task:
+        type: entity:office_task
 
 
 #### ------------------------ ATTENDANCE -------------------------

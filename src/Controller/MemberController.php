@@ -10,21 +10,18 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class MemberController extends ControllerBase {
 	public function collection() {
-		$data = x::officeInformation();
-
+		$data = [];
 
 		$db = \Drupal::entityQuery('office_member');
 		if ( x::admin() ) {
 
 		}
 		else {
-			$my_group_id = $data['group']->id();
+			$group = Member::group(x::myUid());
+			$my_group_id = $group->id();
 			$db->condition('group_id', $my_group_id);
 		}
-
 		$member_ids = $db->execute();
-
-
 		$entities = \Drupal::entityManager()->getStorage('office_member')->loadMultiple($member_ids);
 		$data['members'] = $entities;
 		return [
@@ -49,7 +46,7 @@ class MemberController extends ControllerBase {
 	 * @return array
 	 */
 	public function edit() {
-		$data = x::officeInformation();
+		$data = [];
 		$data['mode'] = x::g('mode');
 		if ( ! x::login() ) return x::loginResponse();
 		if (x::isFromSubmit())  Member::formSubmit($data);

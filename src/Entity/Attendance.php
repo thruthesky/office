@@ -42,6 +42,7 @@ class Attendance extends ContentEntityBase implements AttendanceInterface {
 
 	/**
 	 * Gets attend information of a date of the UID
+	 *
 	 * @param $uid
 	 * @param $date
 	 *
@@ -88,6 +89,7 @@ class Attendance extends ContentEntityBase implements AttendanceInterface {
 		$member = Member::loadByUserID($uid);
 		$id = $member->get('group_id')->target_id;
 		//di($id);
+
 		$work_hour = x::getGroupWorkingHours($id);
 		$ret['work_hour_begin'] = $work_hour[0];
 		$ret['work_hour_end'] = $work_hour[1];
@@ -115,14 +117,16 @@ class Attendance extends ContentEntityBase implements AttendanceInterface {
 				$row['work_begin'] = $work['begin'];
 				$row['work_end'] = $work['end'];
 				$attend = self::getAttend($uid, $i);
-				if ( empty($attend) ) {
-					$row['begin_status'] = 'absent';
+				if ( empty($attend) ) { // 아직 출석을 못 했음.
+					if ( $i < $today ) $row['begin_status'] = 'Absent';
+					else $row['begin_status'] = 'Not attended, yet';
 				}
 				else {
 					$row['attend_time'] = date("H:i", $attend['stamp']);
 					//$row['begin_status'] = self::isLate("$i$row[work_begin]00", $attend['stamp']);
 					$row['begin_status'] = self::isLate($row['work_begin'], $attend['stamp']);
-					if ( $row['begin_status'] ) {
+
+					if ( $row['begin_status'] ) { // 지각을 해 버렸음.
 						$total_min_late += $row['begin_status'];
 						$row['begin_status'] .= ' minutes late';
 					}
@@ -130,11 +134,13 @@ class Attendance extends ContentEntityBase implements AttendanceInterface {
 						// 올바른 attend
 					}
 				}
-
 			}
 			else { // 근무 안하는 날.
 				$row['begin_status'] = $work;
 			}
+
+			// 출석을 위한 레코드가 존재하면 리턴한다.
+			$row['records'] = self::getAttendanceRecordMarkup($uid, $i);
 
 
 			$rows[] = $row;
@@ -195,10 +201,10 @@ class Attendance extends ContentEntityBase implements AttendanceInterface {
 		$attendance->set('stamp', $stamp);
 		$attendance->set('date', $date);
 		$attendance->set('status', $status);
-		$attendance->set('begin', $work['begin']);
-		$attendance->set('end', $work['end']);
-		$attendance->set('type', $work['type']);
-		$attendance->set('reason', $work['reason']);
+		if ( isset($work['begin']) ) $attendance->set('begin', $work['begin']);
+		if ( isset($work['end']) ) $attendance->set('end', $work['end']);
+		if ( isset($work['type']) ) $attendance->set('type', $work['type']);
+		if ( isset($work['reason']) ) $attendance->set('reason', $work['reason']);
 		$attendance->save();
 
 		return $code;
@@ -206,20 +212,25 @@ class Attendance extends ContentEntityBase implements AttendanceInterface {
 
 	/**
 	 *
-	 * 해당 사용자의 근무 시간 정보를 리턴한다. 개별 근무시간이 없으므로 해당 그룹의 해당 일에 대한 근무시간을 리턴한다.
+	 * 참고: 개인 별 근무. 그룹 근무.
+	 *
+	 * 해당 사용자의 근무 시간 정보를 리턴한다.
+	 *
+	 *      - 개인 별 근무 시간이 있으면 먼저 개별 근무 시간을 참고하여 근무 시간을 리턴한다.
+	 *      - 개인 별 근무 시간이 없으면, 그룹 근무 시간을 참고하여 근무 시간을 리턴한다.
 	 *
 	 * @param $uid - 사용자 번호
 	 * @param $group_id - 그룹 번호
 	 * @param $date - 날짜
-	 * @return string
+	 * @return string|array
 	 *      - 문자열로 리턴하면 업무가 없는 날이다.
 	 *          -- Dayoff 이면, 개인 별 쉬는 날,
 	 *          -- No work 이면, 그룹 전체가 쉬는 날.
 	 *      - 배열로 리턴하면 근무 하는 날.
-	 *          -- 첫번째 인자에 근무 시작 시간,
-	 *          -- 두번째 인자에 근무 끝나는 시간이다.
-	 *          -- 세번째는 indivisual 이면, 개별적 근무시간, group 이면, 그룹 근무시간.
-	 *          -- 네번째는 사유. 개별적 근무시간이면, 그 이유를 리턴한다.
+	 *          -- begin - 근무 시작 시간,
+	 *          -- second - 근무 끝나는 시간이다.
+	 *          -- type - indivisual 이면, 개별적 근무시간, group 이면, 그룹 근무시간.
+	 *          -- reason - 사유. 개별적 근무시간이면, 그 이유를 리턴한다.
 	 *
 	 * @code
 	 * 	 $member = Member::loadByUserID($uid);
@@ -258,7 +269,7 @@ class Attendance extends ContentEntityBase implements AttendanceInterface {
 		}
 		// 회사 근무일인가? 쉬는 날인가?
 		else {
-			// 그룹 전체 일하는날인가?
+			// 그룹 전체가 일하는날인가? 아닌가?
 			$group_work = x::getGroupWorkSchedule($group_id, $date);
 			if ( empty($group_work) ) {
 				return 'Group has no work';
@@ -275,6 +286,11 @@ class Attendance extends ContentEntityBase implements AttendanceInterface {
 	}
 
 	/**
+	 *
+	 *
+	 *
+	 * 참고 #근태 관련
+	 *
 	 * @param $Hi
 	 * @param $stamp
 	 * @return bool
@@ -308,6 +324,52 @@ class Attendance extends ContentEntityBase implements AttendanceInterface {
 		//x::log(date('r', $stamp));
 		if ( $stamp > $end ) return true;
 		return false;
+	}
+
+
+	/**
+	 * 해당 사용자 $uid 의 날짜 $date 의 총 레코드 정보를 리턴한다.
+	 *      - 예를 들면, 제 시간에 기록을 남기지 못해서, 지각 또는 결석을 했지만,
+	 *          ATTEND 를 위해서 그 날의 클릭 기록을 표시하기 위해서 사용 할 수 있다.
+	 *
+	 * @param $uid
+	 * @param $date
+	 */
+	private static function getAttendanceRecord($uid, $date) {
+
+		$res = db_select('office_attendance','a')
+			->fields('a')
+			->condition('user_id', $uid)
+			->condition('date', $date)
+			->condition(
+				db_or()
+					->condition('status', 'B')
+					->condition('status', 'C')
+					->condition('status', 'D')
+			)
+			->execute();
+		$rows = $res->fetchAllAssoc('id', \PDO::FETCH_BOTH);
+		return $rows;
+	}
+
+	/**
+	 * getAttendanceRecord() 를 보기 좋게 HTML 로 리턴한다.
+	 * @param $uid
+	 * @param $i
+	 * @return null|string
+	 */
+	private static function getAttendanceRecordMarkup($uid, $i) {
+		$records = self::getAttendanceRecord($uid, $i);
+		$count = count($records);
+		$markup = null;
+		if ( $count ) {
+			$markup .= "<div class='count'>($count)</div>";
+			foreach( $records as $record ) {
+				$dt = date("H:i", $record['stamp']);
+				$markup .= "<div>$dt</div>";
+			}
+		}
+		return $markup;
 	}
 
 
@@ -458,9 +520,12 @@ class Attendance extends ContentEntityBase implements AttendanceInterface {
 
 	/**
 	 *
+	 *
 	 * 늦지 않았으면 0 을 리턴.
 	 *
 	 * 늦었으면 음수를 리턴.
+	 *
+	 * 참고 : #근태 관련
 	 *
 	 * @param $YmdHis_work_begin - 근무 시작 시간
 	 * @param $stamp - 실제 attend 한 unix timestamp 시간

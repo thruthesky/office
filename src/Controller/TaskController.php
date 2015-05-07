@@ -10,24 +10,53 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class TaskController extends ControllerBase {
 	public function collection() {
-		$ids = \Drupal::entityQuery('office_task')->execute();
+		$db = \Drupal::entityQuery('office_task');
+		if ( $group_id = x::in('group_id') ) {
+			$db->condition('group_id', $group_id);
+		}
+		$ids  = $db->execute();
 		$entities = task::loadMultipleFull($ids);
 		return [
 			'#theme' => 'task.list',
 			'#data' => [ 'tasks' => $entities ],
 		];
 	}
-	public function edit() {
+	public function add() {
 		if ( ! x::login() ) return x::loginResponse();
 		$data = [];
-		if (x::isFromSubmit()) $id = task::formSubmit($data);
-		else $id = 0;
-		$data['task'] = task::loadFull($id);
-		$data['groups'] = Group::loadMultiple();
+		return [
+			'#theme' => 'task.edit',
+			'#data' => $data,
+		];
+	}
+	public function edit(Task $office_task=null) {
+		if ( ! x::login() ) return x::loginResponse();
+
+		$data = [];
+		if (x::isFromSubmit()) {
+			$group_id = task::formSubmit($data);
+			$code = 'task-updated';
+			$message = "Task has been updated";
+			return new RedirectResponse("/office/task/edit/$group_id?code=$code&message=$message");
+		}
+		else {
+			$group_id = $office_task->id();
+		}
+		$data['task'] = task::loadFull($group_id);
+
 		return [
 			'#theme' => 'task.edit',
 			'#data' => $data,
 		];
 
+	}
+
+	public function view($office_task) {
+		$data = [];
+		$data['task'] = $office_task;
+		return [
+			'#theme' => 'task.view',
+			'#data' => $data,
+		];
 	}
 }
