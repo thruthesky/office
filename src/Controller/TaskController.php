@@ -10,9 +10,38 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class TaskController extends ControllerBase {
 	public function collection() {
+		// 마지막 검색을 쿠키에 저장한다.
+		if ( x::in('mode') == 'submit' ) {
+			$input = serialize(x::input());
+			x::set_cookie('task_search_input', $input);
+		}
+		else {
+			$value =  x::get_cookie('task_search_input');
+			$input = unserialize($value);
+		}
+
 		$db = \Drupal::entityQuery('office_task');
 		if ( $group_id = x::in('group_id') ) {
 			$db->condition('group_id', $group_id);
+		}
+		if ( $creator = x::in('creator') ) {
+			$creator_id = x::getUserID($creator);
+			$db->condition('creator_id', $creator_id);
+		}
+		if ( $worker = x::in('worker') ) {
+			$worker_id = x::getUserID($worker);
+			$db->condition('worker_id', $worker_id);
+		}
+		if ( $in_charge = x::in('in_charge') ) {
+			$in_charge_id = x::getUserID($in_charge);
+			$db->condition('in_charge_id', $in_charge_id);
+		}
+		if ( $client = x::in('client') ) {
+			$client_id = x::getUserID($client);
+			$db->condition('client_id', $client_id);
+		}
+		if ( $sort = x::in('sort') ) {
+			$db->sort($sort, x::in('by'));
 		}
 		$ids  = $db->execute();
 		$entities = task::loadMultipleFull($ids);

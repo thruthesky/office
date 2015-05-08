@@ -73,27 +73,7 @@ class x {
 	}
 
 
-	public static function g($k, $default=null) {
-		return \Drupal::request()->get($k, $default);
-	}
 
-	/**
-	 *
-	 * Returns the $default if the input is *empty*
-	 *
-	 * if 0 is the value, then it's empty. In this case it returns $default. the default is empty string.
-	 *
-	 *
-	 * @note this is a handy wrapper of \Drupal::request()
-	 * @param $parameter
-	 * @param null|string $default
-	 * @return mixed|null
-	 */
-	public static function in($parameter, $default='') {
-		$re = self::g($parameter, $default);
-		if ( empty($re) ) $re = $default;
-		return $re;
-	}
 
 
 	/**
@@ -207,6 +187,30 @@ class x {
 		$post = $request->request->all();
 		return array_merge( $get, $post );
 	}
+
+	public static function g($k, $default=null) {
+		return \Drupal::request()->get($k, $default);
+	}
+
+	/**
+	 *
+	 * Returns the $default if the input is *empty*
+	 *
+	 * if 0 is the value, then it's empty. In this case it returns $default. the default is empty string.
+	 *
+	 *
+	 * @note this is a handy wrapper of \Drupal::request()
+	 * @param $parameter
+	 * @param null|string $default
+	 * @return mixed|null
+	 */
+	public static function in($parameter, $default='') {
+		$re = self::g($parameter, $default);
+
+		if ( empty($re) ) $re = $default;
+		return $re;
+	}
+
 
 
 	public static function loadEntityByUserID($type,$uid) {
@@ -821,5 +825,26 @@ class x {
 		return Task::$config_priority;
 	}
 
+	/**
+	 * @param $k
+	 * @param $v
+	 * @refer the definition of user_cookie_save() and you will know.
+	 */
+	public static function set_cookie($k, $v) {
+		user_cookie_save([$k=>$v]);
+	}
+	/**
+	 * @param $k - is the key of the cookie.
+	 * @return mixed
+	 */
+	public static function get_cookie($k) {
+		return \Drupal::request()->cookies->get("Drupal_visitor_$k");
+	}
+	/**
+	 * @param $k
+	 */
+	public static function delete_cookie($k) {
+		user_cookie_delete($k);
+	}
 
 }

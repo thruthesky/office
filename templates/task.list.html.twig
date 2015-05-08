@@ -4,10 +4,13 @@
     {% include dir_office ~ '/templates/message.html.twig' %}
     <h1>Task List</h1>
 
-    <div class="office-message todo">@TODO - Remember search option, Labeling, </div>
+    <div class="office-message todo">@TODO - Remember search option, Labeling,
+        Search for status[In progress, Not accepted, Rejected, Finished]
+        Search by priority, roadmap
+    </div>
 
     <form>
-
+        <input type="hidden" name="mode" value="submit">
         <div>
             Group :
             <select name="group_id">
@@ -20,29 +23,41 @@
         </div>
 
         <div>
-            Creator:
+            <label for="creator">Creator :</label>
             <input id="creator" name="creator" value="{{ input.creator }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
         </div>
 
         <div>
-            Assigned To :
+            <label for="worker">Assigned To(Worker) :</label>
+            <input id="worker" name="worker" value="{{ input.worker }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
         </div>
 
         <div>
-            In charge of :
+            <label for="in_charge">Person in charge :</label>
+            <input id="in_charge" name="in_charge" value="{{ input.in_charge }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
         </div>
 
         <div>
-            Client ( Service For ) :
+            <label for="worker">Service For (Client) :</label>
+            <input id="worker" name="client" value="{{ input.client }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
         </div>
 
         <div>
             Sort Field :
+            <input type="radio" name="sort" value="priority"{{ input.sort == 'priority' ? ' checked=1' }}>
             Priority
+
+            <input type="radio" name="sort" value="date"{{ input.sort == 'date' ? ' checked=1' }}>
             Date
+
+            <input type="radio" name="sort" value="roadmap"{{ input.sort == 'roadmap' ? ' checked=1' }}>
+            Roadmap
+
         </div>
         <div>
-            Sort in : DESC ASC
+            Sort in :
+            <input type="radio" name="by" value="DESC"{{ input.by == 'DESC' ? ' checked=1' }}> Desc
+            <input type="radio" name="by" value="ASC"{{ input.by == 'ASC' ? ' checked=1' }}> Asc
         </div>
 
         <div>
@@ -69,16 +84,16 @@
                 <td><span>Group</span></td>
             {% endif %}
 
-            {% if input.show_roadmap == 'Y' %}
+            {% if input.show_road_map == 'Y' %}
                 <td><span>Roadmap</span></td>
             {% endif %}
-
-
-            <td><span>Title</span></td>
 
             {% if input.show_priority == 'Y' %}
                 <td><span>Priority</span></td>
             {% endif %}
+
+
+            <td><span>Title</span></td>
 
             {% if input.show_date == 'Y' %}
                 <td><span>Date</span></td>
@@ -112,9 +127,18 @@
                     </td>
                 {% endif %}
 
+
+
                 {% if input.show_road_map == 'Y' %}
                     <td>
                         <span>{{ task.roadmap.value }}</span>
+                    </td>
+                {% endif %}
+
+
+                {% if input.show_priority == 'Y' %}
+                    <td>
+                        <span>{{ task.priority_text }}</span>
                     </td>
                 {% endif %}
 
@@ -123,11 +147,6 @@
                         <span>{{ task.title.value }}</span>
                     </a>
                 </td>
-                {% if input.show_priority == 'Y' %}
-                <td>
-                    <span>{{ task.priority_text }}</span>
-                </td>
-                {% endif %}
 
                 {% if input.show_date == 'Y' %}
                 <td>
