@@ -12,12 +12,13 @@ class TaskController extends ControllerBase {
 	public function collection() {
 		// 마지막 검색을 쿠키에 저장한다.
 		if ( x::in('mode') == 'submit' ) {
-			$input = serialize(x::input());
+			$input = serialize(x::getInput());
 			x::set_cookie('task_search_input', $input);
 		}
 		else {
 			$value =  x::get_cookie('task_search_input');
 			$input = unserialize($value);
+			x::setInput($input);
 		}
 
 		$db = \Drupal::entityQuery('office_task');
@@ -51,8 +52,10 @@ class TaskController extends ControllerBase {
 		];
 	}
 	public function add() {
-		if ( ! x::login() ) return x::loginResponse();
 		$data = [];
+		if ( ! x::login() ) {
+			x::messageLoginFirst($data);
+		}
 		return [
 			'#theme' => 'task.edit',
 			'#data' => $data,

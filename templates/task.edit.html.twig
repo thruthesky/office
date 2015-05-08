@@ -13,10 +13,12 @@
         <div>Created : {{ data.task.created.value | date('M d, Y H:i:s') }}</div>
     {% endif %}
 
+    {% if logged_in %}
+
     <form action="/office/task/edit" method="post">
         <input type="hidden" name="mode" value="submit">
         <input type="hidden" name="task_id" value="{{ data.task.id.value }}">
-        
+
         <select name="group_id">
             <option value="">Select service group</option>
             {% for group in groups %}
@@ -84,6 +86,7 @@
 
     </form>
 
+    {% endif %}
 
 
 </div>
