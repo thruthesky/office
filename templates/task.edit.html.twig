@@ -63,7 +63,19 @@
 
 
         Roadmap:
+        <select></select>
+
+        {% for n in 0..10 %}
+        {{ n }}<br>
+        {% endfor %}
+
+
+
+
+
         <input name="roadmap" value="{{ data.task.roadmap.value }}">
+
+
         <br>
 
         <label for="worker">Service For (Client) :</label>
@@ -90,3 +102,4 @@
 
 
 </div>
+
