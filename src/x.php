@@ -136,6 +136,12 @@ class x {
 		}
 	}
 
+	/**
+	 * Returns TRUE if the user is accessing office module.
+	 *
+	 * @return bool
+	 *
+	 */
 	public static function isOfficePage() {
 		$request = \Drupal::request();
 		$uri = $request->getRequestUri();
@@ -147,6 +153,20 @@ class x {
 		}
 		else return FALSE;
 	}
+
+	/**
+	 * Returns TRUE if the user is accessing member page inside office module.
+	 * @return bool
+	 */
+	public static function isOfficeMemberPage() {
+		$request = \Drupal::request();
+		$uri = $request->getRequestUri();
+		if ( strpos( $uri, '/office/member') !== FALSE ) {
+			return TRUE;
+		}
+		else return FALSE;
+	}
+
 
 	/**
 	 * User Login Form Submit

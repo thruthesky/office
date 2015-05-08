@@ -1,0 +1,47 @@
+
+/** --------------------- Office Message Box ------------------ **/
+.office .office-message {
+    margin: 0.2em 0!important;
+    background-color: #0071B3;
+    color:white;
+    padding:1em;
+}
+
+
+
+/** ---------------------- Office Error Message ----------------- **/
+.office .office-message.error {
+    margin: 0.2em 0!important;
+    background-color:#d40000;
+}
+
+
+
+/** -------------------- Dayoff Message -------------------- **/
+.dayoffs {
+    margin:1em 0;
+    padding:1em;
+    box-sizing: border-box;
+    background-color:white;
+}
+.dayoff-message {
+    display:none;
+    background-color: #dd5522;
+    color:white;
+    padding:1em;
+    box-sizing: border-box;
+}
+
+
+
+.attendance-list tr td {
+    padding:8px;
+}
+
+
+/** -------------------------- TO DO ------------------------- **/
+
+.office .office-message.todo {
+    background-color: #e0e0d8;
+    color:#717171;
+}

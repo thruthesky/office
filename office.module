@@ -55,9 +55,11 @@ function office_preprocess(&$variables, $hook)
 	$variables['dir_office'] = drupal_get_path('module', 'office');
 
 	$variables['#attached']['library'][] = 'office/default';
+	if ( x::isOfficeMemberPage() ) {
+		$variables['#attached']['library'][] = 'office/member';
+	}
 	$variables['data']['class']['office'][] = 'office';
 	$variables['data']['class']['office'][] = $hook;
-
 
 }
 

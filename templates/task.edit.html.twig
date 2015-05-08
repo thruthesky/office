@@ -9,16 +9,14 @@
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
 
-
     {% if data.task %}
         <div>Created : {{ data.task.created.value | date('M d, Y H:i:s') }}</div>
     {% endif %}
 
-
     <form action="/office/task/edit" method="post">
         <input type="hidden" name="mode" value="submit">
         <input type="hidden" name="task_id" value="{{ data.task.id.value }}">
-
+        
         <select name="group_id">
             <option value="">Select service group</option>
             {% for group in groups %}

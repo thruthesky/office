@@ -4,19 +4,36 @@ default:
     js/office.js: {}
   css:
     theme:
+      css/office.base.css: {}
+      css/office.layout.css: {}
+      css/office.component.css: {}
+      css/office.state.css: {}
       css/office.css: {}
+      css/office.component-menu.css: {}
+      css/office.component-message.css: {}
   dependencies:
     - core/jquery
     - core/jquery.ui
     - core/jquery.ui.autocomplete
     - core/jquery.ui.datepicker
+
+###
+member:
+  version: 1.x
+  js:
+    js/office.member.js: {}
+  css:
+    theme:
+      css/office.member.css: {}
+
+###
 Admin:
   version: 1.x
   js:
-    js/admin.js: {}
+    js/office.admin.js: {}
   css:
     theme:
-      css/admin.css: {}
+      css/office-admin.css: {}
   dependencies:
     - core/jquery
 
