@@ -58,8 +58,12 @@
         <br>
 
 
-        Work Flowchart : <br>
-        Requirement: <br>
+
+
+
+        <label for="in_charge">Work Process :</label>
+        <input id="in_charge" name="in_charge" value="{{ task.process_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
+        who will take the responsibility.<br>
 
 
 

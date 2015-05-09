@@ -15,6 +15,7 @@ function office_theme() {
 		'task.edit','task.list', 'task.view',
 		'group.edit', 'group.list', 'group.workinghours',
 		'attendance.list',
+		'process.edit', 'process.list',
 	];
 	foreach($names as $name) {
 		$themes[ $name ] = [

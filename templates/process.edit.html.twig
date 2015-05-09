@@ -1,0 +1,27 @@
+{% set process = data.process %}
+<div{{ attributes.addClass( data.class.office ) }}>
+
+    <h2>Work Process Add / Edit</h2>
+
+    {% include dir_office ~ '/templates/menu.html.twig' %}
+    {% include dir_office ~ '/templates/message.html.twig' %}
+
+
+
+    <form action="/office/process/edit">
+        <input type="hidden" name="mode" value="submit">
+        <input type="hidden" name="process_id" value="{{ process.id.value }}">
+
+        Name : <input type="text" name="name" value="{{ process.name.value }}">
+        Summary : <input type="text" name="summary" value="{{ process.summary.value }}">
+        Description : <input type="text" name="description" value="{{ process.description.value }}">
+
+        <input type="submit">
+
+    </form>
+
+    <a href="/office/process/list">[ LIST ]</a>
+
+
+
+</div>

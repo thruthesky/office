@@ -175,14 +175,11 @@ class Task extends ContentEntityBase implements TaskInterface {
 			));
 
 
-		$fields['work_flowchart_id'] = BaseFieldDefinition::create('integer')
-			->setLabel(t('Work Flowchart'))
-			->setDescription(t('The work flowchart of the Task.'));
+		$fields['process_id'] = BaseFieldDefinition::create('integer')
+			->setLabel(t('Work Process'))
+			->setDescription(t('The work process of the Task.'));
 
 
-		$fields['requirement_id'] = BaseFieldDefinition::create('integer')
-			->setLabel(t('Requirement'))
-			->setDescription(t('The requirement of the Task.'));
 
 
 

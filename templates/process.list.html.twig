@@ -1,0 +1,37 @@
+<div{{ attributes.addClass( data.class.office ) }}>
+
+    <h1>Work Process List</h1>
+
+    <a href="/office/process/add">[ CREATE ]</a>
+
+
+    {% include dir_office ~ '/templates/menu.html.twig' %}
+    {% include dir_office ~ '/templates/message.html.twig' %}
+
+    <table cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td>No.</td>
+            <td>Owner</td>
+            <td>Name</td>
+            <td>Summary</td>
+            <td>Description</td>
+            <td>EDIT</td>
+        </tr>
+        {% for process in data.processes %}
+
+            <tr>
+                <td>{{ process.id.value }}</td>
+                <td>{{ process.user_id.entity.name.value }}</td>
+                <td>
+                    <a href="/office/process/{{ process.id.value  }}/edit">
+                        {{ process.name.value }}
+                    </a>
+                </td>
+                <td>{{ process.summary.value }}</td>
+                <td>{{ process.description.value }}</td>
+                <td><a href="/office/process/edit/{{ process.id.value }}">EDIT</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
