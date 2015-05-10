@@ -8,18 +8,31 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ProcessController extends ControllerBase {
 	public function collection() {
-		$entities = Process::loadMultiple();
+		$entities = Process::loadMultipleExtra();
 		return [
 			'#theme' => 'process.list',
 			'#data' => [ 'processes' => $entities ],
+			'#attached' => ['library'=>['office/process']],
 		];
 	}
+
+	public function view($office_process) {
+		$data = [];
+		$data['process'] = $office_process;
+		return [
+			'#theme' => 'process.view',
+			'#data' => $data,
+			'#attached' => ['library'=>['office/process']],
+		];
+	}
+
 	public function add() {
 		$data = [];
 		if ( ! x::login() ) x::messageLoginFirst($data);
 		return [
 			'#theme' => 'process.edit',
 			'#data' => $data,
+			'#attached' => ['library'=>['office/process']],
 		];
 	}
 	public function edit(Process $office_process=null) {
@@ -41,6 +54,7 @@ class ProcessController extends ControllerBase {
 		return [
 			'#theme' => 'process.edit',
 			'#data' => $data,
+			'#attached' => ['library'=>['office/process']],
 		];
 
 	}

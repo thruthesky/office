@@ -32,3 +32,10 @@
 .graph.roadmap .bar[percentage='60'] {
     background-color: #B00000;
 }
+
+
+.process-holder {
+    padding:1em;
+    background-color:white;
+    border-radius:2px;
+}

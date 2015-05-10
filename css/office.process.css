@@ -1,0 +1,13 @@
+.office.process input[type='text'] {
+    width:100%;
+}
+
+.office.process textarea {
+    width:100%;
+    height:3em;
+}
+.office.process [name='workflow'],
+.office.process [name='requirement'] {
+    height:8em;
+}
+

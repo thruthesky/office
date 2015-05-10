@@ -1,7 +1,9 @@
 <?php
 use Drupal\office\Entity\Group;
 use Drupal\office\Entity\Member;
+use Drupal\office\Language;
 use Drupal\office\x;
+
 if ( ! function_exists('di') ) {
 	function di( $obj ) { echo "<pre>"; print_r($obj); echo "</pre>"; }
 }
@@ -15,7 +17,7 @@ function office_theme() {
 		'task.edit','task.list', 'task.view',
 		'group.edit', 'group.list', 'group.workinghours',
 		'attendance.list',
-		'process.edit', 'process.list',
+		'process.edit', 'process.list', 'process.view',
 	];
 	foreach($names as $name) {
 		$themes[ $name ] = [
@@ -37,6 +39,8 @@ function office_preprocess(&$variables, $hook)
 
 	$variables['office_module'] = 1;
 
+
+	$variables['text'] = Language::load();
 
 	if ( x::in('uid') ) $variables['member'] = Member::loadByUserID(x::in('uid'));
 	if ( x::myUid() ) $variables['my'] = Member::loadByUserID(x::myUid());
@@ -60,7 +64,13 @@ function office_preprocess(&$variables, $hook)
 		$variables['#attached']['library'][] = 'office/member';
 	}
 	$variables['data']['class']['office'][] = 'office';
-	$variables['data']['class']['office'][] = $hook;
+
+	$hook_name = strtolower($hook);
+	$hook_name = str_replace('.', '-', $hook_name);
+	list($pre,$post) = explode('-',$hook_name,2);
+	$variables['data']['class']['office'][] = $pre;
+	$variables['data']['class']['office'][] = $post;
+	$variables['data']['class']['office'][] = $hook_name;
 
 }
 

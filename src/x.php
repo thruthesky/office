@@ -3,6 +3,7 @@ namespace Drupal\office;
 
 use Drupal\office\Entity\Group;
 use Drupal\office\Entity\Member;
+use Drupal\office\Entity\Process;
 use Drupal\office\Entity\Task;
 use Drupal\user\Entity\User;
 use Drupal\user\UserAuth;
@@ -843,15 +844,17 @@ class x {
 	 * @return array
 	 */
 	public static function officeInformation() {
-		$info = [];
-		$info['member'] = Member::loadByUserID(x::myUid());
-		$info['now'] = date('r');
+		$office = [];
+		$office['member'] = Member::loadByUserID(x::myUid());
+		$office['now'] = date('r');
 		$group = Member::group(x::myUid());
 		if ( $group ) {
-			$info['group'] = $group;
-			if ( $group->get('user_id')->target_id == x::myUid() ) $info['is_group_admin'] = 1;
+			$office['group'] = $group;
+			$office['is_member'] = 1;
+
+			if ( $group->get('user_id')->target_id == x::myUid() ) $office['is_group_admin'] = 1;
 		}
-		return $info;
+		return $office;
 	}
 
 
@@ -910,6 +913,22 @@ class x {
 	 */
 	public static function delete_cookie($k) {
 		user_cookie_delete($k);
+	}
+
+	public static function markupProcess($id) {
+		$process = Process::load($id);
+		if ( empty($process) ) return null;
+		$summary = $process->get('summary')->value;
+		$description = $process->get('description')->value;
+		$workflow = $process->get('workflow')->value;
+		$requirement = $process->get('requirement')->value;
+		$html = "
+				$summary<br>
+				$description<br>
+				$workflow<br>
+				$requirement
+			";
+		return $html;
 	}
 
 }

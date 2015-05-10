@@ -1,0 +1,15 @@
+software_name:
+  en: Office
+  ko: 온라인데스크
+version:
+  en: 0.0.2
+  ko: 0.0.2
+create:
+  en: Create
+  ko: 만들기
+list:
+  en: List
+  ko: 목록
+welcome:
+  en: Welcome, $name. Group: $group
+  ko: 어서오십시오, $name님. 그룹: $group

@@ -51,6 +51,7 @@ class TaskController extends ControllerBase {
 			'#data' => [ 'tasks' => $entities ],
 		];
 	}
+
 	public function add() {
 		$data = [];
 		if ( ! x::login() ) {

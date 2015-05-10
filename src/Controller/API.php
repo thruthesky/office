@@ -1,6 +1,7 @@
 <?php
 namespace Drupal\office\Controller;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\office\Entity\Process;
 use Drupal\office\x;
 use Drupal\user\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,20 +19,40 @@ class API extends ControllerBase {
 	public function autocomplete() {
 		x::log(__METHOD__);
 		x::log(x::input());
-		$ids = \Drupal::entityQuery('user')
+
+		if ( x::in('type') == 'member' ) {
+			$base = 'user';
+		}
+		else {
+			$base = 'office_' . x::in('type');
+		}
+
+		$ids = \Drupal::entityQuery($base)
 			->condition('name', x::in('term'), 'CONTAINS')
 			->execute();
 		x::log($ids);
-		$users = user::loadMultiple($ids);
-		$rets = [];
-		if ( ! empty($users) ) {
-			foreach( $users as $user ) {
-				$id = $user->id();
-				$name = $user->getUsername();
-				$rets[$id] = $name;
+
+		if ( x::in('type') == 'member' ) {
+			$entities = user::loadMultiple($ids);
+		}
+		else if ( x::in('type') == 'process' ) {
+			$entities = Process::loadMultiple($ids);
+		}
+		$ret = [];
+		if ( ! empty($entities) ) {
+			foreach( $entities as $entity ) {
+				$id = $entity->id();
+				if ( x::in('type') == 'member' ) {
+					$value = $entity->getUsername();
+				}
+				else {
+					$value = $entity->get('name')->value;
+				}
+				$ret[] = ['id'=>$id, 'value'=>$value];
 			}
 		}
-		return $rets;
+		x::log($ret);
+		return $ret;
 	}
 	public function dayoff() {
 		if ( ! x::in('group_id') ) return ['error'=> -1, 'message'=>'No group id'];
@@ -74,5 +95,12 @@ class API extends ControllerBase {
 		else {
 			return ['error'=>-3, 'message'=>'The day does not exist as in dayoff.'];
 		}
+	}
+
+
+	public function load_process() {
+		$id = x::in('process_id');
+		if ( $id ) return x::markupProcess($id);
+		return null;
 	}
 }

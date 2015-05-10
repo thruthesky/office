@@ -11,13 +11,14 @@ default:
       css/office.css: {}
       css/office.component-menu.css: {}
       css/office.component-message.css: {}
+      css/jbutton/jbutton.css: {}
   dependencies:
     - core/jquery
     - core/jquery.ui
     - core/jquery.ui.autocomplete
     - core/jquery.ui.datepicker
 
-###
+### Member Page ###
 member:
   version: 1.x
   js:
@@ -25,8 +26,16 @@ member:
   css:
     theme:
       css/office.member.css: {}
+### Process List, View, Edit Page ###
+process:
+  version: 1.x
+  js:
+    js/office.process.js: {}
+  css:
+    theme:
+      css/office.process.css: {}
 
-###
+### Admin Page ####
 Admin:
   version: 1.x
   js:

@@ -313,6 +313,20 @@ entity.office.process_list:
   requirements:
     _permission: 'access content'
 
+
+entity.office.process_view:
+  path: '/office/process/{office_process}'
+  defaults:
+    _controller: Drupal\office\Controller\ProcessController::view
+    _title: 'Process'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      office_process:
+        type: entity:office_process
+
+
 entity.office.process_add:
   path: '/office/process/add'
   defaults:

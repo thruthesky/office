@@ -34,6 +34,10 @@
         Summary: <input type="text" name="summary" value="{{ task.summary.value }}"><br>
         Description: <input type="text" name="description" value="{{ task.description.value }}"><br>
 
+        Deadline : <input type="date" name="deadline" value="{{ task.deadline.value }}"><br>
+
+        <br>
+
         Priority :
         <input id='priority8' type="radio" name="priority" value="8"{{ task.priority.value == priority.urgent.value ? ' checked=1' }}>
         <label for="priority8">{{ priority.urgent.text }}</label>
@@ -59,13 +63,11 @@
 
 
 
-
-
-        <label for="in_charge">Work Process :</label>
-        <input id="in_charge" name="in_charge" value="{{ task.process_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
-        who will take the responsibility.<br>
-
-
+        <label for="process">Work Process :</label>
+        <input id="process" name="process" value="{{ task.process_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=process"><br>
+        <div class="process-holder">
+            {{ task.process | raw }}
+        </div>
 
 
 
@@ -89,15 +91,15 @@
         <br>
 
         <label for="worker">Service For (Client) :</label>
-        <input id="worker" name="client" value="{{ task.client_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
+        <input id="worker" name="client" value="{{ task.client_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
         <br>
 
         <label for="worker">Assigned To(Worker) :</label>
-        <input id="worker" name="worker" value="{{ task.worker_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
+        <input id="worker" name="worker" value="{{ task.worker_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
         <br>
 
         <label for="in_charge">Person in charge :</label>
-        <input id="in_charge" name="in_charge" value="{{ task.in_charge_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
+        <input id="in_charge" name="in_charge" value="{{ task.in_charge_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
         who will take the responsibility.<br>
 
         <div>Upload files:</div>

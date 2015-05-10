@@ -4,3 +4,11 @@
     box-sizing: border-box;
     background-color: #d3e8f4;
 }
+
+
+.jbutton-group {
+    margin:0 0 0.2em!important;
+}
+.jbutton-group.top-menu a {
+    float:right;
+}
