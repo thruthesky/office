@@ -1,61 +1,39 @@
 <div class="office-menu">
-    <table cellpadding="0" cellspacing="0" width="100%">
-        <tr>
-            <td><span class="caption office">OFFICE</span></td>
-            <td>
-                <a href="/office"><span class="item front">Front Desk</span></a>
-                <a href="/office/member/add"><span class="item register">Office Member Registration</span></a>
-            </td>
-        </tr>
+    <nav>
+        <div>
+            <a><span class="caption office">OFFICE</span></a>
+            <a href="/office"><span class="item front">Front Desk</span></a>
+            <a href="/office/member/add"><span class="item register">Office Member Registration</span></a>
+        </div>
         {% if office.member %}
-            <tr>
-                <td>
-                    <span class="caption my-desk">MY DESK</span>
-                </td>
-                <td>
-                    <a href="/office/attendance_list/?mode=submit&date={{ 'now' | date("Y-m-d") }}"><span class="item attendance-list">ATTENDANCE LIST</span></a>
-                    <a href="/office/attend"><span class="item attend">ATTEND</span></a>
-                </td>
-            </tr>
+        <div>
+            <a><span class="caption my-desk">MY DESK</span></a>
+            <a href="/office/attendance_list/?mode=submit&date={{ 'now' | date("Y-m-d") }}"><span class="item attendance-list">Attendance List</span></a>
+            <a href="/office/attend"><span class="item attend">Attend</span></a>
+        </div>
         {% endif %}
-
         {% if is_admin %}
-            <tr>
-                <td>
-                    <span class="caption">ALL GROUP</span>
-                </td>
-                <td>
-                    <a href="/office/group/list"><span class="item group-list">LIST</span></a>
-                    <a href="/office/group/add"><span class="item group-create">CREATE</span></a>
-                    <a href="/office/member/list"><span class="item all-member-list">ALL Group Member List</span></a>
-                </td>
-            </tr>
+         <div>
+             <a><span class="caption">ALL GROUP</span></a>
+             <a href="/office/group/list"><span class="item group-list">List</span></a>
+             <a href="/office/group/add"><span class="item group-create">Create</span></a>
+             <a href="/office/member/list"><span class="item all-member-list">ALL Group Member List</span></a>
+         </div>
         {% endif %}
-
         {% if office.is_group_admin %}
-            <tr>
-                <td>
-                    <span class="caption">Group Admin Page</span>
-                </td>
-                <td>
-                    <a href="/office/group/{{ data.group.id.value }}/edit"><span class="item group-update">Group Information Update</span></a>
-                    <a href="/office/group/{{ data.group.id.value }}/workinghours"><span class="item group-update-workschedule">Work Schedules</span></a>
-                    <a href="/office/member/list"><span class="item group-member-list">MEMBER LIST</span></a>
-                </td>
-            </tr>
+        <div>
+            <a><span class="caption">Group Admin Page</span></a>
+            <a href="/office/group/{{ data.group.id.value }}/edit"><span class="item group-update">Group Information Update</span></a>
+            <a href="/office/group/{{ data.group.id.value }}/workinghours"><span class="item group-update-workschedule">Work Schedules</span></a>
+            <a href="/office/member/list"><span class="item group-member-list">Member List</span></a>
+        </div>
         {% endif %}
-
-        <tr>
-            <td>
-                <span class="caption">TASK</span>
-            </td>
-            <td>
-                <a href="/office/task/list"><span class="item task-list">LIST</span></a>
-                <a href="/office/task/add"><span class="item task-create">CREATE</span></a>
-            </td>
-        </tr>
-
-    </table>
+        <div>
+            <a><span class="caption">TASK</span></a>
+            <a href="/office/task/list"><span class="item task-list">List</span></a>
+            <a href="/office/task/add"><span class="item task-create">Create</span></a>
+        </div>
+    </nav>
 </div>
 
 <div class="office-information">

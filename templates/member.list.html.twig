@@ -1,15 +1,15 @@
 <div{{ attributes.addClass( data.class.office ) }}>
-
+    <h2>Office Member List</h2>
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
-    <h1>Office Member List</h1>
-    <table width="100%">
+
+    <table width="100%" class="member-list">
         <tr>
-            <td>Name</td>
-            <td>Address</td>
+            <th>NAME</th>
+            <th>ADDRESS</th>
+            <th>ATTEND</th>
         </tr>
     {% for member in data.members %}
-
         <tr>
             <td>
                 <a href="/office/member/{{ member.user_id.entity.id }}">

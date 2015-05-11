@@ -1,6 +1,20 @@
+td.td-layout-left{
+    display: none!important;
+}
+td.td-layout-right{
+    display: none!important;
+}
+
 .office-information {
-    margin:1em 0;
+  /**  margin:1em 0; **/
     padding:1em;
     box-sizing: border-box;
     background-color: #d3e8f4;
 }
+
+
+.member-list tr:nth-child(even){
+    background-color: #e0e0d8;
+
+}
+

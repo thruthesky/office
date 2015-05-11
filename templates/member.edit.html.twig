@@ -5,57 +5,83 @@
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
 
-
-
     <form action="/office/member/add">
-        <input type="hidden" name="mode" value="submit">
+       <fieldset>
+           <legend></legend>
+           <input type="hidden" name="mode" value="submit">
+            <table>
+                <tr>
+                    <td><label for="group_id">Group</label></td>
+                    <td>
+                        <select name="group_id" id="group_id">
+                            <option value="">Select your group</option>
+                            {% for group in data.groups %}
+                                <option value="{{ group.id.value }}"{{ data.member.group_id.entity.id.value == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="first_name">First Name</label>
+                    </td>
+                    <td>
+                        <input type="text" id="first_name" name="first_name" value="{{ data.member.first_name.value }}">
+                    </td>
+                </tr>
 
-        <table>
-            <tr>
-                <td>Group</td>
-                <td>
-                    <select name="group_id">
-                        <option value="">Select your group</option>
-                        {% for group in data.groups %}
-                            <option value="{{ group.id.value }}"{{ data.member.group_id.entity.id.value == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="first_name">First Name</label>
-                </td>
-                <td>
-                    <input type="text" id="first_name" name="first_name" value="{{ data.member.first_name.value }}">
-                </td>
-            </tr>
-        </table>
+                <tr>
+                    <td>
+                        <label for="middle_name">Middle Name:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="middle_name"  id="middle_name" value="{{ data.member.middle_name.value }}">
+                    </td>
+                </tr>
 
+                <tr>
+                    <td>
+                        <label for="last_name">Last Name:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="last_name" id="last_name" value="{{ data.member.last_name.value }}">
+                    </td>
+                </tr>
 
+                <tr>
+                    <td>
+                       <label for="mobile"> Mobile Number:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="mobile"  id="mobile" value="{{ data.member.mobile.value }}">
+                    </td>
+                </tr>
 
+                <tr>
+                    <td>
+                        <label for="landline">Landline Number:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="landline" id="landline" value="{{ data.member.landline.value }}">
+                    </td>
+                </tr>
 
-        Middle Name: <input type="text" name="middle_name" value="{{ data.member.middle_name.value }}"><br>
-        Last Name: <input type="text" name="last_name" value="{{ data.member.last_name.value }}"><br>
+                <tr>
+                    <td>
+                       <label for="address"> Address :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="address" id="address" value="{{ data.member.address.value }}">
+                    </td>
+                </tr>
 
-        Mobile Number: <input type="text" name="mobile" value="{{ data.member.mobile.value }}"><br>
-        Landline Number: <input type="text" name="landline" value="{{ data.member.landline.value }}"><br>
-
-
-
-
-        Address : <input type="text" name="address" value="{{ data.member.address.value }}">
-
-        <br>
-
-
-
-
-
-        <input type="submit">
-
+                <tr>
+                    <td><label for="submit"></label></td>
+                    <td>
+                        <input type="submit" id="submit">
+                    </td>
+                </tr>
+            </table>
+         </fieldset>
     </form>
-
-
-
 </div>

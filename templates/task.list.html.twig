@@ -12,70 +12,121 @@
     </div>
 
     <form>
-        <input type="hidden" name="mode" value="submit">
-        <div>
-            Group :
-            <select name="group_id">
-                <option value="">Select service group</option>
-                {% for group in groups %}
-                    <option value="{{ group.id.value }}"{{ input.group_id == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
-                {% endfor %}
-            </select>
+        <fieldset>
+            <legend></legend>
+            <input type="hidden" name="mode" value="submit">
+            <table>
+                <tr>
+                    <td><label for="group_id">Group</label></td>
+                    <td>
+                        <select name="group_id" id="group_id">
+                            <option value="">Select service group</option>
+                            {% for group in groups %}
+                                <option value="{{ group.id.value }}"{{ input.group_id == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="creator">Creator :</label>
+                    </td>
+                    <td>
+                        <input type="text" id="creator" name="creator" value="{{ input.creator }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
+                    </td>
+                </tr>
 
-        </div>
+                <tr>
+                    <td>
+                        <label for="worker">Assigned To(Worker) :</label>
+                    </td>
+                    <td>
+                        <input type="text" id="worker" name="worker" value="{{ input.worker }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
 
-        <div>
-            <label for="creator">Creator :</label>
-            <input id="creator" name="creator" value="{{ input.creator }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
-        </div>
+                    </td>
+                </tr>
 
-        <div>
-            <label for="worker">Assigned To(Worker) :</label>
-            <input id="worker" name="worker" value="{{ input.worker }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
-        </div>
+                <tr>
+                    <td>
+                        <label for="in_charge">Person in charge :</label>
+                    </td>
+                    <td>
+                        <input type="text" id="in_charge" name="in_charge" value="{{ input.in_charge }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
 
-        <div>
-            <label for="in_charge">Person in charge :</label>
-            <input id="in_charge" name="in_charge" value="{{ input.in_charge }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
-        </div>
+                    </td>
+                </tr>
 
-        <div>
-            <label for="worker">Service For (Client) :</label>
-            <input id="worker" name="client" value="{{ input.client }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
-        </div>
+                <tr>
+                    <td>
+                        <label for="worker">Service For (Client) :</label>
+                    </td>
+                    <td>
+                        <input type="text" id="worker" name="client" value="{{ input.client }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
 
-        <div>
-            Sort Field :
-            <input type="radio" name="sort" value="priority"{{ input.sort == 'priority' ? ' checked=1' }}>
-            Priority
+                    </td>
+                </tr>
 
-            <input type="radio" name="sort" value="date"{{ input.sort == 'date' ? ' checked=1' }}>
-            Date
+                <tr>
+                    <td>
+                        <label>Sort Field :</label>
+                    </td>
+                    <td>
+                        <input type="radio" name="sort" id="priority" value="priority"{{ input.sort == 'priority' ? ' checked=1' }}>
+                        <label for="priority">Priority</label>
 
-            <input type="radio" name="sort" value="roadmap"{{ input.sort == 'roadmap' ? ' checked=1' }}>
-            Roadmap
+                        <input type="radio" name="sort" id="date" value="date"{{ input.sort == 'date' ? ' checked=1' }}>
+                        <label for="date">Date</label>
 
-        </div>
-        <div>
-            Sort in :
-            <input type="radio" name="by" value="DESC"{{ input.by == 'DESC' ? ' checked=1' }}> Desc
-            <input type="radio" name="by" value="ASC"{{ input.by == 'ASC' ? ' checked=1' }}> Asc
-        </div>
+                        <input type="radio" name="sort" id="roadmap" value="roadmap"{{ input.sort == 'roadmap' ? ' checked=1' }}>
+                        <label for="roadmap">Roadmap</label>
+                    </td>
+                </tr>
 
-        <div>
-            Show Fields:
-            <input type="checkbox" name="show_group" value="Y"{{ input.show_group == 'Y' ? ' checked=1' }}> Group,
-            <input type="checkbox" name="show_priority" value="Y"{{ input.show_priority == 'Y' ? ' checked=1' }}> Priority,
-            <input type="checkbox" name="show_date" value="Y"{{ input.show_date == 'Y' ? ' checked=1' }}> Date,
-            <input type="checkbox" name="show_creator" value="Y"{{ input.show_creator == 'Y' ? ' checked=1' }}> Creator,
-            <input type="checkbox" name="show_assigned" value="Y"{{ input.show_assigned == 'Y' ? ' checked=1' }}> Assigned To,
-            <input type="checkbox" name="show_in_charge" value="Y"{{ input.show_in_charge == 'Y' ? ' checked=1' }}> In charge of,
-            <input type="checkbox" name="show_client" value="Y"{{ input.show_client == 'Y' ? ' checked=1' }}> Service For,
-            <input type="checkbox" name="show_road_map" value="Y"{{ input.show_road_map == 'Y' ? ' checked=1' }}> Road-map.
-        </div>
+                <tr>
+                    <td>
+                        <label> Sort in :</label>
+                    </td>
+                    <td>
+                        <input type="radio" name="by" id="ASC" value="ASC"{{ input.by == 'ASC' ? ' checked=1' }}>
+                        <label for="ASC">Asc</label>
+                        <input type="radio" name="by" id="DESC" value="DESC"{{ input.by == 'DESC' ? ' checked=1' }}>
+                        <label for="DESC">Desc</label>
 
-        <input type="submit">
+                    </td>
+                </tr>
 
+                <tr>
+                    <td><label>Show Fields:</label></td>
+                    <td>
+
+                        <input type="checkbox" name="show_group" id="show_group" value="Y"{{ input.show_group == 'Y' ? ' checked=1' }}>
+                        <label for="show_group">Group</label>
+                        <input type="checkbox" name="show_priority" id="show_priority" value="Y"{{ input.show_priority == 'Y' ? ' checked=1' }}>
+                        <label for="show_priority">Priority</label>
+                        <input type="checkbox" name="show_date" id="show_date" value="Y"{{ input.show_date == 'Y' ? ' checked=1' }}>
+                        <label for="show_date">Date</label>
+                        <input type="checkbox" name="show_creator" id="show_creator" value="Y"{{ input.show_creator == 'Y' ? ' checked=1' }}>
+                        <label for="show_creator">Creator</label>
+                        <input type="checkbox" name="show_assigned" id="show_assigned" value="Y"{{ input.show_assigned == 'Y' ? ' checked=1' }}>
+                        <label for="show_assigned">Assigned To</label>
+                        <input type="checkbox" name="show_in_charge" id="show_in_charge" value="Y"{{ input.show_in_charge == 'Y' ? ' checked=1' }}>
+                        <label for="show_in_charge"> In charge of</label>
+                        <input type="checkbox" name="show_client" id="show_client" value="Y"{{ input.show_client == 'Y' ? ' checked=1' }}>
+                        <label for="show_client"> Service For</label>
+                        <input type="checkbox" name="show_road_map" id="show_road_map" value="Y"{{ input.show_road_map == 'Y' ? ' checked=1' }}>
+                        <label for="show_road_map">Road-map</label>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td><label for="submit"></label></td>
+                    <td>
+                        <input type="submit" id="submit">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
     </form>
 
 

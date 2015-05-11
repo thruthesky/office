@@ -5,7 +5,7 @@
 {% endif %}
 
 <div{{ attributes.addClass( data.class.office ) }}>
-
+    <h2> Task Add/Edit</h2>
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
 
@@ -14,73 +14,142 @@
     {% endif %}
 
     <form action="/office/task/edit" method="post">
-        <input type="hidden" name="mode" value="submit">
-        <input type="hidden" name="task_id" value="{{ data.task.id.value }}">
-        
-        <select name="group_id">
-            <option value="">Select service group</option>
-            {% for group in groups %}
-                <option value="{{ group.id.value }}"{{ group_id == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
-            {% endfor %}
-        </select>
+        <fieldset>
+            <legend></legend>
+            <input type="hidden" name="mode" value="submit">
+            <input type="hidden" name="task_id" value="{{ data.task.id.value }}">
+            <table>
+                <tr>
+                    <td><label for="group_id">Group</label></td>
+                    <td>
+                        <select name="group_id" id="group_id">
+                            <option value="">Select service group</option>
+                            {% for group in groups %}
+                                <option value="{{ group.id.value }}"{{ group_id == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="title">Title:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="title"  id="title" value="{{ data.task.title.value }}">
+                    </td>
+                </tr>
 
-<br>
+                <tr>
+                    <td>
+                        <label for="summary">Summary:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="summary" id="summary" value="{{ data.task.summary.value }}">
+                    </td>
+                </tr>
 
-        Title: <input type="text" name="title" value="{{ data.task.title.value }}"><br>
-        Summary: <input type="text" name="summary" value="{{ data.task.summary.value }}"><br>
-        Description: <input type="text" name="description" value="{{ data.task.description.value }}"><br>
+                <tr>
+                    <td>
+                        <label for="description">Description:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="description"  id="description" value="{{ data.task.description.value }}">
+                    </td>
+                </tr>
 
-        Priority :
-        <input id='priority8' type="radio" name="priority" value="8"{{ data.task.priority.value == priority.urgent.value ? ' checked=1' }}>
-        <label for="priority8">{{ priority.urgent.text }}</label>
+                <tr>
+                    <td>
+                        <label> Priority :</label>
+                    </td>
+                    <td>
+                        <input id='priority8' type="radio" name="priority" value="8"{{ data.task.priority.value == priority.urgent.value ? ' checked=1' }}>
+                        <label for="priority8">{{ priority.urgent.text }}</label>
 
+                        <input id='priority6' type="radio" name="priority" value="6"{{ data.task.priority.value == priority.normal.value ? ' checked=1' }}>
+                        <label for="priority6">{{ priority.normal.text }}</label>
 
-        <input id='priority6' type="radio" name="priority" value="6"{{ data.task.priority.value == priority.normal.value ? ' checked=1' }}>
-        <label for="priority6">{{ priority.normal.text }}</label>
+                        <input id='priority4' type="radio" name="priority" value="4"{{ data.task.priority.value == priority.low.value ? ' checked=1' }}>
+                        <label for="priority4">{{ priority.low.text }}</label>
 
-        <input id='priority4' type="radio" name="priority" value="4"{{ data.task.priority.value == priority.low.value ? ' checked=1' }}>
-        <label for="priority4">{{ priority.low.text }}</label>
+                        <input id='priority2' type="radio" name="priority" value="2"{{ data.task.priority.value == priority.none.value ? ' checked=1' }}>
+                        <label for="priority2">{{ priority.none.text }}</label>
 
-        <input id='priority2' type="radio" name="priority" value="2"{{ data.task.priority.value == priority.none.value ? ' checked=1' }}>
-        <label for="priority2">{{ priority.none.text }}</label>
-        <br>
+                    </td>
+                </tr>
 
-        View status:
+                <tr>
+                    <td>
+                        <label>View status:</label>
+                    </td>
+                    <td>
+                        <input id='view_status_open' type="radio" name="view_status" value="O"{{ data.task.view_status.value == 'O' ? ' checked=1' }}>
+                        <label for="view_status_open">Public</label>
+                        <input id='view_status_close' type="radio" name="view_status" value="C"{{ data.task.view_status.value == 'C' ? ' checked=1' }}>
+                        <label for="view_status_close">Private</label>
+                    </td>
+                </tr>
 
-        <input id='view_status_open' type="radio" name="view_status" value="O"{{ data.task.view_status.value == 'O' ? ' checked=1' }}>
-        <label for="view_status_open">Public</label>
-        <input id='view_status_close' type="radio" name="view_status" value="C"{{ data.task.view_status.value == 'C' ? ' checked=1' }}>
-        <label for="view_status_close">Private</label>
-        <br>
+                <tr>
+                    <td>
+                        <label for="roadmap"> Roadmap:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="roadmap" id="roadmap" value="{{ data.task.roadmap.value }}">
+                    </td>
+                </tr>
 
+                <tr>
+                    <td>
+                        <label for="worker">Service For (Client) :</label>
+                    </td>
+                    <td>
 
-        Work Flowchart : <br>
-        Requirement: <br>
+                        <input type="text" name="client" id="worker"  value="{{ data.task.client_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
 
+                    </td>
+                </tr>
 
+                <tr>
+                    <td>
+                        <label for="worker">Assigned To(Worker) :</label>
+                    </td>
+                    <td>
+                        <input  type="text" name="worker" id="worker" value="{{ data.task.worker_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
 
+                    </td>
+                </tr>
 
-        Roadmap:
-        <input name="roadmap" value="{{ data.task.roadmap.value }}">
-        <br>
+                <tr>
+                    <td>
+                        <label for="in_charge">Person in charge :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="in_charge"   id="in_charge" value="{{ data.task.in_charge_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
+                        who will take the responsibility.
+                    </td>
+                </tr>
 
-        <label for="worker">Service For (Client) :</label>
-        <input id="worker" name="client" value="{{ data.task.client_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
-        <br>
+                <tr>
+                    <td>
+                        <label></label>
+                    </td>
+                    <td>
+                        <span>Upload files:</span>
+                    </td>
+                </tr>
 
-        <label for="worker">Assigned To(Worker) :</label>
-        <input id="worker" name="worker" value="{{ data.task.worker_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
-        <br>
+                <tr>
+                    <td>
+                        <label for="submit"></label>
+                    </td>
+                    <td>
+                        <input type="submit">
+                        <a href="/office/task/list">LIST</a>
+                    </td>
+                </tr>
 
-        <label for="in_charge">Person in charge :</label>
-        <input id="in_charge" name="in_charge" value="{{ data.task.in_charge_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
-        who will take the responsibility.<br>
-
-        <div>Upload files:</div>
-
-
-        <input type="submit">
-        <a href="/office/task/list">LIST</a>
+            </table>
+        </fieldset>
 
     </form>
 
