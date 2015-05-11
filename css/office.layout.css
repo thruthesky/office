@@ -1,1 +1,6 @@
 /*** layout.css ***/
+.office-menu nav {
+    padding: 1em;
+    box-sizing: border-box;
+    background-color: #e0e0d8;
+}
