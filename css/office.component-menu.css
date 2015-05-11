@@ -1,7 +1,50 @@
-/* menu.css
-This file is not needed anymore because we have to put menu css on layout css... because it is belongs to it.
+/**
+ @file office.component-menu.css
+ @description menu style
+
+    This file is not needed anymore because we have to put menu css on layout css... because it is belongs to it.
 */
 
+/** ---------------------------------- BASE -------------------------------------- **/
 
+/** ---------------------------------- LAYOUT -------------------------------------- **/
+
+nav.office-menu {
+    position: relative;
+}
+
+
+
+/** ---------------------------------- MODULE --------------------------------- **/
+
+nav.office-menu {
+    padding: 1em;
+    box-sizing: border-box;
+    background-color: #e0e0d8;
+    line-height:1.6em;
+}
+
+nav.office-menu:after {
+    display:block;
+    content:'';
+    clear:both;
+}
+nav.office-menu > div {
+    float:left;
+    width:25%;
+    height:6em;
+}
+
+nav.office-menu div a {
+    display: block;
+}
+
+nav.office-menu div a:first-child {
+    font-weight:bold;
+
+}
+
+
+/** ---------------------------------- STATE --------------------------------- **/
 
 

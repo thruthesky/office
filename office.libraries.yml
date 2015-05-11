@@ -25,7 +25,7 @@ member:
     js/office.member.js: {}
   css:
     theme:
-      css/office.member.css: {}
+      css/office.component-member.css: {}
 ### Process List, View, Edit Page ###
 process:
   version: 1.x
@@ -33,7 +33,17 @@ process:
     js/office.process.js: {}
   css:
     theme:
-      css/office.process.css: {}
+      css/office.component-process.css: {}
+
+### Task List, View, Edit Page ###
+task:
+  version: 1.x
+  js:
+    js/office.task.js: {}
+  css:
+    theme:
+      css/office.component-task.css: {}
+
 
 ### Admin Page ####
 Admin:

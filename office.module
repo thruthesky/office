@@ -63,14 +63,19 @@ function office_preprocess(&$variables, $hook)
 	if ( x::isOfficeMemberPage() ) {
 		$variables['#attached']['library'][] = 'office/member';
 	}
+	else if ( x::isOfficeTaskPage() ) {
+		$variables['#attached']['library'][] = 'office/task';
+	}
 	$variables['data']['class']['office'][] = 'office';
 
-	$hook_name = strtolower($hook);
-	$hook_name = str_replace('.', '-', $hook_name);
-	list($pre,$post) = explode('-',$hook_name,2);
-	$variables['data']['class']['office'][] = $pre;
-	$variables['data']['class']['office'][] = $post;
-	$variables['data']['class']['office'][] = $hook_name;
+	if ( $hook ) {
+		$hook_name = strtolower($hook);
+		$hook_name = str_replace('.', '-', $hook_name);
+		list($pre,$post) = explode('-',$hook_name,2);
+		$variables['data']['class']['office'][] = $pre;
+		$variables['data']['class']['office'][] = $post;
+		$variables['data']['class']['office'][] = $hook_name;
+	}
 
 }
 

@@ -31,15 +31,13 @@ body {
 }
 
 .office input[type=submit] {
-    width: 20.3em;
-    padding: 5px 0;
 }
 .office input[type=password] {
     width: 20em;
     padding: 5px 0;
 }
 
-.office form{
+.office form {
     margin: 1em;
 }
 

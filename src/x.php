@@ -156,19 +156,6 @@ class x {
 		else return FALSE;
 	}
 
-	/**
-	 * Returns TRUE if the user is accessing member page inside office module.
-	 * @return bool
-	 */
-	public static function isOfficeMemberPage() {
-		$request = \Drupal::request();
-		$uri = $request->getRequestUri();
-		if ( strpos( $uri, '/office/member') !== FALSE ) {
-			return TRUE;
-		}
-		else return FALSE;
-	}
-
 
 	/**
 	 * User Login Form Submit
@@ -825,11 +812,13 @@ class x {
 	}
 
 
-
-
+	/**
+	 * @param $code
+	 * @return array
+	 */
 	public static function getSuccessMessage($code) {
 		switch( $code ) {
-			case 'attend' : $message = 'You have attended successfully'; break;
+			case 'attend' : $message = 'You have attended'; break;
 		}
 		return ['code'=>$code, 'message'=>$message];
 	}
@@ -930,5 +919,35 @@ class x {
 			";
 		return $html;
 	}
+
+
+	/**
+	 * Returns TRUE if the user is accessing office task page.
+	 *
+	 * @return bool
+	 *
+	 */
+	public static function isOfficeTaskPage() {
+		$request = \Drupal::request();
+		$uri = $request->getRequestUri();
+		if ( strpos( $uri, '/office/task') !== FALSE ) {
+			return TRUE;
+		}
+		else return FALSE;
+	}
+
+	/**
+	 * Returns TRUE if the user is accessing member page inside office module.
+	 * @return bool
+	 */
+	public static function isOfficeMemberPage() {
+		$request = \Drupal::request();
+		$uri = $request->getRequestUri();
+		if ( strpos( $uri, '/office/member') !== FALSE ) {
+			return TRUE;
+		}
+		else return FALSE;
+	}
+
 
 }

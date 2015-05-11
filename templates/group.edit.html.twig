@@ -87,7 +87,7 @@
                 </tr>
 
                 <tr>
-                    <td>
+                    <td colspan="2">
                         {% if data.group.id %}
                             <div class="dayoffs">
                                 <div>
@@ -117,7 +117,11 @@
                 <tr>
                     <td><label for="submit"></label></td>
                     <td>
-                        <input type="submit" id="submit">
+
+                        <div class="jbutton-group">
+                            <input class="jbutton grey-active submit" type="submit" id="submit">
+                            <a class="jbutton list" href="/office/group/{{ data.group.id.value }}/workinghours"> GROUP WORK HOUR SCHEDULES  </a>
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -125,7 +129,7 @@
     </form>
 
 
-    <a href="/office/group/{{ data.group.id.value }}/workinghours"> [ GROUP WORK HOUR SCHEDULES ] </a>
+
 
     {% endif %}
 

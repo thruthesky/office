@@ -55,6 +55,11 @@ class AttendanceController extends ControllerBase {
 				$message = x::getErrorMessage($code);
 			}
 			else {
+
+				/**
+				 * @Todo 지각을 해도 attend 가 리턴되는데,
+				 * 지각을 했으면, 지각 했다고 표시를 할 것.
+				 */
 				extract(x::getSuccessMessage('attend'));
 			}
 		}

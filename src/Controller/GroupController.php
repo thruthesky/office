@@ -35,8 +35,7 @@ class GroupController extends ControllerBase {
 	 */
 	public function edit(GroupInterface $office_group=NULL) {
 		x::log(__METHOD__);
-
-
+		$data = [];
 		if ( $office_group ) $group_id = $office_group->id();
 		else $group_id = x::in('group_id');
 		if ( x::login() ) {
