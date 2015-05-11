@@ -68,6 +68,7 @@ function office_preprocess(&$variables, $hook)
 	}
 	$variables['data']['class']['office'][] = 'office';
 
+	// page classes
 	if ( $hook ) {
 		$hook_name = strtolower($hook);
 		$hook_name = str_replace('.', '-', $hook_name);
