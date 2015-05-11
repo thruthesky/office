@@ -19,6 +19,7 @@
     {% if logged_in %}
 
         <form action="/office/task/edit" method="post">
+
             <fieldset>
                 <legend></legend>
                 <input type="hidden" name="mode" value="submit">
@@ -105,6 +106,20 @@
                     </tr>
 
                     <tr>
+                        <td>accepted</td>
+                        <td>in-progress</td>
+                        <td>finished</td>
+                        <td>closed</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Redo (Work again)</td>
+                    </tr>
+                    <tr>
+                        <td>Rejected</td>
+                    </tr>
+
+                    <tr>
                         <td> <label for="process">Work Process :</label></td>
                         <td>
 
@@ -180,10 +195,6 @@
                     </tr>
                 </table>
             </fieldset>
-
         </form>
-
     {% endif %}
-
-
 </div>
