@@ -1,6 +1,9 @@
 {% if office.member %}
+   <span class="welcome">
     {{ text.welcome | replace({'$name':office.member.user_id.entity.name.value, '$group':office.group.name.value}) }}
+    </span>
 {% endif %}
+
 
 <div class="office-menu">
 

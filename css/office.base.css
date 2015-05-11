@@ -43,25 +43,3 @@ body {
     margin: 1em;
 }
 
-.office nav{
-    position: relative;
-}
-
-.office nav div{
-    display: inline-block;
-    width: 200px;
-}
-
-.office nav div a{
-    display: block;
-}
-.office nav div a:first-child{
-    font-weight:bold;
-
-}
-
-.office nav div:last-child{
-    float: right;
-    position: absolute;
-    top: 0;
-}
