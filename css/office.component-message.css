@@ -26,10 +26,11 @@
 }
 .dayoff-message {
     display:none;
-    background-color: #dd5522;
+    background-color: #44A4E8;
     color:white;
     padding:1em;
     box-sizing: border-box;
+    margin: 1em;
 }
 
 
