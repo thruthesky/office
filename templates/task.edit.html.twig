@@ -59,17 +59,35 @@
 
             <table>
                 <tr>
-                    <td>accepted</td>
-                    <td>in-progress</td>
-                    <td>finished</td>
-                    <td>closed</td>
+                    <td>
+                        <input id='accepted' type="radio" name="status" value="accepted">
+                        <label for="accepted">Accepted</label>
+                    </td>
+                    <td>
+                        <input id='inprogress' type="radio" name="status" value="inprogress">
+                        <label for="inprogress">In-progress</label>
+                    </td>
+                    <td>
+                        <input id='finished' type="radio" name="status" value="finished">
+                        <label for="finished">Finished</label>
+                    </td>
+                    <td>
+                        <input id='closed' type="radio" name="status" value="closed">
+                        <label for="closed">Accepted</label>
+                    </td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Redo (Work again)</td>
+                    <td>
+                        <input id='redo' type="radio" name="status" value="redo">
+                        <label for="redo">Redo (Work again)</label>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Rejected</td>
+                    <td>
+                        <input id='rejected' type="radio" name="status" value="rejected">
+                        <label for="rejected">Rejected</label>
+                    </td>
                 </tr>
             </table>
 
