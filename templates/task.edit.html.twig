@@ -53,14 +53,13 @@
             <label for="priority2">{{ priority.none.text }}</label>
             <br>
 
-            View status:
 
-            <input id='view_status_open' type="radio" name="view_status" value="O"{{ task.view_status.value == 'O' ? ' checked=1' }}>
-            <label for="view_status_open">Public</label>
-            <input id='view_status_close' type="radio" name="view_status" value="C"{{ task.view_status.value == 'C' ? ' checked=1' }}>
-            <label for="view_status_close">Private</label>
-            <br>
 
+            work status :
+
+            accepted, in-progress, finished, closed.
+            RE-DO (Work again)
+            rejected,
 
 
             <label for="process">Work Process :</label>
@@ -102,7 +101,17 @@
             <input id="in_charge" name="in_charge" value="{{ task.in_charge_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
             who will take the responsibility.<br>
 
+
+            View status:
+
+            <input id='view_status_open' type="radio" name="view_status" value="O"{{ task.view_status.value == 'O' ? ' checked=1' }}>
+            <label for="view_status_open">Public</label>
+            <input id='view_status_close' type="radio" name="view_status" value="C"{{ task.view_status.value == 'C' ? ' checked=1' }}>
+            <label for="view_status_close">Private</label>
+            <br>
+
             <div>Upload files:</div>
+
 
 
             <input type="submit">
