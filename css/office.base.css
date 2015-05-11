@@ -5,12 +5,10 @@ body {
     font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
     padding: 0;
     margin: 0;
-    background-color: #ffffff!important;
-
+    background-color: #ffffff;
 }
 
 .office h2 {
-
     background-color: rgb(76, 77, 77);
     margin: 0;
     color: rgb(255, 255, 255);
@@ -20,7 +18,6 @@ body {
 .office input{
     margin-bottom: 0.1em;
 }
-
 
 .office input[type=text] {
     width: 20em;
@@ -42,9 +39,12 @@ body {
     padding: 5px 0;
 }
 
-
 .office form{
     margin: 1em;
+}
+
+.office nav{
+    position: relative;
 }
 
 .office nav div{
@@ -58,4 +58,10 @@ body {
 .office nav div a:first-child{
     font-weight:bold;
 
+}
+
+.office nav div:last-child{
+    float: right;
+    position: absolute;
+    top: 0;
 }
