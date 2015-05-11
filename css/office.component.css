@@ -12,7 +12,9 @@ td.td-layout-right{
     background-color: #d3e8f4;
 }
 
-
+.add-dayoff{
+    cursor: pointer;
+}
 
 .member-list tr:nth-child(even){
     background-color: #e0e0d8;

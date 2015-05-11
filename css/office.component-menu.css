@@ -21,18 +21,19 @@ nav.office-menu {
     padding: 1em;
     box-sizing: border-box;
     background-color: #e0e0d8;
-    line-height:1.6em;
+    line-height: 1.6em;
 }
 
 nav.office-menu:after {
-    display:block;
-    content:'';
-    clear:both;
+    display: block;
+    content: '';
+    clear: both;
 }
+
 nav.office-menu > div {
-    float:left;
-    width:25%;
-    height:6em;
+    float: left;
+    width: 17em;
+    height: 6em;
 }
 
 nav.office-menu div a {
@@ -40,7 +41,7 @@ nav.office-menu div a {
 }
 
 nav.office-menu div a:first-child {
-    font-weight:bold;
+    font-weight: bold;
 
 }
 
