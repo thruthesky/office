@@ -74,11 +74,25 @@ $(function(){
                     source: $this.attr('data-autocomplete-url'),
                     minLength: 2,
                     select: function(event, ui) {
-                        trace("name:" + $this.prop('name'));
+                        // trace("name:" + $this.prop('name'));
+                        // console.log(ui.item);
+
+                        if ( $this.prop('name') == 'process' ) {
+                            load_process_data(ui.item.id);
+                        }
+
                     }
                 });
             });
         }
+    }
+
+    function load_process_data(id) {
+        var qs = {"call": "load_process", "process_id": id};
+        office_api(qs, function(re){
+            console.log(re);
+            $('.process-holder').html(re);
+        });
     }
 
     function init_datepicker() {
@@ -149,13 +163,8 @@ function office_api( qs, callback_function )
 
     var promise = $.ajax( o );
     promise.done( function( o ) {
-        if ( typeof o == 'string' ) {
-            console.log( o );
-        }
-        else {
-            trace(method + ' > promise done with no error');
-            callback_function( o );
-        }
+        trace(method + ' > promise done ...');
+        callback_function( o );
     });
 
     promise.fail( function( re ) {

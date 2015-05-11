@@ -13,8 +13,17 @@ td.td-layout-right{
 }
 
 
+
 .member-list tr:nth-child(even){
     background-color: #e0e0d8;
 
+}
+
+
+.jbutton-group {
+    margin:0 0 0.2em!important;
+}
+.jbutton-group.top-menu a {
+    float:right;
 }
 

@@ -168,7 +168,11 @@
                 <td><span>Client</span></td>
             {% endif %}
 
-            <td><span>...</span></td>
+            <td>
+                <span>
+                    ...
+                </span>
+            </td>
 
         </tr>
         {% for task in data.tasks %}
@@ -184,7 +188,10 @@
 
                 {% if input.show_road_map == 'Y' %}
                     <td>
-                        <span>{{ task.roadmap.value }}</span>
+                        <div class="graph roadmap">
+                            <div class="bar" percentage="{{ task.roadmap.value }}" style="width:{{ task.roadmap.value ? : '0' }}%;">&nbsp;</div>
+                            <div class="text">{{ task.roadmap.value ? : '0' }}%</div>
+                        </div>
                     </td>
                 {% endif %}
 

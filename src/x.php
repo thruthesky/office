@@ -3,6 +3,7 @@ namespace Drupal\office;
 
 use Drupal\office\Entity\Group;
 use Drupal\office\Entity\Member;
+use Drupal\office\Entity\Process;
 use Drupal\office\Entity\Task;
 use Drupal\user\Entity\User;
 use Drupal\user\UserAuth;
@@ -37,6 +38,7 @@ class x {
 	const error_not_offfice_member = 'not offfice member';
 	const error_not_group_member = 'not group member';
 	private static $count_log = 0;
+	private static $input = [];
 
 	public static function getThemeName() {
 		$uri = \Drupal::request()->getRequestUri();
@@ -201,34 +203,78 @@ class x {
 		return false;
 	}
 
-	public static function input() {
-		$request = \Drupal::request();
-		$get = $request->query->all();
-		$post = $request->request->all();
-		return array_merge( $get, $post );
-	}
 
-	public static function g($k, $default=null) {
-		return \Drupal::request()->get($k, $default);
+	public static function input() {
+		return self::getInput();
 	}
 
 	/**
 	 *
-	 * Returns the $default if the input is *empty*
+	 * 입력 값을 임의로 지정한다.
 	 *
-	 * if 0 is the value, then it's empty. In this case it returns $default. the default is empty string.
+	 * x::getInput() 과 x::in() 함수는 입력 값을 리턴한다.
 	 *
+	 * 하지만 이 함수를 통해서 입력 값을 임의로 지정하여 해당 함수들이 임의로 지정한 값을 사용 하게 할 수 있다.
+	 *
+	 * 예를 들면, 쿠키에 마지막 검색(폼 전송) 값을 저장해 놓고 다음에 접속 할 때 마지막에 지정한 검색 옵션을 그대로 적용하는 것이다.
+	 *
+	 *
+	 * @param $array
+	 */
+	public static function setInput($array) {
+		self::$input = $array;
+	}
+
+	/**
+	 * self::$input 의 값을 리턴한다.
+	 *
+	 * @note 주의 할 점은 이 값은 꼭 HTTP 입력 값이 아닐 수 있다.
+	 *
+	 *      기본 적으로 HTTP 입력 값을 리턴하지만,
+	 *
+	 *      프로그램 적으로 임의로 이 값을 다르게 지정 할 수도 있다.
+	 *
+	 *      이 함수는 x::in() 에 영향을 미친다.
+	 *
+	 * @return array
+	 */
+	public static function getInput() {
+
+		if ( empty(self::$input) ) {
+			$request = \Drupal::request();
+			$get = $request->query->all();
+			$post = $request->request->all();
+			self::$input = array_merge( $get, $post );
+		}
+
+		return self::$input;
+	}
+
+	/**
+	 * 사용자 입력 값을 리턴한다.
+	 *
+	 * 만약 입력된 $parameter 에 해당하는 사용자 입력 값이 없다면 $default 를 리턴한다.
+	 *
+	 * 주의: 사용자 입력 값을 isset() 으로 검사한다. 따라서 변수가 지정되지 않았거나 null 인 경우 만 $default 값을 리턴한다.
+	 *
+	 * 입력 값이 0 인 경우는 0 을 리턴한다.
 	 *
 	 * @note this is a handy wrapper of \Drupal::request()
-	 * @param $parameter
-	 * @param null|string $default
-	 * @return mixed|null
+	 * @param $parameter - 사용자(웹브라우저) 입력 값 중에서 추출을 할 변수
+	 * @param null|string $default - 사용자 입력 값이 없으면 리턴 할 기본 값
+	 * @return mixed|null - 입력 값
 	 */
 	public static function in($parameter, $default='') {
-		$re = self::g($parameter, $default);
+		$re = self::getInput();
+		if ( ! isset($re[$parameter]) ) return $default;
+		return $re[$parameter];
+	}
 
-		if ( empty($re) ) $re = $default;
-		return $re;
+
+
+
+	public static function g($k, $default=null) {
+		return \Drupal::request()->get($k, $default);
 	}
 
 
@@ -798,15 +844,17 @@ class x {
 	 * @return array
 	 */
 	public static function officeInformation() {
-		$info = [];
-		$info['member'] = Member::loadByUserID(x::myUid());
-		$info['now'] = date('r');
+		$office = [];
+		$office['member'] = Member::loadByUserID(x::myUid());
+		$office['now'] = date('r');
 		$group = Member::group(x::myUid());
 		if ( $group ) {
-			$info['group'] = $group;
-			if ( $group->get('user_id')->target_id == x::myUid() ) $info['is_group_admin'] = 1;
+			$office['group'] = $group;
+			$office['is_member'] = 1;
+
+			if ( $group->get('user_id')->target_id == x::myUid() ) $office['is_group_admin'] = 1;
 		}
-		return $info;
+		return $office;
 	}
 
 
@@ -865,6 +913,22 @@ class x {
 	 */
 	public static function delete_cookie($k) {
 		user_cookie_delete($k);
+	}
+
+	public static function markupProcess($id) {
+		$process = Process::load($id);
+		if ( empty($process) ) return null;
+		$summary = $process->get('summary')->value;
+		$description = $process->get('description')->value;
+		$workflow = $process->get('workflow')->value;
+		$requirement = $process->get('requirement')->value;
+		$html = "
+				$summary<br>
+				$description<br>
+				$workflow<br>
+				$requirement
+			";
+		return $html;
 	}
 
 }

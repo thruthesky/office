@@ -157,12 +157,22 @@ class Task extends ContentEntityBase implements TaskInterface {
 
 
 
+
 		$fields['description'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Description'))
 			->setDescription(t('The description of the Task.'))
 			->setSettings(array(
 				'default_value' => '',
 				'max_length' => 8192,
+			));
+
+
+		$fields['deadline'] = BaseFieldDefinition::create('string')
+			->setLabel(t('Deadline'))
+			->setDescription(t('The deadline of the Task.'))
+			->setSettings(array(
+				'default_value' => '',
+				'max_length' => 16,
 			));
 
 
@@ -175,14 +185,12 @@ class Task extends ContentEntityBase implements TaskInterface {
 			));
 
 
-		$fields['work_flowchart_id'] = BaseFieldDefinition::create('integer')
-			->setLabel(t('Work Flowchart'))
-			->setDescription(t('The work flowchart of the Task.'));
+		$fields['process_id'] = BaseFieldDefinition::create('entity_reference')
+			->setLabel(t('Work Process'))
+			->setDescription(t('The work process of the Task.'))
+			->setSetting('target_type', 'office_process');
 
 
-		$fields['requirement_id'] = BaseFieldDefinition::create('integer')
-			->setLabel(t('Requirement'))
-			->setDescription(t('The requirement of the Task.'));
 
 
 
@@ -228,10 +236,17 @@ class Task extends ContentEntityBase implements TaskInterface {
 		$task->set('in_charge_id', x::getUserID(x::in('in_charge')));
 
 		$task->set('priority', x::in('priority', 2));
+		$task->set('deadline', x::in('deadline'));
 
 		$task->set('roadmap', x::in('roadmap', 0));
 
 		$task->set('view_status', x::in('view_status', 'O'));
+
+		$process = Process::loadByName(x::in('process'));
+		if ( $process ) $task->set('process_id', $process->id());
+		else $task->set('process_id', 0);
+
+
 
 		$task->save();
 		return $task->id();
@@ -262,8 +277,9 @@ class Task extends ContentEntityBase implements TaskInterface {
 		$p = $task->get('priority')->value;
 		if ( isset(self::$config_priority_value[$p]) ) {
 			$task->priority_text = self::$config_priority_value[$p];
+			$process_id = $task->get('process_id')->target_id;
+			$task->process = x::markupProcess($process_id);
 		}
-
 		return $task;
 	}
 

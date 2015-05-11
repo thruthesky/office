@@ -20,4 +20,5 @@ function empty_office() {
 	delete_all_entity_item('office_group');
 	delete_all_entity_item('office_task');
 	delete_all_entity_item('office_attendance');
+	delete_all_entity_item('office_process');
 }

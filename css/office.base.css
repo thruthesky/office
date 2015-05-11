@@ -10,6 +10,7 @@ body {
 }
 
 .office h2 {
+<<<<<<< HEAD
     background-color: rgb(76, 77, 77);
     margin: 0;
     color: rgb(255, 255, 255);
@@ -57,4 +58,11 @@ body {
 }
 .office nav div a:first-child{
     font-weight: bold;
+=======
+    margin:0 0 0.4em;
+    padding:1em;
+    background-color:#f0f8f8;
+    font-size:1.4em;
+    font-weight:normal;
+>>>>>>> 353320c5b7e4d314a75746d5be7f3924f87985df
 }

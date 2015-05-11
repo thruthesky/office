@@ -298,3 +298,61 @@ entity.office.leave:
 
 
 
+
+
+
+
+#### ------------------------ PROCESS -------------------------
+
+
+entity.office.process_list:
+  path: '/office/process/list'
+  defaults:
+    _controller: Drupal\office\Controller\ProcessController::collection
+    _title: 'Process'
+  requirements:
+    _permission: 'access content'
+
+
+entity.office.process_view:
+  path: '/office/process/{office_process}'
+  defaults:
+    _controller: Drupal\office\Controller\ProcessController::view
+    _title: 'Process'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      office_process:
+        type: entity:office_process
+
+
+entity.office.process_add:
+  path: '/office/process/add'
+  defaults:
+    _controller: Drupal\office\Controller\ProcessController::add
+    _title: 'Process'
+  requirements:
+    _permission: 'access content'
+
+entity.office.process_edit_submit:
+  path: '/office/process/edit'
+  defaults:
+    _controller: Drupal\office\Controller\ProcessController::edit
+    _title: 'Process'
+  requirements:
+    _permission: 'access content'
+
+
+
+entity.office.process_edit:
+  path: '/office/process/edit/{office_process}'
+  defaults:
+    _controller: Drupal\office\Controller\ProcessController::edit
+    _title: 'Process'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      office_process:
+        type: entity:office_process

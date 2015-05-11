@@ -1,5 +1,7 @@
-{% if data.task.group_id.target_id %}
-    {% set group_id = data.task.group_id.target_id %}
+{% set task = data.task %}
+
+{% if task.group_id.target_id %}
+    {% set group_id = task.group_id.target_id %}
 {% else %}
     {% set group_id = my.group_id.target_id %}
 {% endif %}
@@ -9,11 +11,14 @@
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
 
-    {% if data.task %}
-        <div>Created : {{ data.task.created.value | date('M d, Y H:i:s') }}</div>
+    {% if task %}
+        <div>Created : {{ task.created.value | date('M d, Y H:i:s') }}</div>
     {% endif %}
 
+    {% if logged_in %}
+
     <form action="/office/task/edit" method="post">
+<<<<<<< HEAD
         <fieldset>
             <legend></legend>
             <input type="hidden" name="mode" value="submit">
@@ -150,9 +155,102 @@
 
             </table>
         </fieldset>
+=======
+        <input type="hidden" name="mode" value="submit">
+        <input type="hidden" name="task_id" value="{{ task.id.value }}">
+
+        <select name="group_id">
+            <option value="">Select service group</option>
+            {% for group in groups %}
+                <option value="{{ group.id.value }}"{{ group_id == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
+            {% endfor %}
+        </select>
+
+<br>
+
+        Title: <input type="text" name="title" value="{{ task.title.value }}"><br>
+        Summary: <input type="text" name="summary" value="{{ task.summary.value }}"><br>
+        Description: <input type="text" name="description" value="{{ task.description.value }}"><br>
+
+        Deadline : <input type="date" name="deadline" value="{{ task.deadline.value }}"><br>
+
+        <br>
+
+        Priority :
+        <input id='priority8' type="radio" name="priority" value="8"{{ task.priority.value == priority.urgent.value ? ' checked=1' }}>
+        <label for="priority8">{{ priority.urgent.text }}</label>
+
+
+        <input id='priority6' type="radio" name="priority" value="6"{{ task.priority.value == priority.normal.value ? ' checked=1' }}>
+        <label for="priority6">{{ priority.normal.text }}</label>
+
+        <input id='priority4' type="radio" name="priority" value="4"{{ task.priority.value == priority.low.value ? ' checked=1' }}>
+        <label for="priority4">{{ priority.low.text }}</label>
+
+        <input id='priority2' type="radio" name="priority" value="2"{{ task.priority.value == priority.none.value ? ' checked=1' }}>
+        <label for="priority2">{{ priority.none.text }}</label>
+        <br>
+
+        View status:
+
+        <input id='view_status_open' type="radio" name="view_status" value="O"{{ task.view_status.value == 'O' ? ' checked=1' }}>
+        <label for="view_status_open">Public</label>
+        <input id='view_status_close' type="radio" name="view_status" value="C"{{ task.view_status.value == 'C' ? ' checked=1' }}>
+        <label for="view_status_close">Private</label>
+        <br>
+
+
+
+        <label for="process">Work Process :</label>
+        <input id="process" name="process" value="{{ task.process_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=process"><br>
+        <div class="process-holder">
+            {{ task.process | raw }}
+        </div>
+
+
+
+
+        Roadmap:
+        <select name="roadmap">
+            {% for n in 0..10 %}
+                <option value="{{ n * 10 }}"{{ n * 10 == task.roadmap.value ? ' selected=1' }}>{{ n * 10 }} %</option>
+            {% endfor %}
+        </select>
+
+        <div class="graph roadmap">
+            <div class="bar" percentage="{{ task.roadmap.value }}" style="width:{{ task.roadmap.value ? : '0' }}%;">&nbsp;</div>
+            <div class="text">{{ task.roadmap.value ? : '0' }}%</div>
+        </div>
+
+<br>
+
+
+
+        <br>
+
+        <label for="worker">Service For (Client) :</label>
+        <input id="worker" name="client" value="{{ task.client_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
+        <br>
+
+        <label for="worker">Assigned To(Worker) :</label>
+        <input id="worker" name="worker" value="{{ task.worker_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
+        <br>
+
+        <label for="in_charge">Person in charge :</label>
+        <input id="in_charge" name="in_charge" value="{{ task.in_charge_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
+        who will take the responsibility.<br>
+
+        <div>Upload files:</div>
+
+
+        <input type="submit">
+        <a href="/office/task/list">LIST</a>
+>>>>>>> 353320c5b7e4d314a75746d5be7f3924f87985df
 
     </form>
 
+    {% endif %}
 
 
 </div>
+
