@@ -75,6 +75,7 @@ class TaskController extends ControllerBase {
 		else {
 			$group_id = $office_task->id();
 		}
+
 		$data['task'] = task::loadFull($group_id);
 
 		return [

@@ -1,3 +1,4 @@
+
 <div{{ attributes.addClass( data.class.office ) }}>
 
     <h2>Task List</h2>
@@ -42,7 +43,6 @@
                     </td>
                     <td>
                         <input type="text" id="worker" name="worker" value="{{ input.worker }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
-
                     </td>
                 </tr>
 
@@ -178,11 +178,17 @@
 
         </tr>
         {% for task in data.tasks %}
+            {% if task.group_id.target_id == my.group_id.target_id %}
+                {% set href = '/office/task/edit/' ~ task.id.value %}
+            {% else %}
+                {% set href = '/office/task/' ~ task.id.value %}
+            {% endif %}
+
             <tr>
 
                 {% if input.show_group == 'Y' %}
                     <td>
-                        <span>{{ task.group_id.entity.name.value }}</span>
+                        <a href="{{ href }}"><span>{{ task.group_id.entity.name.value }}</span></a>
                     </td>
                 {% endif %}
 
@@ -190,62 +196,66 @@
 
                 {% if input.show_road_map == 'Y' %}
                     <td>
-                        <div class="graph roadmap">
-                            <div class="bar" percentage="{{ task.roadmap.value }}" style="width:{{ task.roadmap.value ? : '0' }}%;">&nbsp;</div>
-                            <div class="text">{{ task.roadmap.value ? : '0' }}%</div>
-                        </div>
+                        <a href="{{ href }}">
+                            <div class="graph roadmap">
+                                <div class="bar" percentage="{{ task.roadmap.value }}" style="width:{{ task.roadmap.value ? : '0' }}%;">&nbsp;</div>
+                                <div class="text">{{ task.roadmap.value ? : '0' }}%</div>
+                            </div>
+                        </a>
                     </td>
                 {% endif %}
 
 
                 {% if input.show_priority == 'Y' %}
                     <td>
-                        <span>{{ task.priority_text }}</span>
+                        <a href="{{ href }}"><span>{{ task.priority_text }}</span></a>
                     </td>
                 {% endif %}
 
                 <td>
-                    <a href="/office/task/{{ task.id.value  }}">
+                    <a href="{{ href }}">
                         <span>{{ task.title.value }}</span>
                     </a>
                 </td>
 
                 {% if input.show_date == 'Y' %}
                 <td>
-                    <span>{{ task.created.value | date('M d, Y') }}</span>
+                    <a href="{{ href }}"><span>{{ task.created.value | date('M d, Y') }}</span></a>
                 </td>
                 {% endif %}
 
                 {% if input.show_creator == 'Y' %}
                     <td>
-                        <span>{{ task.creator_id.entity.name.value }}</span>
+                        <a href="{{ href }}"><span>{{ task.creator_id.entity.name.value }}</span></a>
                     </td>
                 {% endif %}
 
                 {% if input.show_assigned == 'Y' %}
                     <td>
-                        <span>{{ task.worker_id.entity.name.value }}</span>
+                        <a href="{{ href }}"><span>{{ task.worker_id.entity.name.value }}</span></a>
                     </td>
                 {% endif %}
 
 
                 {% if input.show_in_charge == 'Y' %}
                     <td>
-                        <span>{{ task.in_charge_id.entity.name.value }}</span>
+                        <a href="{{ href }}"><span>{{ task.in_charge_id.entity.name.value }}</span></a>
                     </td>
                 {% endif %}
 
 
                 {% if input.show_client == 'Y' %}
                     <td>
-                        <span>{{ task.client_id.entity.name.value }}</span>
+                        <a href="{{ href }}"><span>{{ task.client_id.entity.name.value }}</span></a>
                     </td>
                 {% endif %}
 
                 <td>
-                    {% if task.group_id.target_id == my.group_id.target_id %}
-                    <a href="/office/task/edit/{{ task.id.value }}"><span>Edit</span></a>
-                    {% endif %}
+                    <div class="jbutton group">
+                        {% if task.group_id.target_id == my.group_id.target_id %}
+                            <a class="jbutton blue-active post" href="{{ href }}">Edit</a>
+                        {% endif %}
+                    </div>
                 </td>
 
             </tr>
