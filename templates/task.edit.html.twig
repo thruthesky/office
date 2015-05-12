@@ -1,5 +1,7 @@
+{#
+    - task.edit.html.twig
+#}
 {% set task = data.task %}
-
 {% if task.group_id.target_id %}
     {% set group_id = task.group_id.target_id %}
 {% else %}
@@ -93,31 +95,6 @@
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>
-                            <label>View status:</label>
-                        </td>
-                        <td>
-                            <input id='view_status_open' type="radio" name="view_status" value="O"{{ task.view_status.value == 'O' ? ' checked=1' }}>
-                            <label for="view_status_open">Public</label>
-                            <input id='view_status_close' type="radio" name="view_status" value="C"{{ task.view_status.value == 'C' ? ' checked=1' }}>
-                            <label for="view_status_close">Private</label>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>accepted</td>
-                        <td>in-progress</td>
-                        <td>finished</td>
-                        <td>closed</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Redo (Work again)</td>
-                    </tr>
-                    <tr>
-                        <td>Rejected</td>
-                    </tr>
 
                     <tr>
                         <td> <label for="process">Work Process :</label></td>
@@ -132,6 +109,47 @@
 
                     <tr>
                         <td>
+                            Work Status :
+                        </td>
+                        <td>
+
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input id='accepted' type="radio" name="status" value="accepted">
+                                        <label for="accepted">Accepted</label>
+                                    </td>
+                                    <td>
+                                        <input id='inprogress' type="radio" name="status" value="inprogress">
+                                        <label for="inprogress">In-progress</label>
+                                    </td>
+                                    <td>
+                                        <input id='finished' type="radio" name="status" value="finished">
+                                        <label for="finished">Finished</label>
+                                    </td>
+                                    <td>
+                                        <input id='closed' type="radio" name="status" value="closed">
+                                        <label for="closed">Accepted</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <input id='redo' type="radio" name="status" value="redo">
+                                        <label for="redo">Redo (Work again)</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input id='rejected' type="radio" name="status" value="rejected">
+                                        <label for="rejected">Rejected</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             Roadmap:
                         </td>
                         <td>
@@ -140,10 +158,6 @@
                                     <option value="{{ n * 10 }}"{{ n * 10 == task.roadmap.value ? ' selected=1' }}>{{ n * 10 }} %</option>
                                 {% endfor %}
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
                             <div class="graph roadmap">
                                 <div class="bar" percentage="{{ task.roadmap.value }}" style="width:{{ task.roadmap.value ? : '0' }}%;">&nbsp;</div>
                                 <div class="text">{{ task.roadmap.value ? : '0' }}%</div>
@@ -178,6 +192,21 @@
                             who will take the responsibility.
                         </td>
                     </tr>
+
+                    <tr>
+                        <td>
+                            <label>View status:</label>
+                        </td>
+                        <td>
+                            <input id='view_status_open' type="radio" name="view_status" value="O"{{ task.view_status.value == 'O' ? ' checked=1' }}>
+                            <label for="view_status_open">Public</label>
+                            <input id='view_status_close' type="radio" name="view_status" value="C"{{ task.view_status.value == 'C' ? ' checked=1' }}>
+                            <label for="view_status_close">Private</label>
+                        </td>
+                    </tr>
+
+
+
                     <tr>
                         <td>
                             <div>Upload files:</div>
@@ -198,3 +227,4 @@
         </form>
     {% endif %}
 </div>
+
