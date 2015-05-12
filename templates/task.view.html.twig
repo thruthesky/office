@@ -4,36 +4,128 @@
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
 
+    <table>
+        <tr>
+            <td>
+                Task No.
+            </td>
+            <td>
+                {{ task.id.value }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Group :
+            </td>
+            <td>
+                 {{ task.name.value }}
+            </td>
+        </tr>
 
-    Task No. {{ task.id.value }}<br>
-    Group : {{ task.name.value }}<br>
+        {% if task %}
+        <tr>
+            <td>
+                <div>Created : {{ task.created.value | date('M d, Y H:i:s') }}</div>
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if task %}
-        <div>Created : {{ task.created.value | date('M d, Y H:i:s') }}</div>
-    {% endif %}
+        <tr>
+            <td>
+                Title:
+            </td>
+            <td>
+                 {{ task.title.value }}
+            </td>
+        </tr>
 
-    Title: {{ task.title.value }}<br>
-    Summary: {{ task.summary.value }}<br>
-    Description: {{ task.description.value }}<br>
+        <tr>
+            <td>
+                Summary:
+            </td>
+            <td>
+                 {{ task.summary.value }}
+            </td>
+        </tr>
 
-    Priority : {{ task.priority.value }}<br>
+        <tr>
+            <td>
+                Description:
+            </td>
+            <td>
+                 {{ task.description.value }}
+            </td>
+        </tr>
 
-    View status: {{ task.view_status.value }}<br>
+        <tr>
+            <td>
+                Priority :
+            </td>
+            <td>
+                 {{ task.priority.value }}
+            </td>
+        </tr>
 
+        <tr>
+            <td>
+                View status:
+            </td>
+            <td>
+                 {{ task.view_status.value }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Work Flowchart :
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Requirement:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Created By :
+            </td>
+            <td>
+                 {{ task.creator_id.entity.name.value }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Service For (Client) :
+            </td>
+            <td>
+                 {{ task.client_id.entity.name.value }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Assigned To(Worker) :
+            </td>
+            <td>
+                 {{ task.worker_id.entity.name.value }}
+            </td>
+        </tr>
 
-        Work Flowchart : <br>
-        Requirement: <br>
-
-    Created By : {{ task.creator_id.entity.name.value }}<br>
-    Service For (Client) : {{ task.client_id.entity.name.value }}<br>
-    Assigned To(Worker) : {{ task.worker_id.entity.name.value }}<br>
-    Person in charge : {{ task.in_charge_id.entity.name.value }}<br>
-
-        <div>Upload files:</div>
-
-
-        <a href="/office/task/list">LIST</a>
-
-
-
+        <tr>
+            <td>
+                Person in charge :
+            </td>
+            <td>
+                 {{ task.in_charge_id.entity.name.value }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Upload files:</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/office/task/list">LIST</a>
+            </td>
+        </tr>
+    </table>
 </div>

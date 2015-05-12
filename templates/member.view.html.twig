@@ -1,10 +1,47 @@
 <div{{ attributes.addClass( data.class.office ) }}>
-    <h1>Office Member View</h1>
-    Username: {{ data.user.username }}<br>
-    First name: {{ data.user.get('field_first_name').value }}<br>
-    Mail: {{ data.user.get('mail').value }}<br>
-    Address: {{ data.member.get('address').value }}
-    <div class="button">
-        <a href="/office/member/list">Office Member List</a>
-    </div>
+    <h2>Office Member View</h2>
+
+    <table>
+        <tr>
+            <td>
+                Username:
+            </td>
+            <td>
+                 {{ data.user.username }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                First name:
+            </td>
+            <td>
+                 {{ data.user.get('field_first_name').value }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Mail:
+            </td>
+            <td>
+                 {{ data.user.get('mail').value }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Address:
+            </td>
+            <td>
+                 {{ data.member.get('address').value }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="button">
+                    <a href="/office/member/list">Office Member List</a>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>

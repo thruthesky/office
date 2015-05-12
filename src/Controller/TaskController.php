@@ -63,6 +63,9 @@ class TaskController extends ControllerBase {
 		];
 	}
 	public function edit(Task $office_task=null) {
+
+
+
 		if ( ! x::login() ) return x::loginResponse();
 
 		$data = [];
