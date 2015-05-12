@@ -1,66 +1,85 @@
 <div{{ attributes.addClass( data.class.office ) }}>
-
+    <h2>Group Working Hours</h2>
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
 
 
-    Group : {{ data.group.name.value }}
-
+    <b>Group : {{ data.group.name.value }}</b>
+<div class="working-hours">
     <form>
-        <input type="hidden" name="mode" value="submit">
-        <input type="hidden" name="for" value="group">
-        <input type="hidden" name="group_id" value="{{ data.group.id.value }}">
-
-        Group Working Hour:
-
-        <input type="text" name="begin_time" placeholder="MMDD. Begin time" value="{{ data.work[0] }}">
-        -
-        <input type="text" name="end_time" placeholder="MMDD. End time" value="{{ data.work[1] }}">
-
-        <input type="submit">
+        <fieldset>
+            <legend></legend>
+            <table class="table-1">
+                <input type="hidden" name="mode" value="submit">
+                <input type="hidden" name="for" value="group">
+                <input type="hidden" name="group_id" value="{{ data.group.id.value }}">
+                <tr>
+                    <td>
+                        <label>Group Working Hour: </label>
+                    </td>
+                    <td>
+                        <input type="text" name="begin_time" placeholder="MMDD. Begin time" value="{{ data.work[0] }}">
+                        -
+                        <input type="text" name="end_time" placeholder="MMDD. End time" value="{{ data.work[1] }}">
+                        <input type="submit">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
     </form>
 
-
-
     <form>
-        <input type="hidden" name="mode" value="submit">
-        <input type="hidden" name="for" value="individual">
-        <input type="hidden" name="group_id" value="{{ data.group.id.value }}">
+        <fieldset>
+            <legend></legend>
+            <table>
+                <input type="hidden" name="mode" value="submit">
+                <input type="hidden" name="for" value="individual">
+                <input type="hidden" name="group_id" value="{{ data.group.id.value }}">
+                <tr>
+                    <td>
+                        <label>Individual Working Hour:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="name" placeholder="Username" data-autocomplete-url="/office/api?call=autocomplete&type=user">
+                        -
+                        <input type="text" name="date" id="datepicker" placeholder="Date" value="">
+                        <input type="text" name="begin_time" placeholder="MMDD. Begin time" value="">
+                        -
+                        <input type="text" name="end_time" placeholder="MMDD. End time" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="reason"> Reason:</label>
+                    </td>
+                    <td>
+                        <textarea rows="4" cols="21" name="reason" id="reason" placeholder="Why?"> </textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="submit"></label></td>
+                    <td>
+                        <div class="jbutton-group">
+                            <input class="jbutton grey-active submit" type="submit" id="submit">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
 
-        Individual Working Hour:
-
-
-        <input type="text" name="name" placeholder="Username" data-autocomplete-url="/office/api?call=autocomplete&type=user">
-
-        <br>
-        <input type="text" name="date" id="datepicker" placeholder="Date" value="">
-
-
-
-
-        <input type="text" name="begin_time" placeholder="MMDD. Begin time" value="">
-        -
-        <input type="text" name="end_time" placeholder="MMDD. End time" value="">
-        <br>
-        Reason:
-        <input type="text" name="reason" placeholder="Why?" value="">
-        <br>
-
-        <input type="submit">
     </form>
-
+    <hr>
     <ul>
         <li>If username is omitted, then it apply to all the members of the group.</li>
     </ul>
-
-
+    <hr>
     <table class="rows" width="100%">
         <tr>
-            <td>Username</td>
-            <td>Date</td>
-            <td>Working Hours</td>
-            <td>Reason</td>
-            <td>Delete</td>
+            <th>Username</th>
+            <th>Date</th>
+            <th>Working Hours</th>
+            <th>Reason</th
+            <th>Delete</th>
         </tr>
     {% for work in data.member_work %}
         <tr class="row">
@@ -78,10 +97,5 @@
         </tr>
     {% endfor %}
     </table>
-
-
-
-
-
-
+   </div>
 </div>

@@ -13,6 +13,7 @@ body {
     margin: 0;
     color: rgb(255, 255, 255);
     padding: 0.2em;
+
 }
 
 .office input{
@@ -37,7 +38,15 @@ body {
     padding: 5px 0;
 }
 
+.office table{
+    margin: 1em 0;
+}
+
 .office form {
     margin: 1em;
+}
+
+.office fieldset{
+    border: 0.1em solid #808080;
 }
 

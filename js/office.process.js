@@ -1,7 +1,1 @@
-(function($){
-
-    $body = $('body');
-
-
-
-});
+alert("hello");

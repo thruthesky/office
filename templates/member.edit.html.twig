@@ -7,11 +7,11 @@
 
     <form action="/office/member/add">
        <fieldset>
-           <legend></legend>
+           <legend> ADD / EDIT</legend>
            <input type="hidden" name="mode" value="submit">
             <table>
                 <tr>
-                    <td><label for="group_id">Group</label></td>
+                    <td><label for="group_id">Group :</label></td>
                     <td>
                         <select name="group_id" id="group_id">
                             <option value="">Select your group</option>
@@ -23,7 +23,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <label for="first_name">First Name</label>
+                        <label for="first_name">First Name :</label>
                     </td>
                     <td>
                         <input type="text" id="first_name" name="first_name" value="{{ data.member.first_name.value }}">
@@ -32,7 +32,7 @@
 
                 <tr>
                     <td>
-                        <label for="middle_name">Middle Name:</label>
+                        <label for="middle_name">Middle Name :</label>
                     </td>
                     <td>
                         <input type="text" name="middle_name"  id="middle_name" value="{{ data.member.middle_name.value }}">
@@ -41,7 +41,7 @@
 
                 <tr>
                     <td>
-                        <label for="last_name">Last Name:</label>
+                        <label for="last_name">Last Name :</label>
                     </td>
                     <td>
                         <input type="text" name="last_name" id="last_name" value="{{ data.member.last_name.value }}">
@@ -50,7 +50,7 @@
 
                 <tr>
                     <td>
-                       <label for="mobile"> Mobile Number:</label>
+                       <label for="mobile"> Mobile Number :</label>
                     </td>
                     <td>
                         <input type="text" name="mobile"  id="mobile" value="{{ data.member.mobile.value }}">
@@ -59,7 +59,7 @@
 
                 <tr>
                     <td>
-                        <label for="landline">Landline Number:</label>
+                        <label for="landline">Landline Number :</label>
                     </td>
                     <td>
                         <input type="text" name="landline" id="landline" value="{{ data.member.landline.value }}">
