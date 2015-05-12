@@ -48,6 +48,7 @@
                             <input type="text" name="title" id="title" value="{{ task.title.value }}">
                         </td>
                     </tr>
+                    {% if office.is_member %}
                     <tr>
                         <td>
                             <label for="summary">Summary:</label>
@@ -195,6 +196,7 @@
                         </td>
                     </tr>
 
+
                     <tr>
                         <td>
                             <label>View status:</label>
@@ -206,8 +208,7 @@
                             <label for="view_status_close">Private</label>
                         </td>
                     </tr>
-
-
+                    {% endif %}
 
                     <tr>
                         <td>
