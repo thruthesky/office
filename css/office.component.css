@@ -39,6 +39,3 @@ td.td-layout-right{
     margin: 0!important;
 }
 
-.group-list tr:nth-child(even){
-    background-color: #C0CCDA;
-}
