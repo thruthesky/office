@@ -246,9 +246,19 @@ class Task extends ContentEntityBase implements TaskInterface {
 		if ( $process ) $task->set('process_id', $process->id());
 		else $task->set('process_id', 0);
 
-
-
 		$task->save();
+
+
+		$log = TaskLog::create();
+		$log->set('user_id', x::myUid());
+		$log->set('task_id', $task->id());
+		$data = serialize($task->toArray());
+		$log->set('data', $data);
+		$log->save();
+
+
+
+
 		return $task->id();
 	}
 
