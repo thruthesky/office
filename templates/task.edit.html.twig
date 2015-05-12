@@ -137,13 +137,11 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td></td>
                                     <td>
                                         <input id='redo' type="radio" name="status" value="redo"{{ task.status.value == 'redo' ? ' checked=1' }}>
                                         <label for="redo">Redo (Work again)</label>
                                     </td>
-                                </tr>
-                                <tr>
+
                                     <td>
                                         <input id='rejected' type="radio" name="status" value="rejected"{{ task.status.value == 'rejected' ? ' checked=1' }}>
                                         <label for="rejected">Rejected</label>

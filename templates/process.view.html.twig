@@ -4,18 +4,53 @@
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
 
+    <table>
+        <tr>
+            <td>
+                Process No.
+            </td>
+            <td>
+                 {{ process.id.value }}
+            </td>
+        </tr>
+        {% if process %}
+        <tr>
+            <td>
+                <div>Created : {{ process.created.value | date('M d, Y H:i:s') }}</div>
+            </td>
+        </tr>
+        {% endif %}
 
-    Process No. {{ process.id.value }}<br>
+        <tr>
+            <td>
+                Name:
+            </td>
+            <td>
+                 {{ process.name.value }}
+            </td>
+        </tr>
 
-    {% if process %}
-        <div>Created : {{ process.created.value | date('M d, Y H:i:s') }}</div>
-    {% endif %}
-
-    Name: {{ process.name.value }}<br>
-    Summary: {{ process.summary.value }}<br>
-    Description: {{ process.description.value }}<br>
-
-
-    <a href="/office/process/list">LIST</a>
+        <tr>
+            <td>
+                Summary:
+            </td>
+            <td>
+                 {{ process.summary.value }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Description:
+            </td>
+            <td>
+                 {{ process.description.value }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/office/process/list">LIST</a>
+            </td>
+        </tr>
+    </table>
 
 </div>
