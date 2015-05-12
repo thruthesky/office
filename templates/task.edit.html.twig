@@ -116,36 +116,36 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <input id='accepted' type="radio" name="status" value="pending">
+                                        <input id='pending' type="radio" name="status" value="pending"{{ task.status.value == 'pending' ? ' checked=1' }}>
                                         <label for="pending">Pending.</label>
                                     </td>
                                     <td>
-                                        <input id='accepted' type="radio" name="status" value="accepted">
+                                        <input id='accepted' type="radio" name="status" value="accepted"{{ task.status.value == 'accepted' ? ' checked=1' }}>
                                         <label for="accepted">Accepted</label>
                                     </td>
                                     <td>
-                                        <input id='inprogress' type="radio" name="status" value="inprogress">
+                                        <input id='inprogress' type="radio" name="status" value="inprogress"{{ task.status.value == 'inprogress' ? ' checked=1' }}>
                                         <label for="inprogress">In-progress</label>
                                     </td>
                                     <td>
-                                        <input id='finished' type="radio" name="status" value="finished">
+                                        <input id='finished' type="radio" name="status" value="finished"{{ task.status.value == 'finished' ? ' checked=1' }}>
                                         <label for="finished">Finished</label>
                                     </td>
                                     <td>
-                                        <input id='closed' type="radio" name="status" value="closed">
+                                        <input id='closed' type="radio" name="status" value="closed"{{ task.status.value == 'closed' ? ' checked=1' }}>
                                         <label for="closed">Closed</label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>
-                                        <input id='redo' type="radio" name="status" value="redo">
+                                        <input id='redo' type="radio" name="status" value="redo"{{ task.status.value == 'redo' ? ' checked=1' }}>
                                         <label for="redo">Redo (Work again)</label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input id='rejected' type="radio" name="status" value="rejected">
+                                        <input id='rejected' type="radio" name="status" value="rejected"{{ task.status.value == 'rejected' ? ' checked=1' }}>
                                         <label for="rejected">Rejected</label>
                                     </td>
                                 </tr>

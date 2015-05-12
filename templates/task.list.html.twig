@@ -52,6 +52,36 @@
                     </td>
                     <td>
                         <input type="text" id="in_charge" name="in_charge" value="{{ input.in_charge }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
+                    </td>
+                </tr>
+
+                <tr>
+
+                    <td>Work Status</td>
+                    <td>
+                        <input id='pending' type="radio" name="status" value="pending"{{ input.status == 'pending' ? ' checked=1' }}>
+                        <label for="pending">Pending.</label>
+
+                        <input id='accepted' type="radio" name="status" value="accepted"{{ input.status == 'accepted' ? ' checked=1' }}>
+                        <label for="accepted">Accepted</label>
+
+                        <input id='inprogress' type="radio" name="status" value="inprogress"{{ input.status == 'inprogress' ? ' checked=1' }}>
+                        <label for="inprogress">In-progress</label>
+
+                        <input id='finished' type="radio" name="status" value="finished"{{ input.status == 'finished' ? ' checked=1' }}>
+                        <label for="finished">Finished</label>
+
+                        <input id='closed' type="radio" name="status" value="closed"{{ input.status == 'closed' ? ' checked=1' }}>
+                        <label for="closed">Closed</label>
+
+                        <input id='redo' type="radio" name="status" value="redo"{{ input.status  == 'redo' ? ' checked=1' }}>
+                        <label for="redo">Redo (Work again)</label>
+
+                        <input id='rejected' type="radio" name="status" value="rejected"{{ input.status == 'rejected' ? ' checked=1' }}>
+                        <label for="rejected">Rejected</label>
+
+                        <input id='status_all' type="radio" name="status" value=""{{ input.status == '' ? ' checked=1' }}>
+                        <label for="status_all">All</label>
 
                     </td>
                 </tr>
@@ -102,9 +132,19 @@
                         <input type="checkbox" name="show_group" id="show_group" value="Y"{{ input.show_group == 'Y' ? ' checked=1' }}>
                         <label for="show_group">Group</label>
                         <input type="checkbox" name="show_priority" id="show_priority" value="Y"{{ input.show_priority == 'Y' ? ' checked=1' }}>
+
                         <label for="show_priority">Priority</label>
+
+
+                        <input type="checkbox" name="show_status" id="show_status" value="Y"{{ input.show_status == 'Y' ? ' checked=1' }}>
+                        <label for="show_status">Status</label>
+
+
+
                         <input type="checkbox" name="show_date" id="show_date" value="Y"{{ input.show_date == 'Y' ? ' checked=1' }}>
                         <label for="show_date">Date</label>
+
+
                         <input type="checkbox" name="show_creator" id="show_creator" value="Y"{{ input.show_creator == 'Y' ? ' checked=1' }}>
                         <label for="show_creator">Creator</label>
                         <input type="checkbox" name="show_assigned" id="show_assigned" value="Y"{{ input.show_assigned == 'Y' ? ' checked=1' }}>

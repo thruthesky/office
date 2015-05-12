@@ -199,6 +199,16 @@ class Task extends ContentEntityBase implements TaskInterface {
 			->setDescription(t('The roadmap percentage of the Task.'));
 
 
+		$fields['status'] = BaseFieldDefinition::create('string')
+			->setLabel(t('Status'))
+			->setDescription(t('The status of the Task.'))
+			->setSettings(array(
+				'default_value' => '',
+				'max_length' => '32',
+			));
+
+
+
 		$fields['view_status'] = BaseFieldDefinition::create('string')
 			->setLabel(t('View status'))
 			->setDescription(t('The view status of the Task.'))
@@ -241,13 +251,14 @@ class Task extends ContentEntityBase implements TaskInterface {
 		$task->set('roadmap', x::in('roadmap', 0));
 
 		$task->set('view_status', x::in('view_status', 'O'));
+		$task->set('status', x::in('status', 'pending'));
 
 		$process = Process::loadByName(x::in('process'));
+
 		if ( $process ) $task->set('process_id', $process->id());
 		else $task->set('process_id', 0);
 
 		$task->save();
-
 
 		$log = TaskLog::create();
 		$log->set('user_id', x::myUid());
@@ -255,9 +266,6 @@ class Task extends ContentEntityBase implements TaskInterface {
 		$data = serialize($task->toArray());
 		$log->set('data', $data);
 		$log->save();
-
-
-
 
 		return $task->id();
 	}

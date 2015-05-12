@@ -126,8 +126,6 @@ class Process extends ContentEntityBase implements ProcessInterface {
 			->setDescription(t('The person who created this Process.'))
 			->setSetting('target_type', 'user');
 
-
-
 		$fields['name'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Name'))
 			->setDescription(t('The name of the Process.'))
