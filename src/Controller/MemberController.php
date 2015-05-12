@@ -12,14 +12,35 @@ class MemberController extends ControllerBase {
 	public function collection() {
 		$data = [];
 
+		$request = \Drupal::request();
+		if ( $request->get('mode') == 'submit' ) {
+			$group = Member::myOwnGroup(x::myUid());
+			$user = user_load_by_name($request->get('name'));
+			if ( $user ) {
+				$member = Member::loadByUserID($user->id());
+				if ( $member ) {
+					$member->set('group_id', $group->id());
+					$member->save();
+				}
+				else {
+					x::messageNotGroupMemberForReq($data);
+				}
+			}
+			else {
+				x::messageUserNotExist($data);
+			}
+		}
+
 		$db = \Drupal::entityQuery('office_member');
 		if ( x::admin() ) {
 
 		}
 		else {
-			$group = Member::group(x::myUid());
-			$my_group_id = $group->id();
-			$db->condition('group_id', $my_group_id);
+			$group = Member::myOwnGroup(x::myUid());
+			if ( $group ) {
+				$my_group_id = $group->id();
+				$db->condition('group_id', $my_group_id);
+			}
 		}
 		$member_ids = $db->execute();
 		$entities = \Drupal::entityManager()->getStorage('office_member')->loadMultiple($member_ids);

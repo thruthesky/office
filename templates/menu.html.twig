@@ -6,21 +6,18 @@
 
 
 <nav class="office-menu">
-
-
         <div>
-            <a><span class="caption office">OFFICE</span></a>
-            <a href="/office"><span class="item front">Front Desk</span></a>
-            <a href="/office/member/add"><span class="item register">Office Member Registration</span></a>
+            <a href="/office"><span class="caption office">{{ text.front_desk }}</span></a>
+            <a href="/office/member/add"><span class="item register">{{ text.registration }}</span></a>
         </div>
 
         {% if office.member %}
         <div>
-            <a><span class="caption my-desk">MY DESK</span></a>
-            <a href="/office/attendance_list/?mode=submit&date={{ 'now' | date("Y-m-d") }}"><span class="item attendance-list">Attendance List</span></a>
-            <a href="/office/attend"><span class="item attend">Attend</span></a>
+            <a href="/office/attendance_list/?mode=submit&date={{ 'now' | date("Y-m-d") }}"><span class="caption my-desk">Attendance List</span></a>
+            <a href="/office/attend"><span class="item attend">Attend now</span></a>
         </div>
         {% endif %}
+
         {% if is_admin %}
          <div>
              <a><span class="caption">ALL GROUP</span></a>
@@ -29,21 +26,20 @@
              <a href="/office/member/list"><span class="item all-member-list">ALL Group Member List</span></a>
          </div>
         {% endif %}
+
         {% if office.is_group_admin %}
         <div>
-            <a><span class="caption">Group Admin Page</span></a>
-            <a href="/office/group/{{ data.group.id.value }}/edit"><span class="item group-update">Group Information Update</span></a>
-            <a href="/office/group/{{ data.group.id.value }}/workinghours"><span class="item group-update-workschedule">Work Schedules</span></a>
+            <a><span class="caption">My Group</span></a>
+            <a href="/office/group/{{ office.group.id.value }}/edit"><span class="item group-update">Group Information Update</span></a>
+            <a href="/office/group/{{ office.group.id.value }}/workinghours"><span class="item group-update-workschedule">Work Schedules</span></a>
             <a href="/office/member/list"><span class="item group-member-list">Member List</span></a>
         </div>
         {% endif %}
+
         <div>
-            <a><span class="caption">TASK</span></a>
-            <a href="/office/task/list"><span class="item task-list">List</span></a>
-            <a href="/office/task/add"><span class="item task-create">Create</span></a>
+            <a href="/office/task/list"><span class="caption">{{ text.task_list }}</span></a>
+            <a href="/office/task/add"><span class="item task-create">{{ text.task_create }}</span></a>
         </div>
-
-
 </nav>
 
 <div class="office-information">

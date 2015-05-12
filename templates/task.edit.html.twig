@@ -3,9 +3,9 @@
 #}
 {% set task = data.task %}
 {% if task.group_id.target_id %}
-    {% set group_id = task.group_id.target_id %}
+    {% set default_group_id = task.group_id.target_id %}
 {% else %}
-    {% set group_id = my.group_id.target_id %}
+    {% set default_group_id = my.group_id.target_id %}
 {% endif %}
 
 <div{{ attributes.addClass( data.class.office ) }}>
@@ -32,12 +32,7 @@
                             <label for="group_id">Group :</label>
                         </td>
                         <td>
-                            <select name="group_id">
-                                <option value="">Select service group</option>
-                                {% for group in groups %}
-                                    <option value="{{ group.id.value }}"{{ group_id == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
-                                {% endfor %}
-                            </select>
+                            {% include dir_office ~ '/templates/form.group_id.html.twig' %}
                         </td>
                     </tr>
                     <tr>

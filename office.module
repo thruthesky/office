@@ -52,9 +52,10 @@ function office_preprocess(&$variables, $hook)
 	if ( x::in('message') ) $variables['data']['message'] = x::in('message');
 
 	$variables['input'] = x::input();
-	$variables['office'] = x::officeInformation();
-	$variables['priority'] = x::priority();
 	$variables['groups'] = Group::loadMultiple();
+	$variables['priority'] = x::priority();
+	x::officeInformation($variables);
+
 
 
 	if ( $hook == 'page' ) {

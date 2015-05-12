@@ -56,7 +56,7 @@ use Drupal\user\UserInterface;
 class Group extends ContentEntityBase implements GroupInterface {
 	/**
 	 *
-	 * 관리자이거나 나의 소유 그룹이면 참을 리턴한다.
+	 * 관리자이거나 그룹장이면 참을 리턴한다.
 	 *
 	 * @param $group_id
 	 * @param $myUid
@@ -64,10 +64,12 @@ class Group extends ContentEntityBase implements GroupInterface {
 	 */
 	public static function isAdmin($group_id, $myUid) {
 		if ( x::admin() ) return true;
-		$group = Member::group($myUid);
+		$group = Member::myOwnGroup($myUid);
+		if ( $group ) return true;
+		else return false;
 		//di("group id:$group_id");
 		//di($group->id());
-		return $group->get('user_id')->target_id == $myUid;
+
 	}
 
 

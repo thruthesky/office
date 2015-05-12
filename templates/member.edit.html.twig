@@ -11,17 +11,6 @@
            <input type="hidden" name="mode" value="submit">
             <table>
                 <tr>
-                    <td><label for="group_id">Group :</label></td>
-                    <td>
-                        <select name="group_id" id="group_id">
-                            <option value="">Select your group</option>
-                            {% for group in data.groups %}
-                                <option value="{{ group.id.value }}"{{ data.member.group_id.entity.id.value == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
-                            {% endfor %}
-                        </select>
-                    </td>
-                </tr>
-                <tr>
                     <td>
                         <label for="first_name">First Name :</label>
                     </td>

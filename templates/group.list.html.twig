@@ -10,6 +10,7 @@
             <td>No.</td>
             <td>Owner</td>
             <td>Name</td>
+            <td>Status</td>
             <td>No. of Members</td>
             <td>No. of Tasks</td>
             {% if is_admin %}
@@ -25,6 +26,13 @@
                     <a href="/office/group/{{ group.id.value  }}/edit">
                         {{ group.name.value }}
                     </a>
+                </td>
+                <td>
+                    {% if group.view_status.value == 'O' %}
+                        Public
+                    {% else %}
+                        Private
+                    {% endif %}
                 </td>
                 <td>0</td>
                 <td>0</td>

@@ -144,8 +144,6 @@ class Task extends ContentEntityBase implements TaskInterface {
 				'max_length' => 255,
 			));
 
-
-
 		$fields['summary'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Summary'))
 			->setDescription(t('The summary of the Task.'))
@@ -153,10 +151,6 @@ class Task extends ContentEntityBase implements TaskInterface {
 				'default_value' => '',
 				'max_length' => 8192,
 			));
-
-
-
-
 
 		$fields['description'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Description'))
@@ -166,7 +160,6 @@ class Task extends ContentEntityBase implements TaskInterface {
 				'max_length' => 8192,
 			));
 
-
 		$fields['deadline'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Deadline'))
 			->setDescription(t('The deadline of the Task.'))
@@ -174,7 +167,6 @@ class Task extends ContentEntityBase implements TaskInterface {
 				'default_value' => '',
 				'max_length' => 16,
 			));
-
 
 		$fields['priority'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Priority'))
@@ -184,20 +176,14 @@ class Task extends ContentEntityBase implements TaskInterface {
 				'max_length' => 1,
 			));
 
-
 		$fields['process_id'] = BaseFieldDefinition::create('entity_reference')
 			->setLabel(t('Work Process'))
 			->setDescription(t('The work process of the Task.'))
 			->setSetting('target_type', 'office_process');
 
-
-
-
-
 		$fields['roadmap'] = BaseFieldDefinition::create('integer')
 			->setLabel(t('Roadmap Percentage'))
 			->setDescription(t('The roadmap percentage of the Task.'));
-
 
 		$fields['status'] = BaseFieldDefinition::create('string')
 			->setLabel(t('Status'))
@@ -207,8 +193,6 @@ class Task extends ContentEntityBase implements TaskInterface {
 				'max_length' => '32',
 			));
 
-
-
 		$fields['view_status'] = BaseFieldDefinition::create('string')
 			->setLabel(t('View status'))
 			->setDescription(t('The view status of the Task.'))
@@ -217,19 +201,14 @@ class Task extends ContentEntityBase implements TaskInterface {
 				'max_length' => 1,
 			));
 
-
-
 		return $fields;
 	}
 
 	public static function formSubmit(array & $data) {
 		x::log(__METHOD__);
-
 		if ($re = self::validateFormSubmit($data)) {
 			// error
 		}
-
-
 		if ( x::in('task_id') ) {
 			$task = task::load(x::in('task_id'));
 		}
@@ -271,7 +250,6 @@ class Task extends ContentEntityBase implements TaskInterface {
 	}
 
 	private static function validateFormSubmit(array &$data) {
-
 		if ( ! x::in('group_id')  ) return x::errorInfoArray(x::error_select_group, $data);
 		if ( ! x::in('title') ) return x::errorInfoArray(x::error_input_title, $data);
 		if ( x::in('worker') ) {

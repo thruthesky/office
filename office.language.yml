@@ -4,6 +4,23 @@ software_name:
 version:
   en: 0.0.2
   ko: 0.0.2
+front_desk:
+  en: Front Desk
+  ko: 온라인데스크
+registration:
+  en: Office Registration
+  ko: 회원등록
+task:
+  en: Task
+  ko: 서비스
+task_list:
+  en: Task List
+  ko: 서비스 목록
+
+task_create:
+  en: Create a task
+  ko: 서비스 신청
+
 create:
   en: Create
   ko: 만들기

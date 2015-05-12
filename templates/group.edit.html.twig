@@ -26,7 +26,7 @@
                         <label for="owner">Group Owner: </label>
                     </td>
                     <td>
-                        <input type="text" name="owner" id="owner" value="{{ data.owner.username }}">
+                        <input type="text" name="owner" id="owner" value="{{ data.group.user_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
                     </td>
                 </tr>
                 {% endif %}
@@ -74,7 +74,6 @@
                         <label> Group Rest Days : Working days:</label>
                     </td>
                     <td>
-
                         <input type="checkbox" id="work_sunday" name="work_sunday" value="Y"{{ data.config.work.sunday=='Y' ? ' checked=1' }}> <label for="work_sunday">Sunday</label>,
                         <input type="checkbox" id="work_monday" name="work_monday" value="Y"{{ data.config.work.monday=='Y' ? ' checked=1' }}> <label for="work_monday">Monday</label>,
                         <input type="checkbox" id="work_tuesday" name="work_tuesday" value="Y"{{ data.config.work.tuesday=='Y' ? ' checked=1' }}> <label for="work_tuesday">Tuesday</label>,
@@ -82,7 +81,6 @@
                         <input type="checkbox" id="work_thursday" name="work_thursday" value="Y"{{ data.config.work.thursday=='Y' ? ' checked=1' }}> <label for="work_thursday">Thursday</label>,
                         <input type="checkbox" id="work_friday" name="work_friday" value="Y"{{ data.config.work.friday=='Y' ? ' checked=1' }}> <label for="work_friday">Friday</label>,
                         <input type="checkbox" id="work_saturday" name="work_saturday" value="Y"{{ data.config.work.saturday=='Y' ? ' checked=1' }}> <label for="work_saturday">Saturday</label>
-
                     </td>
                 </tr>
 

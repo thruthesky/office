@@ -48,10 +48,30 @@ class Member extends ContentEntityBase implements MemberInterface {
 		return x::loadEntityByUserID('office_member', $uid);
 	}
 
+	/**
+	 *
+	 * 내가 가입한 그룹 정보를 리턴한다.
+	 *
+	 * @param $uid
+	 * @return null
+	 *
+	 */
 	public static function group($uid) {
 		$member = self::loadByUserID($uid);
 		if ( empty($member) ) return null;
 		else return $member->get('group_id')->entity;
+	}
+
+	/**
+	 *
+	 * 내가 그룹장으로 있으며 내가 소유한 그룹 정보를 리턴한다.
+	 *
+	 * @param $myUid
+	 *
+	 * @return mixed|null
+	 */
+	public static function myOwnGroup($myUid) {
+		return x::loadEntityByUserID('office_group', $myUid);
 	}
 
 
@@ -258,14 +278,14 @@ class Member extends ContentEntityBase implements MemberInterface {
 		$entity->set('landline', $in['landline']);
 		$entity->set('address', $in['address']);
 		$entity->set('user_id', x::myUid());
-		$entity->set('group_id', $in['group_id']);
+		//$entity->set('group_id', $in['group_id']);// // @NOTE 회원이 자기 그룹을 선택하지 못한다.
 		$entity->save();
 		return NULL;
 	}
 
 	private static function validateFormSubmit(array &$data) {
 		$in = x::input();
-		if ( empty($in['group_id']) ) return x::errorInfoArray(x::error_select_group, $data);
+		//if ( empty($in['group_id']) ) return x::errorInfoArray(x::error_select_group, $data);
 		if ( empty($in['first_name']) ) return x::errorInfoArray(x::error_input_first_name, $data);
 		if ( empty($in['last_name']) ) return x::errorInfoArray(x::error_input_last_name, $data);
 		if ( empty($in['middle_name']) ) return x::errorInfoArray(x::error_input_middle_name, $data);

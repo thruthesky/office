@@ -265,7 +265,16 @@ class x {
 	}
 
 
-
+	/**
+	 *
+	 * user_id 를 입력받아서 해당 entity 를 리턴한다.
+	 *
+	 * Entity 에 user_id 필드가 있으면 이 메소드를 사용 할 수 있다.
+	 *
+	 * @param $type
+	 * @param $uid
+	 * @return mixed|null
+	 */
 	public static function loadEntityByUserID($type,$uid) {
 		$entities = \Drupal::entityManager()->getStorage($type)->loadByProperties(['user_id'=>$uid]);
 		if ( $entities ) $entity = reset($entities);
@@ -525,21 +534,22 @@ class x {
 	 * @return array
 	 */
 	public static function getIndividualTime($group_id) {
-		$code = 'individual_work_hour_' . $group_id . '_%';
+		$code = 'individual_work_hour_' . $group_id . '_';
+
 		$rows = db_select('office_config', 'c')
 			->fields('c')
-			->condition('code', $code, 'LIKE')
+			->condition('code', $code . '%', 'LIKE')
 			->execute()
-			->fetchAllAssoc('code');
+			->fetchAllAssoc('idx');
 
-		$rets = [];
+		$ret = [];
 		if ( $rows ) {
 			foreach( $rows as $code => $row ) {
 				$e = self::processIndividualWorkSchedule($row);
-				$rets[] = $e;
+				$ret[] = $e;
 			}
 		}
-		return $rets;
+		return $ret;
 	}
 
 	/**
@@ -599,7 +609,7 @@ class x {
 			->condition('code', $code)
 			->condition('category', $date)
 			->execute()
-			->fetchAllAssoc('code');
+			->fetchAllAssoc('idx');
 		$row = [];
 		if ( $rows ) {
 			list($k, $v) = each($rows);
@@ -634,6 +644,12 @@ class x {
 		$data['code'] = 'error not-a-member';
 		$data['message'] = 'You (or the user) are not a member of any group. Please select a group first.';
 		return ['code'=>$data['code'], 'message'=>$data['message']];
+	}
+
+
+	public static function messageNotGroupMemberForReq(array & $data=null) {
+		$data['code'] = 'error not-a-member-for-req';
+		$data['message'] = 'The user is not office member. Please tell the user to register in office first.';
 	}
 
 	/**
@@ -830,20 +846,30 @@ class x {
 	 *
 	 * @todo 여기서 리턴하는 값은 모든 Page 에 적용되므로 문서화 한다.
 	 *
+	 * @param $variables
 	 * @return array
 	 */
-	public static function officeInformation() {
+	public static function officeInformation(&$variables) {
 		$office = [];
 		$office['member'] = Member::loadByUserID(x::myUid());
 		$office['now'] = date('r');
+
+		// {{ office.group }} 을 지정하고 {{ office.is_member }} 를 지정한다.
 		$group = Member::group(x::myUid());
 		if ( $group ) {
 			$office['group'] = $group;
 			$office['is_member'] = 1;
-
-			if ( $group->get('user_id')->target_id == x::myUid() ) $office['is_group_admin'] = 1;
 		}
-		return $office;
+		/**
+		 * {{ office.is_group_admin }} 을 지정한다.
+		 */
+		if ( isset($variables['groups']) ) {
+			foreach( $variables['groups'] as $group ) {
+				if ( $group->get('user_id')->target_id == x::myUid() ) $office['is_group_admin'] = 1;
+			}
+		}
+
+		$variables['office'] = $office;
 	}
 
 
@@ -947,6 +973,12 @@ class x {
 			return TRUE;
 		}
 		else return FALSE;
+	}
+
+	public static function messageUserNotExist(&$data) {
+		$data['code'] = 'error user-not-exist';
+		$data['message'] = 'The user does not exist. Please check the user name.';
+		return ['code'=>$data['code'], 'message'=>$data['message']];
 	}
 
 
