@@ -5,16 +5,16 @@
     {% include dir_office ~ '/templates/message.html.twig' %}
 
 
-    <table cellpadding="0" cellspacing="0" width="100%">
+    <table class="group-list" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td>No.</td>
-            <td>Owner</td>
-            <td>Name</td>
-            <td>Status</td>
-            <td>No. of Members</td>
-            <td>No. of Tasks</td>
+            <th>No.</th>
+            <th>Owner</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>No. of Members</th>
+            <th>No. of Tasks</th>
             {% if is_admin %}
-                <td>Buttons</td>
+                <th>Buttons</th>
             {% endif %}
         </tr>
         {% for group in data.groups %}

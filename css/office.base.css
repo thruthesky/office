@@ -42,6 +42,12 @@ body {
     margin: 1em 0;
 }
 
+.office table th{
+    padding: 0.5em 0;
+    color: #ffffff;
+    background-color: rgb(76, 77, 77);
+}
+
 .office form {
     margin: 1em;
 }

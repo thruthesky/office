@@ -22,7 +22,7 @@ td.td-layout-right{
     cursor: pointer;
 }
 
-.member-list tr:nth-child(even){
+.member-list tr:nth-child(odd){
     background-color: #C0CCDA;
 
 }
@@ -35,9 +35,14 @@ td.td-layout-right{
     margin-left: 1.5em;
 }
 
-.group-list{
-    margin: 0!important;
+.group-list tr:nth-child(odd){
+    background-color: #C0CCDA;
 }
+
+.group-list tr{
+    padding: 1em 0;
+}
+
 .guide a{
     text-decoration: underline;
 }
