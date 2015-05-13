@@ -34,8 +34,8 @@
         {% if office.is_group_admin %}
         <div>
             <a><span class="caption">My Group</span></a>
-            <a href="/office/group/{{ office.group.id.value }}/edit"><span class="item group-update">Group Information Update</span></a>
-            <a href="/office/group/{{ office.group.id.value }}/workinghours"><span class="item group-update-workschedule">Work Schedules</span></a>
+            <a href="/office/group/{{ office.my_own_group.id.value }}/edit"><span class="item group-update">Group Information Update</span></a>
+            <a href="/office/group/{{ office.my_own_group.id.value }}/workinghours"><span class="item group-update-workschedule">Work Schedules</span></a>
             <a href="/office/member/list"><span class="item group-member-list">Member List</span></a>
         </div>
         {% endif %}
