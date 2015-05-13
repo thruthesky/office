@@ -115,8 +115,31 @@
                         <label for="changed">Date - Changaed</label>
 
 
+                        <input type="radio" name="sort" id="deadline" value="deadline"{{ input.sort == 'deadline' ? ' checked=1' }}>
+                        <label for="deadline">Deadline</label>
+
+
                         <input type="radio" name="sort" id="roadmap" value="roadmap"{{ input.sort == 'roadmap' ? ' checked=1' }}>
                         <label for="roadmap">Roadmap</label>
+
+
+
+                        <input type="radio" name="sort" id="roadmap" value="roadmap"{{ input.sort == 'roadmap' ? ' checked=1' }}>
+                        <label for="roadmap">Group</label>
+
+
+                        <input type="radio" name="sort" id="sort_creator" value="creator_id"{{ input.sort == 'creator_id' ? ' checked=1' }}>
+                        <label for="sort_creator">Creator</label>
+
+                        <input type="radio" name="sort" id="sort_assigned" value="worker_id"{{ input.sort == 'worker_id' ? ' checked=1' }}>
+                        <label for="sort_assigned">Assigned To</label>
+
+                        <input type="radio" name="sort" id="sort_in_charge" value="in_charge_id"{{ input.sort == 'in_charge_id' ? ' checked=1' }}>
+                        <label for="sort_in_charge">Person in charge</label>
+
+                        <input type="radio" name="sort" id="sort_status" value="status"{{ input.sort == 'status' ? ' checked=1' }}>
+                        <label for="sort_status">Work status</label>
+
                     </td>
                 </tr>
 
@@ -241,6 +264,10 @@
             </td>
 
         </tr>
+
+
+
+
         {% for task in data.tasks %}
             {% if task.group_id.target_id == my.group_id.target_id %}
                 {% set href = '/office/task/edit/' ~ task.id.value %}
@@ -346,6 +373,8 @@
                 </td>
             </tr>
         {% endfor %}
+
+
     </table>
 </div>
 
