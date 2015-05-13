@@ -59,6 +59,11 @@
 
                     <td>Work Status</td>
                     <td>
+
+
+                        <input id='status_all' type="radio" name="status" value=""{{ input.status == '' ? ' checked=1' }}>
+                        <label for="status_all">All</label>
+
                         <input id='pending' type="radio" name="status" value="pending"{{ input.status == 'pending' ? ' checked=1' }}>
                         <label for="pending">Pending.</label>
 
@@ -80,8 +85,6 @@
                         <input id='rejected' type="radio" name="status" value="rejected"{{ input.status == 'rejected' ? ' checked=1' }}>
                         <label for="rejected">Rejected</label>
 
-                        <input id='status_all' type="radio" name="status" value=""{{ input.status == '' ? ' checked=1' }}>
-                        <label for="status_all">All</label>
 
                     </td>
                 </tr>
@@ -146,9 +149,14 @@
 
 
 
-                        <input type="checkbox" name="show_date" id="show_date" value="Y"{{ input.show_date == 'Y' ? ' checked=1' }}>
-                        <label for="show_date">Date</label>
+                        <input type="checkbox" name="show_created" id="show_created" value="Y"{{ input.show_created == 'Y' ? ' checked=1' }}>
+                        <label for="show_created">Created</label>
 
+                        <input type="checkbox" name="show_updated" id="show_updated" value="Y"{{ input.show_updated == 'Y' ? ' checked=1' }}>
+                        <label for="show_updated">Updated</label>
+
+                        <input type="checkbox" name="show_deadline" id="show_deadline" value="Y"{{ input.show_deadline == 'Y' ? ' checked=1' }}>
+                        <label for="show_deadline">Deadline</label>
 
                         <input type="checkbox" name="show_creator" id="show_creator" value="Y"{{ input.show_creator == 'Y' ? ' checked=1' }}>
                         <label for="show_creator">Creator</label>
@@ -193,10 +201,21 @@
             {% endif %}
 
 
+            {% if input.show_status == 'Y' %}
+                <td><span>Status</span></td>
+            {% endif %}
+
+
             <td><span>Title</span></td>
 
-            {% if input.show_date == 'Y' %}
-                <td><span>Date</span></td>
+            {% if input.show_created == 'Y' %}
+                <td><span>Created</span></td>
+            {% endif %}
+            {% if input.show_updated == 'Y' %}
+                <td><span>Updated</span></td>
+            {% endif %}
+            {% if input.show_deadline == 'Y' %}
+                <td><span>Deadline</span></td>
             {% endif %}
 
             {% if input.show_creator == 'Y' %}
@@ -257,17 +276,40 @@
                     </td>
                 {% endif %}
 
+
+                {% if input.show_status == 'Y' %}
+                    <td>
+                        <a href="{{ href }}"><span>{{ task.status.value }}</span></a>
+                    </td>
+                {% endif %}
+
+
+
+
                 <td>
                     <a href="{{ href }}">
                         <span>{{ task.title.value }}</span>
                     </a>
                 </td>
 
-                {% if input.show_date == 'Y' %}
-                <td>
-                    <a href="{{ href }}"><span>{{ task.created.value | date('M d, Y') }}</span></a>
-                </td>
+
+                {% if input.show_created == 'Y' %}
+                    <td>
+                        <a href="{{ href }}"><span>{{ task.created.value | date('M d, Y') }}</span></a>
+                    </td>
                 {% endif %}
+                {% if input.show_updated == 'Y' %}
+                    <td>
+                        <a href="{{ href }}"><span>{{ task.changed.value | date('M d, Y') }}</span></a>
+                    </td>
+                {% endif %}
+                {% if input.show_deadline == 'Y' %}
+                    <td>
+                        <a href="{{ href }}"><span>{{ task.deadline.value }}</span></a>
+                    </td>
+                {% endif %}
+
+
 
                 {% if input.show_creator == 'Y' %}
                     <td>
