@@ -62,4 +62,13 @@ class Office extends ControllerBase {
 			'#data' => $data,
 		];
 	}
+
+    public function documentation() {
+        $data = [];
+        return [
+            '#theme' => 'office.documentation',
+            '#data' => $data,
+        ];
+    }
+
 }

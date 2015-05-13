@@ -13,12 +13,13 @@ if ( ! function_exists('di') ) {
 function office_theme() {
 	$themes = [];
 	$names = [
-		'office', 'login', 'mydesk',
+		'office', 'login', 'mydesk', 'office.documentation',
 		'member.list', 'member.view', 'member.edit',
 		'task.edit','task.list', 'task.view',
 		'group.edit', 'group.list', 'group.workinghours',
 		'attendance.list',
 		'process.edit', 'process.list', 'process.view',
+
 	];
 	foreach($names as $name) {
 		$themes[ $name ] = [

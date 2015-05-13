@@ -50,3 +50,7 @@ body {
     border: 0.1em solid #808080;
 }
 
+.office p {
+   background-color: #ffffff;
+    padding: 1em;
+}

@@ -25,6 +25,14 @@ entity.office.login:
   requirements:
     _permission: 'access content'
 
+entity.office.documentation:
+  path: '/office/documentation'
+  defaults:
+    _controller: Drupal\office\Controller\Office::documentation
+    _title: 'Office'
+  requirements:
+    _permission: 'access content'
+
 
 #### -------------- Member --------------
 
