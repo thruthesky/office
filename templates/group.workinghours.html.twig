@@ -73,29 +73,31 @@
         <li>If username is omitted, then it apply to all the members of the group.</li>
     </ul>
     <hr>
-    <table class="rows" width="100%">
-        <tr>
-            <th>Username</th>
-            <th>Date</th>
-            <th>Working Hours</th>
-            <th>Reason</th
-            <th>Delete</th>
-        </tr>
-    {% for work in data.member_work %}
-        <tr class="row">
-            <td>
-                {% if work.user.name.value %}
-                    {{ work.user.name.value }}
-                {% else %}
-                    ALL
-                {% endif %}
-            </td>
-            <td>{{ work.date }}</td>
-            <td>{{ work.begin }} - {{ work.end }}</td>
-            <td>{{ work.reason }}</td>
-            <td><a href="/office/group/{{ data.group.id.value }}/workinghours?mode=submit&for=delete&idx={{ work.idx }}">[ DELETE ]</a></td>
-        </tr>
-    {% endfor %}
-    </table>
+    {% if data.member_work %}
+        <table class="rows" width="100%">
+            <tr>
+                <th>Username</th>
+                <th>Date</th>
+                <th>Working Hours</th>
+                <th>Reason</th>
+                <th>Delete</th>
+            </tr>
+        {% for work in data.member_work %}
+            <tr class="row">
+                <td>
+                    {% if work.user.name.value %}
+                        {{ work.user.name.value }}
+                    {% else %}
+                        ALL
+                    {% endif %}
+                </td>
+                <td>{{ work.date }}</td>
+                <td>{{ work.begin }} - {{ work.end }}</td>
+                <td>{{ work.reason }}</td>
+                <td><a href="/office/group/{{ data.group.id.value }}/workinghours?mode=submit&for=delete&idx={{ work.idx }}">[ DELETE ]</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
    </div>
 </div>
