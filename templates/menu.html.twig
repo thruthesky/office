@@ -1,6 +1,9 @@
 {% if office.member %}
    <span class="welcome">
-    {{ text.welcome | replace({'$name':office.member.user_id.entity.name.value, '$group':office.group.name.value}) }}
+    {{ text.welcome | replace({'$name':office.member.user_id.entity.name.value}) }}
+       {% if office.group %}
+           {{ text.group }} : {{ office.group.name.value }}
+       {% endif %}
     </span>
 {% endif %}
 
@@ -12,7 +15,7 @@
             <a href="/office/documentation">Documentation</a>
         </div>
 
-        {% if office.member %}
+        {% if office.group %}
         <div>
             <a href="/office/attendance_list/?mode=submit&date={{ 'now' | date("Y-m-d") }}"><span class="caption my-desk">Attendance List</span></a>
             <a href="/office/attend"><span class="item attend">Attend now</span></a>

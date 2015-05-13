@@ -28,5 +28,8 @@ list:
   en: List
   ko: 목록
 welcome:
-  en: Welcome, $name. Group: $group
-  ko: 어서오십시오, $name님. 그룹: $group
+  en: Welcome, $name.
+  ko: 어서오십시오, $name님.
+group:
+  en: Group
+  ko: 그룹
