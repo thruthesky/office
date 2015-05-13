@@ -35,7 +35,7 @@
     </div>
     {% endif %}
 
-
+    {% if data.days  %}
     <table class="attendance-list" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <th>Username</th>
@@ -69,4 +69,5 @@
             </tr>
         {% endfor %}
     </table>
+    {% endif %}
 </div>
