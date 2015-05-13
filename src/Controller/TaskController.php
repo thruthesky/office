@@ -67,16 +67,14 @@ class TaskController extends ControllerBase {
 
 	public function add() {
 		$data = [];
-		if ( ! x::login() ) {
-			x::messageLoginFirst($data);
-		}
+		if ( ! x::login() ) x::messageLoginFirst($data);
 		return [
 			'#theme' => 'task.edit',
 			'#data' => $data,
 		];
 	}
 	public function edit(Task $office_task=null) {
-		if ( ! x::login() ) return x::loginResponse();
+		if ( ! x::login() ) x::messageLoginFirst($data);
 
 		$data = [];
 		if (x::isFromSubmit()) {

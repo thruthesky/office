@@ -69,10 +69,13 @@ class MemberController extends ControllerBase {
 	public function edit() {
 		$data = [];
 		$data['mode'] = x::g('mode');
-		if ( ! x::login() ) return x::loginResponse();
-		if (x::isFromSubmit())  Member::formSubmit($data);
-		$data['member'] = Member::loadByUserID(x::myUid());
-		$data['groups'] = Group::loadMultiple();
+		//if ( ! x::login() ) return x::loginResponse();
+		if ( ! x::login() ) x::messageLoginFirst($data);
+		else {
+			if (x::isFromSubmit())  Member::formSubmit($data);
+			$data['member'] = Member::loadByUserID(x::myUid());
+			$data['groups'] = Group::loadMultiple();
+		}
 		return [
 			'#theme' => 'member.edit',
 			'#data' => $data,
