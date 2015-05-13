@@ -861,7 +861,7 @@ class x {
 			$office['is_member'] = 1;
 		}
 
-		$my_own_group = Member::myOwnGroup(x::Uid());
+		$my_own_group = Member::myOwnGroup(x::myUid());
 		$office['my_own_group'] = $my_own_group;
 
 		/**
