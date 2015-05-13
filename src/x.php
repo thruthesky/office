@@ -861,8 +861,7 @@ class x {
 			$office['is_member'] = 1;
 		}
 
-		$my_own_group = Member::myOwnGroup(x::myUid());
-		$office['my_own_group'] = $my_own_group;
+		$my_own_group = Member::myOwnGroup(x::myUid()); $office['my_own_group'] = $my_own_group;
 
 		/**
 		 * {{ office.is_group_admin }} 을 지정한다.
