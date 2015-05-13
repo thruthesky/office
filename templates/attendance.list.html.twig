@@ -4,13 +4,11 @@
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
 
-
     <form>
         <input type="hidden" name="mode" value="submit">
         <input type="date" name="date" value="{{ data.input.date }}">
         <input type="submit">
     </form>
-
 
     {% if member.id %}
     <div>
@@ -30,7 +28,6 @@
                 <td>{{ data.work_hour_end }}</td>
             </tr>
         </table>
-
 
     </div>
     {% endif %}
