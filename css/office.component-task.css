@@ -11,3 +11,10 @@
     cursor:pointer;
 }
 
+.comments .row {
+    margin:1em 0;
+    padding:1em;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 2px;
+}

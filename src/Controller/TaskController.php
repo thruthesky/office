@@ -3,6 +3,7 @@ namespace Drupal\office\Controller;
 use Drupal\Core\Routing\RouteProvider;
 use Drupal\office\Entity\Group;
 use Drupal\office\Entity\Task;
+use Drupal\office\Entity\TaskLog;
 use Drupal\office\x;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\user\Entity\User;
@@ -98,16 +99,17 @@ class TaskController extends ControllerBase {
 
 		$data = [];
 		if (x::isFromSubmit()) {
-			$group_id = task::formSubmit($data);
+			$id = task::formSubmit($data);
 			$code = 'task-updated';
 			$message = "Task has been updated";
-			return new RedirectResponse("/office/task/edit/$group_id?code=$code&message=$message");
+			return new RedirectResponse("/office/task/edit/$id?code=$code&message=$message");
 		}
 		else {
-			$group_id = $office_task->id();
+			$id = $office_task->id();
 		}
 
-		$data['task'] = task::loadFull($group_id);
+		$data['task'] = Task::loadFull($id);
+		$data['logs'] = TaskLog::loadByTaskId($id);
 
 		return [
 			'#theme' => 'task.edit',

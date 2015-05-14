@@ -5,6 +5,7 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\office\x;
+use Drupal\user\Entity\User;
 use Drupal\user\UserInterface;
 
 /**
@@ -24,7 +25,22 @@ use Drupal\user\UserInterface;
  * )
  */
 class TaskLog extends ContentEntityBase implements TaskLogInterface {
+	public static function loadByTaskId($id) {
+		$db = \Drupal::entityQuery('office_tasklog');
+		$db->condition('task_id', $id);
+		$ids = $db->execute();
+		$tasks = [];
+		if ( $ids ) {
+			$logs = TaskLog::loadMultiple($ids);
+			foreach( $logs as $log ) {
+				$task = unserialize($log->get('data')->value);
+				$task['user'] = User::load($log->get('user_id')->target_id);
+				$tasks[] = $task;
+			}
+		}
+		return $tasks;
 
+	}
 
 
 	/**

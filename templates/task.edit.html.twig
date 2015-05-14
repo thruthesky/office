@@ -228,6 +228,10 @@
                 </table>
 
                 {% if task %}
+                    <div>
+                        <div class="caption">Comment</div>
+                        <div class="text"><textarea name="comment"></textarea></div>
+                    </div>
                 {% endif %}
 
 
@@ -239,5 +243,18 @@
             </fieldset>
         </form>
     {% endif %}
+
+
+    <div class="comments">
+        {% for task in data.logs %}
+            {% if task.task_id %}
+                <div class="row">
+                    <div class="username">{{ task.user.name.value }}</div>
+                    <div class="date">{{ task.created | date('M d, Y H:i') }}</div>
+                    <div class="comment">{{ task.comment }}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 </div>
 
