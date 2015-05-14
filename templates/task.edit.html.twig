@@ -27,20 +27,21 @@
                 <legend></legend>
                 <input type="hidden" name="mode" value="submit">
                 <input type="hidden" name="task_id" value="{{ task.id.value }}">
+
                 <div class="row">
                     <div class="caption">Group</div>
-                    <div class="content">{% include dir_office ~ '/templates/form.group_id.html.twig' %}</div>
+                    <div class="text">{% include dir_office ~ '/templates/form.group_id.html.twig' %}</div>
                 </div>
 
+                <div>
+                    <div class="caption">Title</div>
+                    <div class="text"><input type="text" name="title" id="title" value="{{ task.title.value }}"></div>
+                </div>
+
+
+
+
                 <table class="add-task">
-                    <tr>
-                        <td>
-                            <label for="title">Title:</label>
-                        </td>
-                        <td>
-                            <input type="text" name="title" id="title" value="{{ task.title.value }}">
-                        </td>
-                    </tr>
                     {% if office.is_member %}
                     <tr>
                         <td>
