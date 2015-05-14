@@ -1,3 +1,11 @@
 .office.task textarea {
     width:99%;
 }
+
+
+.status-all {
+    display:inline-block;
+    padding-right:1.6em;
+    font-size:1.1em;
+    cursor:pointer;
+}

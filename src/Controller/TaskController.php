@@ -46,11 +46,20 @@ class TaskController extends ControllerBase {
 			$db->condition('client_id', $client_id);
 		}
 
+		/*
 		if ( $status = x::in('status') ) {
 			$db->condition('status', $status);
 		}
+		*/
 
-
+		$status = x::in('status', array());
+		if ( $status ) {
+			$or = $db->orConditionGroup();
+			foreach($status as $text => $Y ) {
+				 $or->condition('status', $text);
+			}
+			$db->condition($or);
+		}
 
 
 		if ( $sort = x::in('sort') ) {
@@ -58,6 +67,8 @@ class TaskController extends ControllerBase {
 		}
 
 		$ids  = $db->execute();
+
+
 		$entities = task::loadMultipleFull($ids);
 		return [
 			'#theme' => 'task.list',
