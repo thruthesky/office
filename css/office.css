@@ -33,10 +33,24 @@
     background-color: #B00000;
 }
 
+.add-task{
+    margin-left: 1.3em!important;
+}
+
+table.add-task tr input[type=text],select,input[type=radio],input[type=date],textarea{
+    margin: 0.8em 0 0!important;
+}
 
 .process-holder {
-    padding:1em;
-    background-color:white;
-    border-radius:2px;
-    margin: 0.5em 0;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid grey;
+    margin: -0.1em 0;
+    width: 20.4em;
+    height: 110px;
+    border-top: 0;
 }
+.road-map{
+    width: 5em!important;
+
+}
+

@@ -21,20 +21,25 @@ body {
 }
 
 .office input[type=text] {
-    width: 20em;
+    width: 20.2em;
     padding: 5px 0;
 }
 
+.office input[type=date] {
+    width: 20.2em;
+    padding: 5px 0;
+}
 .office select {
-    width: 20.3em;
+    width: 20.5em;
     padding: 5px 0;
     text-align: center;
+    background: #dedede;
 }
 
 .office input[type=submit] {
 }
 .office input[type=password] {
-    width: 20em;
+    width: 20.3em;
     padding: 5px 0;
 }
 
@@ -59,4 +64,9 @@ body {
 .office p {
    background-color: #ffffff;
     padding: 1em;
+}
+
+.office textarea{
+    width: 240px;
+    height: 85px;
 }

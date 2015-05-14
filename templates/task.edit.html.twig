@@ -26,7 +26,7 @@
                 <legend></legend>
                 <input type="hidden" name="mode" value="submit">
                 <input type="hidden" name="task_id" value="{{ task.id.value }}">
-                <table>
+                <table class="add-task">
                     <tr>
                         <td>
                             <label for="group_id">Group :</label>
@@ -96,7 +96,7 @@
                         <td> <label for="process">Work Process :</label></td>
                         <td>
 
-                            <input id="process" name="process" value="{{ task.process_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=process"><br>
+                            <input type="text" id="process" name="process" value="{{ task.process_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=process"><br>
                             <div class="process-holder">
                                 {{ task.process | raw }}
                             </div>
@@ -151,7 +151,7 @@
                             Roadmap:
                         </td>
                         <td>
-                            <select name="roadmap">
+                            <select  class="road-map" name="roadmap">
                                 {% for n in 0..10 %}
                                     <option value="{{ n * 10 }}"{{ n * 10 == task.roadmap.value ? ' selected=1' }}>{{ n * 10 }} %</option>
                                 {% endfor %}
