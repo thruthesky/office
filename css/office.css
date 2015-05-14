@@ -58,10 +58,14 @@ table.add-task tr input[type=text],select,input[type=radio],input[type=date],tex
 }
 
 .process-holder {
+    display:none;
+    padding:1em;
+    box-sizing: border-box;
     background-color: rgb(255, 255, 255);
     border: 1px solid grey;
-    width:90%;
-    height: 110px;
+    width:100%;
+    height: 120px;
+    overflow:hidden;
 }
 .road-map{
     width: 5em!important;
