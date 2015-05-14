@@ -27,11 +27,11 @@
                 <legend></legend>
                 <input type="hidden" name="mode" value="submit">
                 <input type="hidden" name="task_id" value="{{ task.id.value }}">
-                
+
                 <table class="add-task">
                     <tr>
                         <td>
-                            <label>Group</label>
+                            <label>Group :</label>
                         </td>
                         <td>
                             {% include dir_office ~ '/templates/form.group_id.html.twig' %}
@@ -40,7 +40,7 @@
 
                     <tr>
                         <td>
-                            <label for="title">Title:</label>
+                            <label for="title">Title :</label>
                         </td>
                         <td>
                             <input type="text" name="title" id="title" value="{{ task.title.value }}">
@@ -49,7 +49,7 @@
                     {% if office.is_member %}
                     <tr>
                         <td>
-                            <label for="summary">Summary:</label>
+                            <label for="summary">Summary :</label>
                         </td>
                         <td>
                             <textarea name="summary" id="summary">{{ task.summary.value }}</textarea>
@@ -57,7 +57,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="description">Description:</label>
+                            <label for="description">Description :</label>
                         </td>
                         <td>
                             <textarea id="description" name="description">{{ task.description.value }}</textarea>
