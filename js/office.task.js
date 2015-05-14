@@ -3,3 +3,8 @@ $(function(){
         $("[name^='status']").prop('checked',true);
     });
 });
+$(function(){
+    $(".priority-all").click(function(){
+        $("[name='priority[]']").prop('checked',true);
+    });
+});

@@ -4,7 +4,8 @@
 }
 
 
-.status-all {
+.status-all,
+.priority-all {
     display:inline-block;
     padding-right:1.6em;
     font-size:1.1em;
