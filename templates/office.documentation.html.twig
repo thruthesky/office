@@ -7,42 +7,125 @@
     <p>
         Office Tracking System is a powerful tool to organize your office task and work flow.
     </p>
-
+    <h3>Menu Navigation and explanation.</h3>
     <ol>
-
-        {#
-       <li>
-          How to create a group?
-           <ul>
+        <li>
+            <b>FRONT DESK</b> - it is  the home page of the system it is where able to read the summary of the system.
+            <ul>
                <li>
-                   To start your group click  <a href="/office/group/add">here</a> or on <b>create</b> under ALL GROUP menu.
+                   Office Registration - is where a  client can add himself to become a new officer/employee.
                </li>
-               <li>
-                   <b>Notes: </b>
-                   <ul>
-                       <li>
-                           If you are not admin, you may not create a group.
-                       </li>
-                   </ul>
-               </li>
-           </ul>
-       </li>
+                <li>
+                    Documentation - it is where the full documentation of the system is being explain.
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <b>ALL GROUP</b> - is where all group are listed.(this is for administrator page only)
+
+            <ul>
+                <li>
+                    Create - is a page where you are able to create a group.
+                </li>
+                <li>
+                    ALL GROUP MEMBER LIST - is where all member are being listed.
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <b>TASK LIST</b> - is where all task of the group is being listed.
+            <ul>
+                <li>
+                    Create Task - is page where you are able to create a task.
+
+                </li>
+                <li>
+                    <b>Notes : </b> Once you (or member) are registered then you are able to create your own task once you is added as a member to any group.
+                    but usually the most responsible for this is the group owner.
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <b>ATTENDANCE LIST</b> - it is where the attendance of a member are recorded.
+            <ul>
+                <li>
+                    Attend Now - is actually a button to submit when a worker attending his task.
+                </li>
+            </ul>
+        </li>
+        <li>
+            <b>MY GROUP</b> - is where the group owner is able to manage his group.
+            <ul>
+                <li>
+                    Group Information Update - it shows every information of the group.
+                </li>
+                <li>
+                    Work Schedules -  where a group owner can update the working schedule for his group or even for specific employee/worker.
+                </li>
+
+                <li>
+                    Member List - it is shows a list of all the member of a group.
+                    <br>
+                    Also a group owner is able to add a new member by using the  add member form.
+
+                </li>
+            </ul>
+        </li>
 
 
-       <li>
-           Create categories of task.
-           <ul>
-               <li>
+    </ol>
 
-                   Click the group and click category menu.
-               </li>
-               <li>
-                   Input category like "Cars", "Clothes", "Shoes".
-               </li>
-           </ul>
-       </li>
-       #}
 
+
+    <h3>TERMS</h3>
+    <ol>
+        <li>
+            Group - is a group or a company or a project.
+        </li>
+
+        <li>
+            Group Owner  - is the one who set schedule, task and things to do for the group.
+            <ul>
+                <li>
+                    Only the administrator or the group owner can add member for his group.
+                </li>
+            </ul>
+        </li>
+        <li>
+            Officer/member - is the one who do the task.
+            <ul>
+                <li>
+                    The officer cannot add himself to any group.
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            Schedule - Are actually the working date set by group owner.
+            <ul>
+                <li>
+                    The default working schedule was 02:00PM until 11:00PM. Monday - Saturday.
+                </li>
+                <li>
+                    The group owner can update the working schedule on <b>Group Information Update</b> under My Group menu.
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            Task - it is a work to do. It is a service for client. Tasks belongs to a group.
+            <ul>
+                <li>
+                    The group owner is the responsible to add task to a group.
+                </li>
+                <li>
+                    A officer must update his task everyday or once he made an improvement to a task given by the group owner.
+                </li>
+            </ul>
+        </li>
 
         <li>
             Sort Field:
@@ -57,22 +140,13 @@
 
 
         <li>
-            How to set Schedule.
-            <ul>
-                <li>
-                    ......
-                </li>
-            </ul>
-        </li>
-
-        <li>
-            What is Attendance?
+            Attendance.
             <ul>
                 <li>
                     Each member of the group have schedule defend on the schedule created by the group owner.
                 </li>
                 <li>
-                    A member should Attend his duty.
+                    A officer/member should Attend his duty before it starts or else he will be late.
                 </li>
                 <li>
                     <b>Notes:</b>
@@ -83,28 +157,27 @@
                         <li>
                             A member cannot attend to the schedule when it is outdated.
                         </li>
-
                     </ul>
                 </li>
             </ul>
         </li>
 
         <li>
-            How to set Working days?
+            Working days.
             <ul>
                 <li>
-                    Working days are the working days of week. If sunday, friday, saturday are checked, then it means you are have work on sunday, friday, saturday.
-                    click on days that you are going to work on
+                    Working days are the working days of week. (e.g If sunday, friday, saturday are checked, then it means you are have work on sunday, friday, saturday.
+                    click on days that you are going to work on)
                 </li>
             </ul>
         </li>
 
         <li>
-            How to set Rest Days?
+            Rest Days
             <ul>
                 <li>
-                    Rest day is the non working days of week. If sunday, friday, saturday are not checked, then it means you are don't have work on sunday, friday, saturday.
-                    click on days that you are going to work on
+                    Rest day is the non working days of week.(e.g If sunday, friday, saturday are not checked, then it means you are don't have work on sunday, friday, saturday.
+                    click on days that you are going to work on)
                 </li>
                 <li>
                     Add a day if the group is not working. like holidays.
@@ -113,45 +186,42 @@
         </li>
 
         <li>
-            How to set Group  Day off?
-            <ul>
-                <li>
-                    Add a day if the group is not working. like holidays.
-                </li>
-                <li>
-                    <b>This is a combination of “group work schedules” and can be complicated :</b>.
+            Group  Day off - is the the group rest day.
+             <ul>
+                 <li>
+                     Add a day if the group is not working. like holidays.
+                 </li>
+                 <li>
+                     <b>This is a combination of “group work schedules” and can be complicated :</b>.
 
-                    <ol>
-                        <li>
-                            Let’s assume the group work on “Monday” to “Saturday” and No work on Sunday.
-                        </li>
+                     <ol>
+                         <li>
+                             Let’s assume the group work on “Monday” to “Saturday” and No work on Sunday.
+                         </li>
 
-                        <li>
-                            The group set May 15th, 2015 ( Friday ) is a rest day because it’s a special some day.
-                        </li>
+                         <li>
+                             The group set May 15th, 2015 ( Friday ) is a rest day because it’s a special day.
+                         </li>
 
-                        <li>
-                            But only one employee will come to office to work on that day - May 15th, 2015.
-                        </li>
-                        <li>
-                            The employee only works from 10 am to 2 pm. ( half day )
-                        </li>
-                        <li>
-                            And the next day the employee rest ( no work. )
-                        </li>
-                        <li>
-                            What if all members of the group changes the work schedule?
-                            like on this coming monday only, the group work on 6 am to 10 am only.
-                            You can do it on work schedule with empty user name.
-                        </li>
+                         <li>
+                             But only one employee will come to office to work on that day - May 15th, 2015.
+                         </li>
+                         <li>
+                             The employee only works from 10 am to 2 pm. ( half day )
+                         </li>
+                         <li>
+                             And the next day the employee rest ( no work. )
+                         </li>
+                         <li>
+                             What if all members of the group changes the work schedule?
+                             like on this coming monday only, the group work on 6 am to 10 am only.
+                             You can do it on work schedule with empty user name.
+                         </li>
 
-                    </ol>
-                <li>
-
-            </ul>
+                     </ol>
+                 <li>
+             </ul>
         </li>
-
-
         <li>
             Advisory :
             <ol>
@@ -161,5 +231,9 @@
             </ol>
         </li>
     </ol>
+
+
+
+
 
 </div>
