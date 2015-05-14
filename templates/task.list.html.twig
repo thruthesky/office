@@ -7,10 +7,6 @@
     {% include dir_office ~ '/templates/message.html.twig' %}
 
 
-    <div class="office-message todo">@TODO - Remember search option, Labeling,
-        Search for status[In progress, Not accepted, Rejected, Finished]
-        Search by priority, roadmap
-    </div>
 
     <form>
         <fieldset>
@@ -54,6 +50,26 @@
                         <input type="text" id="in_charge" name="in_charge" value="{{ input.in_charge }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
                     </td>
                 </tr>
+
+
+                <tr>
+                    <td>
+                        <label>Priority :</label>
+                    </td>
+                    <td>
+
+                        <input id='priority8' type="checkbox" name="priority[]" value="8"{{ 8 in input.priority ? ' checked=1' }}>
+                        <label for="priority8">{{ priority.urgent.text }}</label>
+                        <input id='priority6' type="checkbox" name="priority[]" value="6"{{ 6 in input.priority ? ' checked=1' }}>
+                        <label for="priority6">{{ priority.normal.text }}</label>
+                        <input id='priority4' type="checkbox" name="priority[]" value="4"{{ 4 in input.priority ? ' checked=1' }}>
+                        <label for="priority4">{{ priority.low.text }}</label>
+                        <input id='priority2' type="checkbox" name="priority[]" value="2"{{ 2 in input.priority ? ' checked=1' }}>
+                        <label for="priority2">{{ priority.none.text }}</label>
+
+                    </td>
+                </tr>
+
 
                 <tr>
 

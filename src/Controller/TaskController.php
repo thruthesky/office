@@ -61,6 +61,15 @@ class TaskController extends ControllerBase {
 			$db->condition($or);
 		}
 
+		$priority = x::in('priority', array());
+		if ( $priority ) {
+			$or = $db->orConditionGroup();
+			foreach($priority as $no) {
+				$or->condition('priority', $no);
+			}
+			$db->condition($or);
+		}
+
 
 		if ( $sort = x::in('sort') ) {
 			$db->sort($sort, x::in('by'));
