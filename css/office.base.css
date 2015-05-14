@@ -33,7 +33,6 @@ body {
     width: 20.5em;
     padding: 5px 0;
     text-align: center;
-    background: #dedede;
 }
 
 .office input[type=submit] {
@@ -67,6 +66,5 @@ body {
 }
 
 .office textarea{
-    width: 240px;
-    height: 85px;
+    width: 100%;
 }
