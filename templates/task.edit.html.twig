@@ -10,7 +10,15 @@
 
 
 <div{{ attributes.addClass( data.class.office ) }}>
-    <h2>Task Add/Edit</h2>
+
+    <h2>
+        Task
+        {% if task %}
+            EDIT
+        {% else %}
+            ADD
+        {% endif %}
+    </h2>
 
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
@@ -215,13 +223,19 @@
                         <td><label for="submit"></label></td>
                         <td>
 
-                            <div class="jbutton-group">
-                                <input class="jbutton grey-active submit" type="submit" id="submit">
-                                <a class="jbutton list" href="/office/task/list">LIST</a>
-                            </div>
                         </td>
                     </tr>
                 </table>
+
+                {% if task %}
+                {% endif %}
+
+
+                <div class="jbutton-group">
+                    <input class="jbutton grey-active submit" type="submit" id="submit">
+                    <a class="jbutton list" href="/office/task/list">LIST</a>
+                </div>
+
             </fieldset>
         </form>
     {% endif %}
