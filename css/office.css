@@ -35,6 +35,8 @@
 
 .add-task{
     margin-left: 1.3em!important;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .add-task select{
@@ -50,17 +52,16 @@ table.add-task tr input[type=text],select,input[type=radio],input[type=date],tex
 }
 
 .add-task textarea{
-    width: 230% !important;
+    width: 90% !important;
     height: 8em;
+    box-sizing: border-box;
 }
 
 .process-holder {
     background-color: rgb(255, 255, 255);
     border: 1px solid grey;
-    margin: -0.1em 0;
-    width: 20.4em;
+    width:90%;
     height: 110px;
-    border-top: 0;
 }
 .road-map{
     width: 5em!important;
