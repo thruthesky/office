@@ -7,10 +7,6 @@
     {% include dir_office ~ '/templates/message.html.twig' %}
 
 
-    <div class="office-message todo">@TODO - Remember search option, Labeling,
-        Search for status[In progress, Not accepted, Rejected, Finished]
-        Search by priority, roadmap
-    </div>
 
     <form>
         <fieldset>
@@ -55,36 +51,52 @@
                     </td>
                 </tr>
 
+
+                <tr>
+                    <td>
+                        <label>Priority :</label>
+                    </td>
+                    <td>
+
+                        <input id='priority8' type="checkbox" name="priority[]" value="8"{{ 8 in input.priority ? ' checked=1' }}>
+                        <label for="priority8">{{ priority.urgent.text }}</label>
+                        <input id='priority6' type="checkbox" name="priority[]" value="6"{{ 6 in input.priority ? ' checked=1' }}>
+                        <label for="priority6">{{ priority.normal.text }}</label>
+                        <input id='priority4' type="checkbox" name="priority[]" value="4"{{ 4 in input.priority ? ' checked=1' }}>
+                        <label for="priority4">{{ priority.low.text }}</label>
+                        <input id='priority2' type="checkbox" name="priority[]" value="2"{{ 2 in input.priority ? ' checked=1' }}>
+                        <label for="priority2">{{ priority.none.text }}</label>
+
+                    </td>
+                </tr>
+
+
                 <tr>
 
                     <td>Work Status</td>
                     <td>
+                        <span class="status-all"># All</span>
 
-
-                        <input id='status_all' type="radio" name="status" value=""{{ input.status == '' ? ' checked=1' }}>
-                        <label for="status_all">All</label>
-
-                        <input id='pending' type="radio" name="status" value="pending"{{ input.status == 'pending' ? ' checked=1' }}>
+                        <input id='pending' type="checkbox" name="status[pending]" value="Y"{{ input.status.pending == 'Y' ? ' checked=1' }}>
                         <label for="pending">Pending.</label>
 
-                        <input id='accepted' type="radio" name="status" value="accepted"{{ input.status == 'accepted' ? ' checked=1' }}>
+                        <input id='accepted' type="checkbox" name="status[accepted]" value="Y"{{ input.status.accepted == 'Y' ? ' checked=1' }}>
                         <label for="accepted">Accepted</label>
 
-                        <input id='inprogress' type="radio" name="status" value="inprogress"{{ input.status == 'inprogress' ? ' checked=1' }}>
+                        <input id='inprogress' type="checkbox" name="status[inprogress]" value="Y"{{ input.status.inprogress == 'Y' ? ' checked=1' }}>
                         <label for="inprogress">In-progress</label>
 
-                        <input id='finished' type="radio" name="status" value="finished"{{ input.status == 'finished' ? ' checked=1' }}>
+                        <input id='finished' type="checkbox" name="status[finished]" value="Y"{{ input.status.finished == 'Y' ? ' checked=1' }}>
                         <label for="finished">Finished</label>
 
-                        <input id='closed' type="radio" name="status" value="closed"{{ input.status == 'closed' ? ' checked=1' }}>
+                        <input id='closed' type="checkbox" name="status[closed]" value="Y"{{ input.status.closed == 'Y' ? ' checked=1' }}>
                         <label for="closed">Closed</label>
 
-                        <input id='redo' type="radio" name="status" value="redo"{{ input.status  == 'redo' ? ' checked=1' }}>
+                        <input id='redo' type="checkbox" name="status[redo]" value="Y"{{ input.status.redo  == 'Y' ? ' checked=1' }}>
                         <label for="redo">Redo (Work again)</label>
 
-                        <input id='rejected' type="radio" name="status" value="rejected"{{ input.status == 'rejected' ? ' checked=1' }}>
+                        <input id='rejected' type="checkbox" name="status[rejected]" value="Y"{{ input.status.rejected == 'Y' ? ' checked=1' }}>
                         <label for="rejected">Rejected</label>
-
 
                     </td>
                 </tr>
