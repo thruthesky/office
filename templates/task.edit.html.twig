@@ -49,15 +49,15 @@
                             <label for="summary">Summary:</label>
                         </td>
                         <td>
-                            <input type="text" name="summary" id="summary" value="{{ task.summary.value }}">
+                            <textarea name="summary" id="summary">{{ task.summary.value }}</textarea>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="">Description:</label>
+                            <label for="description">Description:</label>
                         </td>
                         <td>
-                            <input type="text" name="description" value="{{ task.description.value }}">
+                            <textarea id="description" name="description">{{ task.description.value }}</textarea>
                         </td>
                     </tr>
                     <tr>
