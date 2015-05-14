@@ -7,6 +7,8 @@
     {% if data.code %}
     {% else %}
 
+
+
     <form class='group' action="/office/group/add">
         <fieldset>
             <legend>GROUP ADD</legend>
@@ -39,6 +41,29 @@
                     </td>
                 </tr>
 
+
+
+
+
+
+
+                <tr>
+                    <td>
+                        <label>Use Process</label>
+                    </td>
+                    <td>
+
+                        <input type="radio" name="use_process" id="use_process_Y" value="Y"{{ data.group.option.use_process == 'Y' ? ' checked=1'}}>
+                        <label for="use_process_Y">Yes</label>
+
+                        <input type="radio" name="use_process" id="use_process_N" value="N"{{ data.group.option.use_process == 'N' ? ' checked=1'}}>
+                        <label for="use_process_N">No</label>
+
+                    </td>
+                </tr>
+
+
+
                 <tr>
                     <td>
                         <label>Group View Status</label>
@@ -59,13 +84,10 @@
                         <label>Who can create tasks?</label>
                     </td>
                     <td>
-
                         <input type="radio" name="create_status" id="create_status_anyone" value="A"{{ data.group.create_status.value == 'A' ? ' checked=1'}}>
                         <label for="create_status_anyone">Anyone</label>
-
                         <input type="radio" name="create_status" id="create_status_member" value="M"{{ data.group.create_status.value == 'M' ? ' checked=1'}}>
                         <label for="create_status_member">Member of the group</label>
-
                     </td>
                 </tr>
 

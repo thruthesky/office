@@ -270,6 +270,10 @@ class Group extends ContentEntityBase implements GroupInterface {
 		x::config("group_{$id}_work", 'saturday', x::in('work_saturday'));
 
 
+		x::group_config_set( $id, 'use_process', x::in('use_process', 'Y'));
+
+
+
 		return $id;
 	}
 

@@ -45,6 +45,8 @@ class GroupController extends ControllerBase {
 					$office_group = Group::load($group_id);
 				}
 				if ( $office_group ) {
+					$option = x::group_config($office_group->id());
+					$office_group->option = $option;
 					$data['group'] = $office_group;
 					$data['config']['work'] = x::getGroupWorkingDays($office_group->id());
 					$data['config']['dayoffs'] = x::getGroupDayoffs($office_group->id());
