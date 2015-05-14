@@ -308,9 +308,19 @@ class x {
 	 *
 	 * If the code/category exsits, it updates.
 	 *
-	 * @param $code
-	 * @param $category
-	 * @param null $v
+	 * - $code 에만 값이 있는 경우,
+	 *     ==> 모든 $code 에 해당하는 값을 리턴한다.
+	 * - $code 와 $category 에만 값이 있는 경우,
+	 *     ==> $code 와 $category 에 해당하는 값을 모두 리턴한다.
+	 * - $code 와 $category, $v 에 값이 있는 경우,
+	 *      ==>> 추가를 하거나 업데이트를 한다.
+	 *
+	 *
+	 *
+	 *
+	 * @param $code - 첫번째 키(키) 값
+	 * @param $category - 두번째 키(카테고리) 값
+	 * @param null $v - 값
 	 * @return null
 	 * @throws \Exception
 	 * @code
@@ -403,22 +413,39 @@ class x {
 	}
 
 	/**
-	 * Returns Group Configs
+	 * 그룹 설정 값을 리턴한다.
 	 *
-	 * @code $data['config'] = x::gs( $office_group->id() );
+	 * 그룹의 설정 값을 연관 배열로 통째로 모두 다 얻고 싶을 때 사용한다.
+	 *
+	 * 키값이 group_[그룹번호] 인 것만 리턴한다.group_[그룹번호]***** 와 같은 것은 리턴하지 않는다.
+	 *
+	 *
+	 * @param $id - 그룹 번호
+	 * @param null $category - 그룹 설정 키
+	 * @return array - 그룹 설정의 키와 값의 연관 배열로 리턴한다.
+	 *
+	 *      -- 만약 $category 값이 null 이면, 전체 그룹 키 값을 리턴한다>
+	 *
+	 * @code 해당 그룹의 모든 설정 값을 얻어서 리턴한다.
+	 *      $data['group_option'] = x::group_config($office_group->id());
+	 * @endcode
 	 */
 	public static function group_config($id, $category=null) {
+		$configs = self::config("group_{$id}", $category);
+		$ret = [];
+		if ( $configs ) {
+			foreach ( $configs as $cfg ) {
+				$ret[$cfg['category']] = $cfg['value'];
+			}
+		}
+		return $ret;
+		/*
 		$db = db_select('office_config','c')
 			->fields('c')
 			->condition('code', "group_{$id}");
-
 		if ( $category ) $db->condition('category', $category);
-
 		$res = $db->execute();
-
-
 		$rows = $res->fetchAllAssoc('code');
-
 		$rets=[];
 		if ( $rows ) {
 			foreach ( $rows as $code => $v ) {
@@ -427,7 +454,24 @@ class x {
 			}
 		}
 		return $rets;
+		*/
 	}
+
+	/**
+	 *
+	 * 그룹의 설정을 저장한다.
+	 *
+	 *
+	 *
+	 * @param $id - 그룹 번호
+	 * @param $category - 그룹 설정 키값
+	 * @param $value - 값
+	 * @return null
+	 */
+	public static function group_config_set($id, $category, $value) {
+		return self::config("group_{$id}", $category, $value);
+	}
+
 
 	/**
 	 * @param $id
@@ -857,6 +901,7 @@ class x {
 		// {{ office.group }} 을 지정하고 {{ office.is_member }} 를 지정한다.
 		$group = Member::group(x::myUid());
 		if ( $group ) {
+			$group->option = x::group_config($group->id());
 			$office['group'] = $group;
 			$office['is_member'] = 1;
 		}

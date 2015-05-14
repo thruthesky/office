@@ -13,7 +13,6 @@ body {
     margin: 0;
     color: rgb(255, 255, 255);
     padding: 0.2em;
-
 }
 
 .office input{
@@ -52,13 +51,23 @@ body {
     background-color: rgb(76, 77, 77);
 }
 
+/** This is wrong
 .office form {
     margin: 1em;
 }
-
 .office fieldset{
     border: 0.1em solid #808080;
 }
+*/
+
+.office fieldset {
+    display: block;
+    margin:0;
+    padding:0;
+    border: 0;
+}
+
+
 
 .office p {
    background-color: #ffffff;

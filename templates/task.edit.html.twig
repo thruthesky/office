@@ -8,6 +8,7 @@
     {% set default_group_id = my.group_id.target_id %}
 {% endif %}
 
+
 <div{{ attributes.addClass( data.class.office ) }}>
     <h2>Task Add/Edit</h2>
 
@@ -26,15 +27,12 @@
                 <legend></legend>
                 <input type="hidden" name="mode" value="submit">
                 <input type="hidden" name="task_id" value="{{ task.id.value }}">
+                <div class="row">
+                    <div class="caption">Group</div>
+                    <div class="content">{% include dir_office ~ '/templates/form.group_id.html.twig' %}</div>
+                </div>
+
                 <table class="add-task">
-                    <tr>
-                        <td>
-                            <label for="group_id">Group :</label>
-                        </td>
-                        <td>
-                            {% include dir_office ~ '/templates/form.group_id.html.twig' %}
-                        </td>
-                    </tr>
                     <tr>
                         <td>
                             <label for="title">Title:</label>
@@ -92,6 +90,7 @@
                     </tr>
 
 
+                        {% if office.group.option.use_process == 'Y' %}
                     <tr>
                         <td> <label for="process">Work Process :</label></td>
                         <td>
@@ -102,6 +101,7 @@
                             </div>
                         </td>
                     </tr>
+                        {% endif %}
 
                     <tr>
                         <td>

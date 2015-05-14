@@ -60,7 +60,12 @@ table.add-task tr input[type=text],select,input[type=radio],input[type=date],tex
 .process-holder {
     background-color: rgb(255, 255, 255);
     border: 1px solid grey;
+<<<<<<< HEAD
     width:90%;
+=======
+    margin: -0.1em 0;
+    width: 100%;
+>>>>>>> 7972a03755c8bc10c51fd4fbfb3ab8a08c2d55f7
     height: 110px;
 }
 .road-map{
