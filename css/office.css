@@ -50,7 +50,7 @@ table.add-task tr input[type=text],select,input[type=radio],input[type=date],tex
 }
 
 .add-task textarea{
-    width: 200% !important;
+    width: 230% !important;
     height: 8em;
 }
 
