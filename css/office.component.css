@@ -12,11 +12,6 @@ td.td-layout-right{
     float:right;
 }
 
-.office-information {
-    padding:1em;
-    box-sizing: border-box;
-    background-color: #d3e8f4;
-}
 
 .add-dayoff{
     cursor: pointer;

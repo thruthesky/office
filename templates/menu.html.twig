@@ -1,11 +1,17 @@
+<div class="office-message">
 {% if office.member %}
-   <span class="welcome">
+   <div class="welcome">
     {{ text.welcome | replace({'$name':office.member.user_id.entity.name.value}) }}
        {% if office.group %}
            {{ text.group }} : {{ office.group.name.value }}
        {% endif %}
-    </span>
+    </div>
+{% else %}
+    <div class="login-first">
+        Please login first...
+    </div>
 {% endif %}
+</div>
 
 
 <nav class="office-menu">
@@ -46,10 +52,3 @@
         </div>
 </nav>
 
-<div class="office-information">
-    <div>
-        {{ office.member.user_id.entity.name.value }}
-        Group : {{ office.member.group_id.entity.name.value }}
-        Now : {{ office.now }}
-    </div>
-</div>
