@@ -28,49 +28,54 @@
                 <input type="hidden" name="mode" value="submit">
                 <input type="hidden" name="task_id" value="{{ task.id.value }}">
 
-                <table class="add-task">
-                    <tr>
-                        <td>
-                            <label>Group :</label>
-                        </td>
-                        <td>
-                            {% include dir_office ~ '/templates/form.group_id.html.twig' %}
-                        </td>
-                    </tr>
+                <div class="row">
+                    <div class="caption">Group</div>
+                    <div class="text">{% include dir_office ~ '/templates/form.group_id.html.twig' %}</div>
+                </div>
 
-                    <tr>
-                        <td>
-                            <label for="title">Title :</label>
-                        </td>
-                        <td>
-                            <input type="text" name="title" id="title" value="{{ task.title.value }}">
-                        </td>
-                    </tr>
+                <div>
+                    <div class="caption">Title</div>
+                    <div class="text"><input type="text" name="title" id="title" value="{{ task.title.value }}"></div>
+                </div>
+
+                <div>
+                    <div class="caption">Summary :</div>
+                    <div class="text"><textarea name="summary" id="summary">{{ task.summary.value }}</textarea></div>
+                </div>
+
+                <div>
+                    <div class="caption">Description :</div>
+                    <div class="text"><textarea id="description" name="description">{{ task.description.value }}</textarea></div>
+                </div>
+
+                <div>
+                    <div class="caption">Deadline :</div>
+                    <div class="text"><input type="date" name="deadline" id="deadline" value="{{ task.deadline.value }}"></div>
+                </div>
+
+                <div>
+                    <div class="caption">Priority :</div>
+                    <div class="text">
+                        <input id='priority8' type="radio" name="priority" value="8"{{ task.priority.value == priority.urgent.value ? ' checked=1' }}>
+                        <label for="priority8">{{ priority.urgent.text }}</label>
+
+
+                        <input id='priority6' type="radio" name="priority" value="6"{{ task.priority.value == priority.normal.value ? ' checked=1' }}>
+                        <label for="priority6">{{ priority.normal.text }}</label>
+
+                        <input id='priority4' type="radio" name="priority" value="4"{{ task.priority.value == priority.low.value ? ' checked=1' }}>
+                        <label for="priority4">{{ priority.low.text }}</label>
+
+                        <input id='priority2' type="radio" name="priority" value="2"{{ task.priority.value == priority.none.value ? ' checked=1' }}>
+                        <label for="priority2">{{ priority.none.text }}</label>
+                    </div>
+                </div>
+
+
+                <table class="add-task">
+
                     {% if office.is_member %}
-                    <tr>
-                        <td>
-                            <label for="summary">Summary :</label>
-                        </td>
-                        <td>
-                            <textarea name="summary" id="summary">{{ task.summary.value }}</textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="description">Description :</label>
-                        </td>
-                        <td>
-                            <textarea id="description" name="description">{{ task.description.value }}</textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="deadline">Deadline :</label>
-                        </td>
-                        <td>
-                            <input type="date" name="deadline" id="deadline" value="{{ task.deadline.value }}">
-                        </td>
-                    </tr>
+
 
                     <tr>
                         <td>
@@ -78,18 +83,7 @@
                         </td>
                         <td>
 
-                            <input id='priority8' type="radio" name="priority" value="8"{{ task.priority.value == priority.urgent.value ? ' checked=1' }}>
-                            <label for="priority8">{{ priority.urgent.text }}</label>
 
-
-                            <input id='priority6' type="radio" name="priority" value="6"{{ task.priority.value == priority.normal.value ? ' checked=1' }}>
-                            <label for="priority6">{{ priority.normal.text }}</label>
-
-                            <input id='priority4' type="radio" name="priority" value="4"{{ task.priority.value == priority.low.value ? ' checked=1' }}>
-                            <label for="priority4">{{ priority.low.text }}</label>
-
-                            <input id='priority2' type="radio" name="priority" value="2"{{ task.priority.value == priority.none.value ? ' checked=1' }}>
-                            <label for="priority2">{{ priority.none.text }}</label>
 
                         </td>
                     </tr>
