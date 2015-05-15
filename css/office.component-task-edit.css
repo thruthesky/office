@@ -25,18 +25,13 @@ form.task-edit .caption {
         float:left;
         width:76%;
     }
+
 }
 
 
 /** ================ COMPONENT ================ **/
 form.task-edit {
     margin:0.2em 0;
-}
-
-form.task-edit fieldset {
-    margin:0;
-    padding:0;
-    border:0;
 }
 
 form.task-edit select {
@@ -54,6 +49,7 @@ form.task-edit .row.title {
     box-sizing: border-box;
     background-color:#e0e0d8;
 }
+
 
 form.task-edit .title .b .content {
     text-align: right;
@@ -106,19 +102,21 @@ form.task-edit .process-holder {
     top: 0.1em;
 }
 
-form.task-edit .text.roadmap select{
-    width: 5em!important;
-}
-
-
 form.task-edit .text.roadmap{
-    width: 6%!important;
+    width: 8%!important;
 }
 
 
-
-form.task-edit .text img{
-    position: absolute;
+form.task-edit .graph.roadmap {
+    position:relative;
+    margin:0;
+    border:0;
+    width:100px;
+    padding: 0.2em;
+    font-size:12px;
+    background-color:#b9b9b9;
+    color:white;
+    top: 0.1em;
 }
 
 

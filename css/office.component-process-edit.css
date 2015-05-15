@@ -1,39 +1,35 @@
-/** office.member.css **/
-
 @media all and ( min-width: 640px ) { /* 640px and above */
-    form.member .row:after {
+    form.process-edit .row:after {
         display:block;
         content:'';
         clear:both;
     }
-    form.member .caption {
+    form.process-edit .caption {
         float:left;
         width:24%;
     }
-    form.member .text {
+    form.process-edit .text {
         float:left;
         width:76%;
     }
 
 }
-form.member {
+
+form.process-edit {
     margin:0.2em 0;
 }
-form.member legend {
-    display:block;
-    width:100%;
-    font-size:1.2em;
-    padding:1em;
-    box-sizing: border-box;
-    background-color:#e0e0d8;
-}
 
-form.member fieldset .row{
+form.process-edit fieldset .row{
     padding: 1em 1em 0 ;
 }
 
-form.member input[type='text']{
+.office.process-edit input[type='text'] {
+    width:100%;
     padding:0.6em;
     box-sizing: border-box;
+}
+
+.office.process-edit textarea {
     width:100%;
+    height:10em;
 }

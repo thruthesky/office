@@ -7,74 +7,49 @@
 
     {% if logged_in %}
 
-    <form action="/office/member/add">
+    <form  class="member" action="/office/member/add">
        <fieldset>
            <legend> ADD / EDIT</legend>
            <input type="hidden" name="mode" value="submit">
-            <table>
-                <tr>
-                    <td>
-                        <label for="first_name">First Name :</label>
-                    </td>
-                    <td>
-                        <input type="text" id="first_name" name="first_name" value="{{ data.member.first_name.value }}">
-                    </td>
-                </tr>
+               <div class="row">
+                   <div class="caption">First Name</div>
+                   <div class="text"><input type="text" id="first_name" name="first_name" value="{{ data.member.first_name.value }}"></div>
+               </div>
 
-                <tr>
-                    <td>
-                        <label for="middle_name">Middle Name :</label>
-                    </td>
-                    <td>
-                        <input type="text" name="middle_name"  id="middle_name" value="{{ data.member.middle_name.value }}">
-                    </td>
-                </tr>
+               <div class="row">
+                   <div class="caption">Middle Name</div>
+                   <div class="text"><input type="text" name="middle_name"  id="middle_name" value="{{ data.member.middle_name.value }}"></div>
+               </div>
 
-                <tr>
-                    <td>
-                        <label for="last_name">Last Name :</label>
-                    </td>
-                    <td>
-                        <input type="text" name="last_name" id="last_name" value="{{ data.member.last_name.value }}">
-                    </td>
-                </tr>
+               <div class="row">
+                   <div class="caption">Last Name</div>
+                   <div class="text"><input type="text" name="last_name" id="last_name" value="{{ data.member.last_name.value }}"></div>
+               </div>
 
-                <tr>
-                    <td>
-                       <label for="mobile"> Mobile Number :</label>
-                    </td>
-                    <td>
-                        <input type="text" name="mobile"  id="mobile" value="{{ data.member.mobile.value }}">
-                    </td>
-                </tr>
+               <div class="row">
+                   <div class="caption">Mobile Number</div>
+                   <div class="text"><input type="text" name="mobile"  id="mobile" value="{{ data.member.mobile.value }}"></div>
+               </div>
 
-                <tr>
-                    <td>
-                        <label for="landline">Landline Number :</label>
-                    </td>
-                    <td>
-                        <input type="text" name="landline" id="landline" value="{{ data.member.landline.value }}">
-                    </td>
-                </tr>
+               <div class="row">
+                   <div class="caption">Landline Number</div>
+                   <div class="text"><input type="text" name="landline" id="landline" value="{{ data.member.landline.value }}"></div>
+               </div>
 
-                <tr>
-                    <td>
-                       <label for="address"> Address :</label>
-                    </td>
-                    <td>
-                        <input type="text" name="address" id="address" value="{{ data.member.address.value }}">
-                    </td>
-                </tr>
+               <div class="row">
+                   <div class="caption">Address</div>
+                   <div class="text"><input type="text" name="address" id="address" value="{{ data.member.address.value }}"></div>
+               </div>
 
-                <tr>
-                    <td><label for="submit"></label></td>
-                    <td>
-                        <div class="jbutton-group">
-                            <input class="jbutton grey-active submit" type="submit" id="submit">
-                        </div>
-                    </td>
-                </tr>
-            </table>
+               <div class="row">
+                   <div class="caption">&nbsp;</div>
+                   <div class="text">
+                       <div class="jbutton-group">
+                           <input class="jbutton grey-active submit" type="submit" id="submit">
+                       </div>
+                   </div>
+               </div>
+
          </fieldset>
     </form>
     {% endif %}
