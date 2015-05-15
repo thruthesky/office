@@ -48,6 +48,10 @@ nav.office-menu div a:first-child {
 
 
 
+.task-status span {
+    margin-right:1em;
+}
+
 .task-status .urgent {
     color:#ffff00;
 }
