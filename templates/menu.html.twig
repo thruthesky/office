@@ -1,16 +1,27 @@
-<div class="office-message">
+<div class="office-message grid">
+
 {% if office.member %}
-   <div class="welcome">
-    {{ text.welcome | replace({'$name':office.member.user_id.entity.name.value}) }}
-       {% if office.group %}
-           {{ text.group }} : {{ office.group.name.value }}
-       {% endif %}
+   <div class="a welcome">
+       <div class="content">
+           {{ text.welcome | replace({'$name':office.member.user_id.entity.name.value}) }}
+           {% if office.group %}
+               {{ text.group }} : {{ office.group.name.value }}
+           {% endif %}
+       </div>
+    </div>
+    <div class="b task-status">
+        <div class="content">
+            <span class="task"><b>Your task</b><i>{{ my.count_task }}</i></span>
+            <span class="urgent"><b>Urgent</b><i>{{ my.count_urgent_task }}</i></span>
+            <span class="deadline"><b>Deadline</b><i>{{ my.count_deadline_task }}</i></span>
+        </div>
     </div>
 {% else %}
     <div class="login-first">
         Please login first...
     </div>
 {% endif %}
+
 </div>
 
 
