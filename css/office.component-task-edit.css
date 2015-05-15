@@ -103,7 +103,7 @@ form.task-edit .process-holder {
 }
 
 form.task-edit .text.roadmap{
-    display: inline!important;
+    display: inline;
     width: 6em!important;
 
 }
