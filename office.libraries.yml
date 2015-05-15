@@ -11,6 +11,7 @@ default:
       css/office.css: {}
       css/office.component-menu.css: {}
       css/office.component-message.css: {}
+      css/office.component-grid.css: {}
       css/jbutton/jbutton.css: {}
   dependencies:
     - core/jquery

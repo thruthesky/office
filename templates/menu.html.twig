@@ -1,16 +1,31 @@
-<div class="office-message">
+<div class="office-message grid">
+
 {% if office.member %}
-   <div class="welcome">
-    {{ text.welcome | replace({'$name':office.member.user_id.entity.name.value}) }}
-       {% if office.group %}
-           {{ text.group }} : {{ office.group.name.value }}
-       {% endif %}
+   <div class="a welcome">
+       <div class="content">
+           {{ text.welcome | replace({'$name':office.member.user_id.entity.name.value}) }}
+           {% if office.group %}
+               {{ text.group }} : {{ office.group.name.value }}
+           {% endif %}
+       </div>
+    </div>
+    <div class="b task-status">
+        <div class="content">
+            <span class="task"><b>Your task</b><i>{{ my.count_task }}</i></span>
+            {% if my.count_urgent_task %}
+            <span class="urgent"><b>Urgent</b><i>{{ my.count_urgent_task }}</i></span>
+            {% endif %}
+            {% if my.count_deadline_task %}
+            <span class="deadline"><b>Deadline</b><i>{{ my.count_deadline_task }}</i></span>
+            {% endif %}
+        </div>
     </div>
 {% else %}
     <div class="login-first">
         Please login first...
     </div>
 {% endif %}
+
 </div>
 
 
@@ -39,8 +54,7 @@
 
         {% if office.is_group_admin %}
         <div>
-            <a><span class="caption">My Group</span></a>
-            <a href="/office/group/{{ office.my_own_group.id.value }}/edit"><span class="item group-update">Group Information Update</span></a>
+            <a href="/office/group/{{ office.my_own_group.id.value }}/edit"><span class="caption group-update">My Group - Update</span></a>
             <a href="/office/group/{{ office.my_own_group.id.value }}/workinghours"><span class="item group-update-workschedule">Work Schedules</span></a>
             <a href="/office/member/list"><span class="item group-member-list">Member List</span></a>
         </div>

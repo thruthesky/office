@@ -47,6 +47,28 @@ nav.office-menu div a:first-child {
 }
 
 
+
+.task-status span {
+    margin-right:1em;
+}
+
+.task-status .urgent {
+    color:#ffff00;
+}
+.task-status i {
+    font-weight:bold;
+}
+.task-status i:before {
+    display:inline;
+    content:'(';
+}
+.task-status i:after {
+    display:inline;
+    content:')';
+}
+
+
+
 /** ---------------------------------- STATE --------------------------------- **/
 
 

@@ -2,6 +2,7 @@
 
 use Drupal\office\Entity\Group;
 use Drupal\office\Entity\Member;
+use Drupal\office\Entity\Task;
 use Drupal\office\Language;
 use Drupal\office\x;
 
@@ -46,9 +47,16 @@ function office_preprocess(&$variables, $hook)
 
 
 	$variables['text'] = Language::load();
-
 	if ( x::in('uid') ) $variables['member'] = Member::loadByUserID(x::in('uid'));
-	if ( x::myUid() ) $variables['my'] = Member::loadByUserID(x::myUid());
+	if ( x::myUid() ) {
+		$my = Member::loadByUserID(x::myUid());
+		$my->count_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->count()->execute();
+		$status = Task::$config_priority['urgent']['value'];
+		$my->count_urgent_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->condition('status',$status)->count()->execute();
+		$date = date('Y-m-d', strtotime('1 week ago'));
+		$my->count_deadline_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->condition('deadline',$date, '>')->count()->execute();
+		$variables['my'] = $my;
+	}
 	if ( x::in('code') ) $variables['data']['code'] = x::in('code');
 	if ( x::in('message') ) $variables['data']['message'] = x::in('message');
 
