@@ -43,7 +43,7 @@ function office_preprocess(&$variables, $hook)
 	$variables['office_module'] = 1;
 
 
-	$variables['text'] = Language::load();
+	$variables['ol'] = Language::load();
 	if ( x::in('uid') ) $variables['member'] = Member::loadByUserID(x::in('uid'));
 	if ( x::myUid() ) {
 		$my = Member::loadByUserID(x::myUid());
