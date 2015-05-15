@@ -47,6 +47,45 @@ class TaskController extends ControllerBase {
 			$db->condition('client_id', $client_id);
 		}
 
+		$keyword = x::in('keyword');
+
+		if ( ! empty($keyword) ) {
+			$condition = x::in('search_condition');
+			if ( $condition == 'and' ) {
+				$words = explode(' ', $keyword);
+				foreach( $words as $word ) {
+					$or = $db->orConditionGroup();
+					$or->condition('title', $word, 'CONTAINS');
+					if ( x::in('search_title_only') != 'Y' ) {
+						$or->condition('description', $word, 'CONTAINS');
+						$or->condition('summary', $word, 'CONTAINS');
+					}
+					$db->condition($or);
+				}
+			}
+			else if ( $condition == 'or' ) {
+				$words = explode(' ', $keyword);
+				$or = $db->orConditionGroup();
+				foreach( $words as $word ) {
+					$or->condition('title', $word, 'CONTAINS');
+					if ( x::in('search_title_only') != 'Y' ) {
+						$or->condition('description', $word, 'CONTAINS');
+						$or->condition('summary', $word, 'CONTAINS');
+					}
+				}
+				$db->condition($or);
+			}
+			else {
+				$or = $db->orConditionGroup();
+				$or->condition('title', $keyword, 'CONTAINS');
+				if ( x::in('search_title_only') != 'Y' ) {
+					$or->condition('description', $keyword, 'CONTAINS');
+					$or->condition('summary', $keyword, 'CONTAINS');
+				}
+				$db->condition($or);
+			}
+		}
+
 		/*
 		if ( $status = x::in('status') ) {
 			$db->condition('status', $status);

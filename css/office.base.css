@@ -1,9 +1,12 @@
 /* base.css */
 .office h2 {
-    background-color: rgb(76, 77, 77);
-    color: rgb(255, 255, 255);
     margin: 0;
-    padding: 0.2em;
+    padding: 0.4em;
+    box-sizing: border-box;
+    background-color: #353535;
+    color: white;
+    font-weight: normal;
+    font-size:1.4em;
 }
 .office fieldset {
     margin:0;
