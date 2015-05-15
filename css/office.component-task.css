@@ -4,10 +4,18 @@
 }
 
 
-.status-all {
+.status-all,
+.priority-all {
     display:inline-block;
     padding-right:1.6em;
     font-size:1.1em;
     cursor:pointer;
 }
 
+.comments .row {
+    margin:1em 0;
+    padding:1em;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 2px;
+}

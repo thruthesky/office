@@ -90,8 +90,8 @@ $(function(){
     function load_process_data(id) {
         var qs = {"call": "load_process", "process_id": id};
         office_api(qs, function(re){
-            console.log(re);
-            $('.process-holder').html(re);
+            //console.log(re);
+            $('.process-holder').html(re).show();
         });
     }
 
