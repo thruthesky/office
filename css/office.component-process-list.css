@@ -1,1 +1,3 @@
-.office.process.list
+.office.process .row .create{
+    float: right;
+}

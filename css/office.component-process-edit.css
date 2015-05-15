@@ -33,3 +33,8 @@ form.process-edit fieldset .row{
     width:100%;
     height:10em;
 }
+
+.office.process .row .create{
+    float: right;
+    color: #ffffff;
+}

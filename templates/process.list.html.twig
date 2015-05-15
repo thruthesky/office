@@ -1,16 +1,11 @@
 <div{{ attributes.addClass( data.class.office ) }}>
 
-    <div class="row">
-        <div class="caption">
-            <h2>Work Process List</h2>
-        </div>
-        <div class="text">
+    <div class="row process">
+        <h2>Work Process List
             {% if office.is_member %}
-                <div class="jbutton-group top-menu">
-                    <a class="jbutton post" href="/office/process/add">CREATE</a>
-                </div>
+                <span class="create"><a href="/office/process/add">CREATE</a><span>
             {% endif %}
-        </div>
+        </h2>
     </div>
 
 
