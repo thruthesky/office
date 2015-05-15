@@ -11,33 +11,40 @@
         <input type="hidden" name="mode" value="submit">
         <input type="hidden" name="process_id" value="{{ process.id.value }}">
 
-        <table cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-                <td>Name</td>
-                <td><input type="text" name="name" value="{{ process.name.value }}"></td>
-            </tr>
-            <tr>
-                <td>Summary</td>
-                <td><textarea name="summary">{{ process.summary.value }}</textarea></td>
-            </tr>
-            <tr>
-                <td>Description</td>
-                <td><textarea name="description">{{ process.description.value }}</textarea></td>
-            </tr>
-            <tr>
-                <td>Work Flow</td>
-                <td><textarea name="workflow">{{ process.workflow.value }}</textarea></td>
-            </tr>
-            <tr>
-                <td>Requirement</td>
-                <td><textarea name="requirement">{{ process.requirement.value }}</textarea></td>
-            </tr>
-
-        </table>
-
-        <div class="jbutton-group">
-            <input class="jbutton blue-active submit" type="submit">
-            <a class="jbutton list" href="/office/process/list">LIST</a>
+        <div class="row">
+            <div class="caption">Name</div>
+            <div class="text"><input type="text" name="name" value="{{ process.name.value }}"></div>
         </div>
+
+        <div class="row">
+            <div class="caption">Summary</div>
+            <div class="text"><textarea name="summary">{{ process.summary.value }}</textarea></div>
+        </div>
+
+        <div class="row">
+            <div class="caption">Description</div>
+            <div class="text"><textarea name="description">{{ process.description.value }}</textarea></div>
+        </div>
+
+        <div class="row">
+            <div class="caption">Work Flow</div>
+            <div class="text"><textarea name="workflow">{{ process.workflow.value }}</textarea></div>
+        </div>
+
+        <div class="row">
+            <div class="caption">Requirement</div>
+            <div class="text"><textarea name="requirement">{{ process.requirement.value }}</textarea></div>
+        </div>
+
+        <div class="row">
+            <div class="caption">&nbsp;</div>
+            <div class="text">
+                <div class="jbutton-group">
+                    <input class="jbutton blue-active submit" type="submit">
+                    <a class="jbutton list" href="/office/process/list">LIST</a>
+                </div>
+            </div>
+        </div>
+
     </form>
 </div>

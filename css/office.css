@@ -1,7 +1,7 @@
 /** office.css This is a temporary space */
 
 .graph.roadmap {
-    display:inline!important;
+    display:inline-block;
     position:relative;
     margin:0;
     border:0;
@@ -32,6 +32,5 @@
 .graph.roadmap .bar[percentage='60'] {
     background-color: #B00000;
 }
-
 
 

@@ -1,3 +1,22 @@
+@media all and ( min-width: 640px ) { /* 640px and above */
+    form.task-edit .row:after {
+        display:block;
+        content:'';
+        clear:both;
+    }
+    form.task-edit .caption {
+        float:left;
+        width:24%;
+    }
+    form.task-edit .text {
+        float:left;
+        width:76%;
+    }
+
+}
+form.task-edit {
+    margin:0.2em 0;
+}
 .office.process input[type='text'] {
     width:100%;
 }
