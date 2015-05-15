@@ -15,21 +15,17 @@ body {
     padding: 0.2em;
 }
 
-.office input{
-    margin-bottom: 0.1em;
-}
-
 .office input[type=text] {
-    width: 20.2em;
+    width: 36%;
     padding: 5px 0;
 }
 
 .office input[type=date] {
-    width: 20.2em;
+    width: 36%;
     padding: 5px 0;
 }
 .office select {
-    width: 20.5em;
+    width: 36%;
     padding: 5px 0;
     text-align: center;
 }
@@ -37,7 +33,7 @@ body {
 .office input[type=submit] {
 }
 .office input[type=password] {
-    width: 20.3em;
+    width: 36%;
     padding: 5px 0;
 }
 
@@ -51,14 +47,6 @@ body {
     background-color: rgb(76, 77, 77);
 }
 
-/** This is wrong
-.office form {
-    margin: 1em;
-}
-.office fieldset{
-    border: 0.1em solid #808080;
-}
-*/
 
 .office fieldset {
     display: block;

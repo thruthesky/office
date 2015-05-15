@@ -1,8 +1,8 @@
-
+/**
 .office.task textarea {
     width:99%;
 }
-
+**/
 
 .status-all,
 .priority-all {
@@ -18,4 +18,59 @@
     box-sizing: border-box;
     background-color: white;
     border-radius: 2px;
+}
+
+.office.task fieldset{
+    border: 0.1em solid #808080!important;
+}
+
+.office.task fieldset .row{
+    padding: 1em 1em 0 ;
+
+}
+
+.office.task fieldset .row div{
+    display: inline-block;
+}
+.office.task .caption{
+    width: 15%;
+}
+
+.office.task .text{
+    width: 80%;
+    vertical-align: middle;
+}
+.office.task textarea{
+    height: 10em;
+}
+
+.office.task select{
+    background: -webkit-linear-gradient(rgb(250, 250, 250), rgb(203, 203, 216));
+    background: -o-linear-gradient(rgb(250, 250, 250), rgb(203, 203, 216));
+    background: -moz-linear-gradient(rgb(250, 250, 250), rgb(203, 203, 216));
+    background: linear-gradient(rgb(250, 250, 250), rgb(203, 203, 216));
+}
+
+.office.task .process-holder {
+    display:none;
+    padding:1em;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid grey;
+    width:100%;
+    height: 120px;
+    overflow:hidden;
+}
+
+.office.task .text.roadmap select{
+    width: 5em!important;
+}
+
+.office.task .text.roadmap{
+    width: 6%!important;
+}
+
+
+.office.task .text img{
+    position: absolute;
 }

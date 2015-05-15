@@ -1,7 +1,7 @@
 /** office.css This is a temporary space */
 
 .graph.roadmap {
-    display:inline-block;
+    display:inline!important;
     position:relative;
     margin:0;
     border:0;
@@ -33,42 +33,5 @@
     background-color: #B00000;
 }
 
-.add-task{
-    margin-left: 1.3em!important;
-    width: 100%;
-    box-sizing: border-box;
-}
 
-.add-task select{
-    background: -webkit-linear-gradient(rgb(250, 250, 250), rgb(203, 203, 216));
-    background: -o-linear-gradient(rgb(250, 250, 250), rgb(203, 203, 216));
-    background: -moz-linear-gradient(rgb(250, 250, 250), rgb(203, 203, 216));
-    background: linear-gradient(rgb(250, 250, 250), rgb(203, 203, 216));
-}
-
-
-table.add-task tr input[type=text],select,input[type=radio],input[type=date],textarea{
-    margin: 0.8em 0 0!important;
-}
-
-.add-task textarea{
-    width: 90% !important;
-    height: 8em;
-    box-sizing: border-box;
-}
-
-.process-holder {
-    display:none;
-    padding:1em;
-    box-sizing: border-box;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid grey;
-    width:100%;
-    height: 120px;
-    overflow:hidden;
-}
-.road-map{
-    width: 5em!important;
-
-}
 
