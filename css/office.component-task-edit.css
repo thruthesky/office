@@ -18,8 +18,8 @@ form.task-edit .caption {
         clear:both;
     }
     form.task-edit .caption {
-        width:24%;
         float:left;
+        width:24%;
     }
     form.task-edit .text {
         float:left;

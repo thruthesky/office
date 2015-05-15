@@ -42,13 +42,13 @@
 
                 <div class="row">
                     <div class="caption">Title</div>
-                    <div class="text"><input type="text" name="title" id="title" value="{{ task.title.value }}"></div>
+                    <div class="text"><input type="text" name="title" id="title" value="{{ task.title.value }}" placeholder="Title"></div>
                 </div>
 
                 {% if office.is_member %}
                 <div class="row">
                     <div class="caption">Summary</div>
-                    <div class="text"><textarea name="summary" id="summary">{{ task.summary.value }}</textarea></div>
+                    <div class="text"><textarea placeholder="Summary" name="summary" id="summary">{{ task.summary.value }}</textarea></div>
                 </div>
 
                 <div class="row">

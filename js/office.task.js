@@ -5,7 +5,7 @@ $(function(){
     $(".priority-all").click(function(){
         $("[name='priority[]']").prop('checked',true);
     });
-    $( "#deadline" ).datepicker({
+    $( ".task-edit #deadline" ).datepicker({
         showOn: "button",
         buttonImage: "/modules/office/img/calendar.png",
         buttonImageOnly: true,
