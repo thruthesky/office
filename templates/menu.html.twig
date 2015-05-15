@@ -3,9 +3,9 @@
 {% if office.member %}
    <div class="a welcome">
        <div class="content">
-           {{ text.welcome | replace({'$name':office.member.user_id.entity.name.value}) }}
+           {{ ol.welcome | replace({'$name':office.member.user_id.entity.name.value}) }}
            {% if office.group %}
-               {{ text.group }} : {{ office.group.name.value }}
+               {{ ol.group }} : {{ office.group.name.value }}
            {% endif %}
        </div>
     </div>
@@ -31,8 +31,8 @@
 
 <nav class="office-menu">
         <div>
-            <a href="/office"><span class="caption office">{{ text.front_desk }}</span></a>
-            <a href="/office/member/add"><span class="item register">{{ text.registration }}</span></a>
+            <a href="/office"><span class="caption office">{{ ol.front_desk }}</span></a>
+            <a href="/office/member/add"><span class="item register">{{ ol.registration }}</span></a>
             <a href="/office/documentation"><span>Documentation</span></a>
         </div>
 
@@ -60,9 +60,8 @@
         {% endif %}
 
         <div>
-            <a href="/office/task/list"><span class="caption">{{ text.task_list }}</span></a>
-            <a href="/office/task/add"><span class="item task-create">{{ text.task_create }}</span></a>
+            <a href="/office/task/list"><span class="caption">{{ ol.task_list }}</span></a>
+            <a href="/office/task/add"><span class="item task-create">{{ ol.task_create }}</span></a>
             <a href="/office/process/list"><span class="item task-create">Work Process Update</span></a>
         </div>
 </nav>
-
