@@ -18,6 +18,8 @@ nav.office-menu {
 
 /** ---------------------------------- MODULE --------------------------------- **/
 
+
+
 nav.office-menu {
     padding: 1em;
     box-sizing: border-box;
@@ -33,8 +35,10 @@ nav.office-menu:after {
 
 nav.office-menu > div {
     float: left;
-    width: 17em;
-    height: 6em;
+    padding:0 1em;
+    box-sizing: border-box;
+    width: 14em;
+    height: 5em;
 }
 
 nav.office-menu div a {
@@ -47,6 +51,9 @@ nav.office-menu div a:first-child {
 }
 
 
+
+
+/** status under title **/
 
 .task-status span {
     margin-right:1em;

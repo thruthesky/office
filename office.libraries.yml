@@ -44,6 +44,8 @@ task:
   css:
     theme:
       css/office.component-task.css: {}
+      css/office.component-task-edit.css: {}
+      css/office.component-task-list.css: {}
 
 
 ### Admin Page ####

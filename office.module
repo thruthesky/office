@@ -36,9 +36,6 @@ function office_theme() {
 
 function office_preprocess(&$variables, $hook)
 {
-
-
-
 	$request = \Drupal::request();
 	$uri = $request->getRequestUri();
 	if ( ! x::isOfficePage() ) return;

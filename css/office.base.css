@@ -1,66 +1,7 @@
 /* base.css */
-
-.office {
-    font-size:9pt;
-    font-family: arial, sans-serif;
-    padding: 0;
-    margin: 0;
-    background-color: #ffffff;
-}
-
 .office h2 {
     background-color: rgb(76, 77, 77);
-    margin: 0;
     color: rgb(255, 255, 255);
+    margin: 0;
     padding: 0.2em;
-}
-
-.office input[type=text] {
-    width: 36%;
-    padding: 5px 0;
-}
-
-.office input[type=date] {
-    width: 36%;
-    padding: 5px 0;
-}
-.office select {
-    width: 36%;
-    padding: 5px 0;
-    text-align: center;
-}
-
-.office input[type=submit] {
-}
-.office input[type=password] {
-    width: 36%;
-    padding: 5px 0;
-}
-
-.office table{
-    margin: 1em 0;
-}
-
-.office table th{
-    padding: 0.5em 0;
-    color: #ffffff;
-    background-color: rgb(76, 77, 77);
-}
-
-.office fieldset {
-    display: block;
-    margin:0;
-    padding:0;
-    border: 0;
-}
-
-
-
-.office p {
-   background-color: #ffffff;
-    padding: 1em;
-}
-
-.office textarea{
-    width: 100%;
 }
