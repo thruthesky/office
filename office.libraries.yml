@@ -36,8 +36,8 @@ process:
     theme:
       css/office.component-process.css: {}
       css/office.component-process-edit.css: {}
-      css/office.component-process-list: {}
-      css/office.component-process-view: {}
+      css/office.component-process-list.css: {}
+      css/office.component-process-view.css: {}
 
 ### Task List, View, Edit Page ###
 task:
