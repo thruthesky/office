@@ -5,11 +5,8 @@
     margin: 0;
     padding: 0.2em;
 }
-.office form legend {
-    display:block;
-    width:100%;
-    font-size:1.2em;
-    padding:1em;
-    box-sizing: border-box;
-    background-color:#e0e0d8;
+.office fieldset {
+    margin:0;
+    padding:0;
+    border:0;
 }

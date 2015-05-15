@@ -19,6 +19,15 @@
 form.member {
     margin:0.2em 0;
 }
+form.member legend {
+    display:block;
+    width:100%;
+    font-size:1.2em;
+    padding:1em;
+    box-sizing: border-box;
+    background-color:#e0e0d8;
+}
+
 form.member fieldset .row{
     padding: 1em 1em 0 ;
 }
