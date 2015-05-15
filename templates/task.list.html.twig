@@ -51,6 +51,40 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td>
+                        <label for="keyword">Keyword Search</label>
+                    </td>
+                    <td>
+                        <input type="text" id="keyword" name="keyword" value="{{ input.keyword }}" autocomplete="off">
+
+                        Search Option:
+                        <input type="checkbox" id="search_title_only" name="search_title_only" value="Y"{{ input.search_title_only == 'Y' ? ' checked=1' }}>
+                        <label for="search_title_only">Title Only</label>,...
+
+
+
+                        Search Condition:
+
+                        <input type="radio" name="search_condition" id="search_condition_sentence" value="sentence"{{ input.search_condition == 'sentence' ? ' checked=1' }}>
+                        <label for="search_condition_sentence">Sentence</label>
+
+                        <input type="radio" name="search_condition" id="search_condition_or" value="or"{{ input.search_condition == 'or' ? ' checked=1' }}>
+                        <label for="search_condition_or">OR</label>
+
+
+                        <input type="radio" name="search_condition" id="search_condition_and" value="and"{{ input.search_condition == 'and' ? ' checked=1' }}>
+                        <label for="search_condition_and">AND</label>
+
+
+
+
+                    </td>
+                </tr>
+
+
+
+
 
                 <tr>
                     <td>

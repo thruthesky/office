@@ -19,9 +19,8 @@ nav.office-menu {
 /** ---------------------------------- MODULE --------------------------------- **/
 
 
-
 nav.office-menu {
-    padding: 1em;
+    padding: 0.6em 1em;
     box-sizing: border-box;
     background-color: #e0e0d8;
     line-height: 1.6em;
@@ -38,12 +37,28 @@ nav.office-menu > div {
     padding:0 1em;
     box-sizing: border-box;
     width: 14em;
-    height: 5em;
+    height: 6em;
 }
-
+/** This is wrong. it must be on span */
+/*
 nav.office-menu div a {
     display: block;
 }
+*/
+
+nav.office-menu div a span {
+    display: block;
+    padding:2px 0 2px 4px;
+    border-radius: 2px;
+    box-sizing: border-box;
+    font-size:1.1em;
+}
+
+nav.office-menu div a span:hover {
+    background-color: #f0f0f0;
+}
+
+
 
 nav.office-menu div a:first-child {
     font-weight: bold;
@@ -75,6 +90,12 @@ nav.office-menu div a:first-child {
 }
 
 
+/** ---------------------- Task Status -----------------------  **/
+.office-message.welcome-task-status {
+    padding:0.6em 1em!important;
+    background-color: #842222;
+    color:white;
+}
 
 /** ---------------------------------- STATE --------------------------------- **/
 
