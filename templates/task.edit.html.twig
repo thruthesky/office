@@ -23,17 +23,28 @@
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
 
-    {% if task %}
-        <div>Created : {{ task.created.value | date('M d, Y H:i:s') }}</div>
-    {% endif %}
 
     {% if logged_in %}
 
         <form class="task-edit" action="/office/task/edit" method="post">
             <fieldset>
-                <legend>Create Task</legend>
+
                 <input type="hidden" name="mode" value="submit">
                 <input type="hidden" name="task_id" value="{{ task.id.value }}">
+
+                <div class="row title grid">
+                    <div class="a"><div class="content"><legend>Create Task</legend></div></div>
+                    <div class="b">
+                        <div class="content">
+                            {% if task %}
+                                Created on {{ task.created.value | date('M d, Y H:i:s') }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+
+
 
                 <div class="row">
                     <div class="caption">Group</div>

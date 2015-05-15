@@ -46,13 +46,17 @@ form.task-edit select {
     background: linear-gradient(rgb(250, 250, 250), rgb(203, 203, 216));
 }
 
-form.task-edit legend {
+form.task-edit .row.title {
     display:block;
     width:100%;
     font-size:1.2em;
     padding:1em;
     box-sizing: border-box;
     background-color:#e0e0d8;
+}
+
+form.task-edit .title .b .content {
+    text-align: right;
 }
 
 form.task-edit fieldset .row{
