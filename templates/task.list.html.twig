@@ -302,7 +302,7 @@
 
 
         {% for task in data.tasks %}
-            {% if task.group_id.target_id in office.group_ids %}
+            {% if task.group_id.target_id == my.group_id.target_id or task.group_id.target_id in office.group_ids %}
                 {% set href = '/office/task/edit/' ~ task.id.value %}
             {% else %}
                 {% set href = '/office/task/' ~ task.id.value %}
@@ -399,7 +399,7 @@
 
                 <td>
                     <div class="jbutton group">
-                        {% if task.group_id.target_id in office.group_ids %}
+                        {% if task.group_id.target_id == my.group_id.target_id or task.group_id.target_id in office.group_ids %}
                             <a class="jbutton blue-active post" href="{{ href }}">Edit</a>
                         {% endif %}
                     </div>
