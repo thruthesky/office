@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class MemberController extends ControllerBase {
 	public function collection() {
 		$data = [];
-
 		$request = \Drupal::request();
 		if ( $request->get('mode') == 'submit' ) {
 			$group = Member::myOwnGroup(x::myUid());
@@ -23,7 +22,7 @@ class MemberController extends ControllerBase {
 					$member->save();
 				}
 				else {
-					x::messageNotGroupMemberForReq($data);
+					x::messageNotGroupMemberToAddIntoGroup($data);
 				}
 			}
 			else {

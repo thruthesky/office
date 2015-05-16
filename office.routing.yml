@@ -196,6 +196,18 @@ entity.office.workinghours:
       office_group:
         type: entity:office_group
 
+entity.office.group_member_list:
+  path: '/office/group/member/list/{office_group}'
+  defaults:
+    _controller: Drupal\office\Controller\GroupMemberController::collection
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      office_group:
+        type: entity:office_group
+
+
 #### ----------------- API -----------------
 
 entity.office.api:

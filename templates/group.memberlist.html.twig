@@ -1,0 +1,100 @@
+<div{{ attributes.addClass( data.class.office ) }}>
+    <h2>Group Member List</h2>
+    {% include dir_office ~ '/templates/menu.html.twig' %}
+    {% include dir_office ~ '/templates/message.html.twig' %}
+
+    MEMBER ADD for {{ data.group.name.value }}
+
+    <h3>Group Members</h3>
+    Group members who are the actual members of the group.
+
+    <form>
+        <input type="hidden" name="mode" value="submit">
+        <input type="hidden" name="for" value="member-add">
+        Member Invitation:
+        <input type="text" name="name" value="" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
+        <input type="submit" value="GRANT PERMISSION">
+        @Note: This will add the user into the group. The user is subject to do group task like attendance.
+    </form>
+
+    <table width="100%" class="member-list">
+        <tr>
+            <th>NAME</th>
+            <th>DELETE</th>
+            <th>ADDRESS</th>
+            <th>ATTEND</th>
+        </tr>
+        {% for member in data.group_members %}
+            <tr>
+                <td>
+                    <a href="/office/member/{{ member.user_id.entity.id }}">
+                        {{ member.user_id.entity.name.value }}
+                        (
+                        {{ member.first_name.value }}
+                        {{ member.last_name.value }}
+                        )
+                    </a>
+                </td>
+                <td>
+                    <a href="/office/group/member/list/{{ data.group.id.value }}?mode=submit&for=member-delete&name={{ member.user_id.entity.name.value }}">
+                        DELETE
+                    </a>
+                </td>
+                <td>
+                    <a href="/office/member/{{ member.user_id.entity.id }}">{{ member.address.value }}</a>
+                </td>
+
+                <td>
+                    <a href="/office/attendance_list?mode=submit&uid={{ member.user_id.entity.id }}&date={{ 'now' | date('Y-m-d') }}">ATTEND LIST</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+    <h3>Group Permission</h3>
+    These are not group members. These can only edit tasks. No attendance.
+    <form>
+        <input type="hidden" name="mode" value="submit">
+        <input type="hidden" name="for" value="add">
+        Group Permission Only:
+        <input type="text" name="name" value="" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
+        <input type="submit" value="GRANT PERMISSION">
+        @Note: This does not add a user into the group. It only allows the user to edit the task.
+    </form>
+
+    <table width="100%" class="member-list">
+        <tr>
+            <th>NAME</th>
+            <th>DELETE</th>
+            <th>ADDRESS</th>
+        </tr>
+        {% for user in data.group_users %}
+            <tr>
+                <td>
+                    <a href="/office/member/{{ user.user_id.entity.id }}">
+                        {{ user.user_id.entity.name.value }}
+                        ( {{ user.attr.first_name.value }} )
+                    </a>
+                </td>
+                <td>
+                    <a href="/office/group/member/list/{{ data.group.id.value }}?mode=submit&for=user-delete&name={{ user.user_id.entity.name.value }}">
+                        DELETE
+                    </a>
+                </td>
+                <td>
+                    <a href="/office/member/{{ user.user_id.entity.id }}">{{ user.attr.address.value }}</a>
+                </td>
+
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<h3>Office Members</h3>
+<div>Below are not your group members. They are office members you can add to your group.</div>
+
+{% for member in data.office_members %}
+    {{ member.user_id.entity.name.value }}
+    ( {{ member.first_name.value }} {{ member.last_name.value }} ),
+{% endfor %}

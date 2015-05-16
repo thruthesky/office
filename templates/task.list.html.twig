@@ -6,11 +6,9 @@
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
 
-
-
     <form>
         <fieldset>
-            <legend> CREATE TASK</legend>
+            <legend>TASK LIST</legend>
             <input type="hidden" name="mode" value="submit">
             <table>
                 <tr>
@@ -57,28 +55,16 @@
                     </td>
                     <td>
                         <input type="text" id="keyword" name="keyword" value="{{ input.keyword }}" autocomplete="off">
-
                         Search Option:
                         <input type="checkbox" id="search_title_only" name="search_title_only" value="Y"{{ input.search_title_only == 'Y' ? ' checked=1' }}>
                         <label for="search_title_only">Title Only</label>,...
-
-
-
                         Search Condition:
-
                         <input type="radio" name="search_condition" id="search_condition_sentence" value="sentence"{{ input.search_condition == 'sentence' ? ' checked=1' }}>
                         <label for="search_condition_sentence">Sentence</label>
-
                         <input type="radio" name="search_condition" id="search_condition_or" value="or"{{ input.search_condition == 'or' ? ' checked=1' }}>
                         <label for="search_condition_or">OR</label>
-
-
                         <input type="radio" name="search_condition" id="search_condition_and" value="and"{{ input.search_condition == 'and' ? ' checked=1' }}>
                         <label for="search_condition_and">AND</label>
-
-
-
-
                     </td>
                 </tr>
 
@@ -316,7 +302,7 @@
 
 
         {% for task in data.tasks %}
-            {% if task.group_id.target_id == my.group_id.target_id %}
+            {% if task.group_id.target_id in office.group_ids %}
                 {% set href = '/office/task/edit/' ~ task.id.value %}
             {% else %}
                 {% set href = '/office/task/' ~ task.id.value %}
@@ -413,7 +399,7 @@
 
                 <td>
                     <div class="jbutton group">
-                        {% if task.group_id.target_id == my.group_id.target_id %}
+                        {% if task.group_id.target_id in office.group_ids %}
                             <a class="jbutton blue-active post" href="{{ href }}">Edit</a>
                         {% endif %}
                     </div>

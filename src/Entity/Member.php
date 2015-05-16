@@ -43,9 +43,26 @@ use Drupal\user\UserInterface;
  */
 class Member extends ContentEntityBase implements MemberInterface {
 
+	/**
+	 * 사용자 번호를 입력받아서 그룹 회원 정보를 리턴한다.
+	 *
+	 * @param $uid
+	 * @return mixed|null
+	 */
 	public static function loadByUserID($uid) {
 		if ( empty($uid) ) return null;
 		return x::loadEntityByUserID('office_member', $uid);
+	}
+
+	/**
+	 * 사용자 이름(=아이디)를 입력 받아서 그룹 회원 정보를 리턴한다.
+	 *
+	 * @param $name
+	 * @return mixed|null
+	 */
+	public static function loadByUsername($name) {
+		if ( $user = user_load_by_name($name) ) return Member::loadByUserID($user->id());
+		return null;
 	}
 
 	/**
@@ -73,6 +90,7 @@ class Member extends ContentEntityBase implements MemberInterface {
 	public static function myOwnGroup($myUid) {
 		return x::loadEntityByUserID('office_group', $myUid);
 	}
+
 
 
 	/**

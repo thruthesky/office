@@ -17,7 +17,7 @@ function office_theme() {
 		'office', 'login', 'mydesk', 'office.documentation',
 		'member.list', 'member.view', 'member.edit',
 		'task.edit','task.list', 'task.view',
-		'group.edit', 'group.list', 'group.workinghours',
+		'group.edit', 'group.list', 'group.workinghours', 'group.memberlist',
 		'attendance.list',
 		'process.edit', 'process.list', 'process.view',
 
@@ -41,7 +41,6 @@ function office_preprocess(&$variables, $hook)
 	if ( ! x::isOfficePage() ) return;
 
 	$variables['office_module'] = 1;
-
 
 	$variables['ol'] = Language::load();
 	if ( x::in('uid') ) $variables['member'] = Member::loadByUserID(x::in('uid'));

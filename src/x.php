@@ -691,7 +691,7 @@ class x {
 	}
 
 
-	public static function messageNotGroupMemberForReq(array & $data=null) {
+	public static function messageNotGroupMemberToAddIntoGroup(array & $data=null) {
 		$data['code'] = 'error not-a-member-for-req';
 		$data['message'] = 'The user is not office member. Please tell the user to register in office first.';
 	}
@@ -899,12 +899,18 @@ class x {
 		$office['now'] = date('r');
 
 		// {{ office.group }} 을 지정하고 {{ office.is_member }} 를 지정한다.
-		$group = Member::group(x::myUid());
-		if ( $group ) {
-			$group->option = x::group_config($group->id());
-			$office['group'] = $group;
+		$office['group'] = Member::group(x::myUid());
+		$groups = entity_load_multiple_by_properties('office_groupmember', ['user_id' => x::myUid()]);
+		if ( $groups ) {
 			$office['is_member'] = 1;
+			foreach( $groups as $group ) {
+				$group->option = x::group_config($group->get('group_id')->target_id);
+				$office['group_ids'][] = $group->get('group_id')->target_id;
+				$office['groups'][] = $group;
+			}
 		}
+
+
 
 		$my_own_group = Member::myOwnGroup(x::myUid()); $office['my_own_group'] = $my_own_group;
 
@@ -1025,9 +1031,38 @@ class x {
 
 	public static function messageUserNotExist(&$data) {
 		$data['code'] = 'error user-not-exist';
-		$data['message'] = 'The user does not exist. Please check the user name.';
+		$data['message'] = 'User is not exist by that name. Please check the user name. Wrong Username(ID)';
 		return ['code'=>$data['code'], 'message'=>$data['message']];
 	}
 
+	public static function messageGroupUserAdded(array &$data) {
+		$data['code'] = 'group-member-added';
+		$data['message'] = 'Group member added';
+	}
+
+	public static function messageGroupUserAlreadyAdded(array &$data) {
+		$data['code'] = 'error group-member-already-added';
+		$data['message'] = 'Group member already added !';
+	}
+
+	public static function messageNotYourGroupMember(array &$data) {
+		$data['code'] = 'error not-group-member';
+		$data['message'] = 'The Group member is not your group member.';
+	}
+
+	public static function messageNotGroupMemberToDelete(array & $data=null) {
+		$data['code'] = 'error not-a-member-to-delete';
+		$data['message'] = 'The user is not group member.';
+	}
+
+	public static function messageGroupMemberDeleted(array & $data=null) {
+		$data['code'] = 'group-member-deleted';
+		$data['message'] = 'The member is removed from your group.';
+	}
+
+	public static function messageGroupUserDeleted(array &$data) {
+		$data['code'] = 'group-user-deleted';
+		$data['message'] = 'Group user deleted..';
+	}
 
 }
