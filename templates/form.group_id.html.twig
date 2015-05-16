@@ -3,7 +3,11 @@
 #}
 <select name="group_id" id="group_id">
     {% for group in groups %}
-        {% if group.id.value == my.group_id.entity.id.value or group.view_status.value == 'O' %}
+        {% if data.task is empty %}
+            {% if group.id.value == my.group_id.entity.id.value or group.view_status.value == 'O' %}
+                <option value="{{ group.id.value }}"{{ default_group_id == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
+            {% endif %}
+        {% else %}
             <option value="{{ group.id.value }}"{{ default_group_id == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
         {% endif %}
     {% endfor %}
