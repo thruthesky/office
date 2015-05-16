@@ -108,6 +108,38 @@ form.task-edit .text.roadmap{
 
 }
 
+/** --------------------- Files ---------------------*/
+
+.task-uploaded-files {
+    margin:1em 0;
+    padding:1em;
+    box-sizing: border-box;
+    border-radius: 2px;
+    background-color: #f9f9f9;
+}
+.task-uploaded-files .images:after {
+    display:block;
+    content:'';
+    clear:both;
+}
+.task-uploaded-files .images a {
+    display:block;
+    float:left;
+    width:25%;
+    height:140px;
+    overflow:hidden;
+}
+.task-uploaded-files .images a img {
+    width:100%;
+    height:100%;
+}
+
+.task-uploaded-files .attachments a {
+    display:block;
+    padding:1em 0;
+    font-size:1.2em;
+    text-decoration: underline;
+}
 
 /** --------------------- COMMENTS On TASK --------------------------- **/
 .comments .row {

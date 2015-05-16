@@ -1,4 +1,7 @@
 $(function(){
+    $('.ajax-file-upload-version-1')
+});
+$(function(){
     $(".status-all").click(function(){
         $("[name^='status']").prop('checked',true);
     });

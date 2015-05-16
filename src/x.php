@@ -1065,4 +1065,16 @@ class x {
 		$data['message'] = 'Group user deleted..';
 	}
 
+	public static function messageTaskFailedPrepareDirectory(array &$data) {
+		$data['code'] = 'error task-file-upload-repository-creation-error';
+		$data['message'] = 'Failed on creating file upload repository.';
+		return -1;
+	}
+
+	public static function messageTaskFailedToUploadFile(array &$data) {
+		$data['code'] = 'error task-failed-to-upload-file';
+		$data['message'] = 'Failed to upload file.';
+		return -1;
+	}
+
 }

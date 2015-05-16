@@ -26,7 +26,9 @@
 
     {% if logged_in %}
 
-        <form class="task-edit" action="/office/task/edit" method="post">
+        <form class="task-edit" action="/office/task/edit" enctype="multipart/form-data" method="POST">
+
+
             <fieldset>
 
                 <input type="hidden" name="mode" value="submit">
@@ -182,6 +184,15 @@
                     </div>
                 {% endif %}
 
+
+                <div class="row">
+                    <div class="caption">File Upload</div>
+                    <div class="text">
+                        <input type='file' name='files[]' multiple>
+                    </div>
+                </div>
+
+
                 <div class="row">
                     <div class="caption">&nbsp;</div>
                     <div class="jbutton-group">
@@ -191,6 +202,25 @@
                 </div>
             </fieldset>
         </form>
+    {% endif %}
+
+    {% if task.files %}
+        <div class="task-uploaded-files">
+            <div class="images">
+                {% for file in task.files %}
+                    {% if 'image' in file.getMimeType %}
+                        <a href="{{ file.url }}"><img src="{{ file.url }}"></a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="attachments">
+                {% for file in task.files %}
+                    {% if 'image' not in file.getMimeType %}
+                        <a href="{{ file.url }}">Download: {{ file.name_url_decoded }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     {% endif %}
 
     {% if data.logs %}
