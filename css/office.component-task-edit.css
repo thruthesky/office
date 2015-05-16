@@ -103,22 +103,10 @@ form.task-edit .process-holder {
 }
 
 form.task-edit .text.roadmap{
-    width: 8%!important;
+    display: inline;
+    width: 6em!important;
+
 }
-
-
-form.task-edit .graph.roadmap {
-    position:relative;
-    margin:0;
-    border:0;
-    width:100px;
-    padding: 0.2em;
-    font-size:12px;
-    background-color:#b9b9b9;
-    color:white;
-    top: 0.1em;
-}
-
 
 
 /** --------------------- COMMENTS On TASK --------------------------- **/
