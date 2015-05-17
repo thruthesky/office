@@ -92,7 +92,7 @@
                     </div>
                 </div>
 
-                {% if office.group.option.use_process == 'Y' %}
+                {# if office.group.option.use_process == 'Y' #}
                 <div class="row">
                     <div class="caption">Work Process :</div>
                     <div class="text"><input type="text" id="process" name="process" value="{{ task.process_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=process"></div>
@@ -100,7 +100,7 @@
                         {{ task.process | raw }}
                     </div>
                 </div>
-                {% endif %}
+                {# endif #}
 
                 <div class="row">
                     <div class="caption">Work Status :</div>
