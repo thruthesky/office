@@ -51,16 +51,21 @@ class Member extends ContentEntityBase implements MemberInterface {
 	 * @return mixed|null
 	 */
 	public static function loadByUserID($uid) {
+
+
 		if ( empty($uid) ) return null;
+
 		$member = x::loadEntityByUserID('office_member', $uid);
+
+
 		if ( $member ) {
-			$ids = db_select('file_usage','f')
+			$result = db_select('file_usage','f')
 				->fields('f',['fid'])
 				->condition('module','office')
 				->condition('type', 'member')
 				->condition('id',$member->id())
-				->execute()
-				->fetchAllKeyed();
+				->execute();
+			$ids = $result->fetchAllAssoc('fid', \PDO::FETCH_ASSOC);
 			if ( $ids ) {
 				foreach($member->files = File::loadMultiple(array_keys($ids)) as $file) {
 					$file->name_url_decoded = urldecode($file->getFilename());
@@ -316,33 +321,35 @@ class Member extends ContentEntityBase implements MemberInterface {
 		$entity->save();
 		$id = $entity->id();
 
-		$max_uploaded_files = count($_FILES['files']['name']);
-		if ( $max_uploaded_files ) {// 파일 업로드가 되었는가?
-			$dir_repo = 'public://file-upload/office/';
-			$ret = file_prepare_directory($dir_repo, FILE_CREATE_DIRECTORY);			// 파일이 업로드 된 경우, 디렉토리 생성. 파일 업로드 될 때마 체크하지만 속도나 성능에 영향을 미치지 않음.
-			if ( ! $ret ) $error_code = x::messageTaskFailedPrepareDirectory($data);
-			for ( $j = 0; $j < $max_uploaded_files; $j ++ ) {
-				$name = $_FILES['files']['name'][$j];
-				$type = $_FILES['files']['type'][$j];
-				$tmp_name = $_FILES['files']['tmp_name'][$j];
-				$error = $_FILES['files']['error'][$j];
-				$size = $_FILES['files']['size'][$j];
-				if ( $error ) x::log("File upload error: $error");
-				else {
-					$name = urlencode($name);
-					if ( strlen($name) > 150 ) {
-						$pi = pathinfo($name);
-						$name = substr($name, 0, 150);
-						$name = trim($name, ' \t\n\r\0\x0B%');
-						$name .= '.' . $pi['extension'];
-					}
-					$file = file_save_data(file_get_contents($tmp_name), $dir_repo . $name);
-					if ( $file ) {
-						\Drupal::service('file.usage')->add($file, 'office', 'member', $id);
-					}
+		if ( isset($_FILES['files'])) {
+			$max_uploaded_files = count($_FILES['files']['name']);
+			if ( $max_uploaded_files ) {// 파일 업로드가 되었는가?
+				$dir_repo = 'public://file-upload/office/';
+				$ret = file_prepare_directory($dir_repo, FILE_CREATE_DIRECTORY);			// 파일이 업로드 된 경우, 디렉토리 생성. 파일 업로드 될 때마 체크하지만 속도나 성능에 영향을 미치지 않음.
+				if ( ! $ret ) $error_code = x::messageTaskFailedPrepareDirectory($data);
+				for ( $j = 0; $j < $max_uploaded_files; $j ++ ) {
+					$name = $_FILES['files']['name'][$j];
+					$type = $_FILES['files']['type'][$j];
+					$tmp_name = $_FILES['files']['tmp_name'][$j];
+					$error = $_FILES['files']['error'][$j];
+					$size = $_FILES['files']['size'][$j];
+					if ( $error ) x::log("File upload error: $error");
 					else {
-						x::log("error: uploading file. file name:$name");
-						$error_code = x::messageTaskFailedToUploadFile($data);
+						$name = urlencode($name);
+						if ( strlen($name) > 150 ) {
+							$pi = pathinfo($name);
+							$name = substr($name, 0, 150);
+							$name = trim($name, ' \t\n\r\0\x0B%');
+							$name .= '.' . $pi['extension'];
+						}
+						$file = file_save_data(file_get_contents($tmp_name), $dir_repo . $name);
+						if ( $file ) {
+							\Drupal::service('file.usage')->add($file, 'office', 'member', $id);
+						}
+						else {
+							x::log("error: uploading file. file name:$name");
+							$error_code = x::messageTaskFailedToUploadFile($data);
+						}
 					}
 				}
 			}

@@ -894,6 +894,7 @@ class x {
 	 * @return array
 	 */
 	public static function officeInformation(&$variables) {
+
 		$office = [];
 		$office['member'] = Member::loadByUserID(x::myUid());
 		$office['now'] = date('r');

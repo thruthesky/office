@@ -40,10 +40,19 @@ function office_preprocess(&$variables, $hook)
 	$uri = $request->getRequestUri();
 	if ( ! x::isOfficePage() ) return;
 
+
+
 	$variables['office_module'] = 1;
 
 	$variables['ol'] = Language::load();
-	if ( x::in('uid') ) $variables['member'] = Member::loadByUserID(x::in('uid'));
+
+	if ( x::in('uid') ) {
+		$variables['member'] = Member::loadByUserID(x::in('uid'));
+	}
+
+
+
+
 	if ( x::myUid() ) {
 		$my = Member::loadByUserID(x::myUid());
 		$my->count_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->count()->execute();
@@ -53,15 +62,15 @@ function office_preprocess(&$variables, $hook)
 		$my->count_deadline_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->condition('deadline',$date, '>')->count()->execute();
 		$variables['my'] = $my;
 	}
-	if ( x::in('code') ) $variables['data']['code'] = x::in('code');
-	if ( x::in('message') ) $variables['data']['message'] = x::in('message');
-
-	$variables['input'] = x::input();
-	$variables['groups'] = Group::loadMultiple();
-	$variables['priority'] = x::priority();
 	x::officeInformation($variables);
 
 
+
+	if ( x::in('code') ) $variables['data']['code'] = x::in('code');
+	if ( x::in('message') ) $variables['data']['message'] = x::in('message');
+	$variables['input'] = x::input();
+	$variables['groups'] = Group::loadMultiple();
+	$variables['priority'] = x::priority();
 
 	if ( $hook == 'page' ) {
 		// x::gs(2);

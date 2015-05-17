@@ -6,29 +6,49 @@
     border-radius: 2px;
     background-color: #f9f9f9;
 }
+
+.office-uploaded-files .images {
+}
+
 .office-uploaded-files .images:after {
     display:block;
     content:'';
     clear:both;
 }
-.office-uploaded-files .images a {
-    display:block;
+.office-uploaded-files .image {
+    position:relative;
     float:left;
     width:25%;
     height:140px;
-    overflow:hidden;
+    overflow: hidden;
 }
-.office-uploaded-files .images a img {
+.office-uploaded-files .image a:nth-child(1) {
+    position:absolute;
+    padding: 0.3em 0.4em;
+    top:1em;
+    right:1em;
+    background-color: red;
+    color:#ffffff;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size:1.2em;
+}
+
+
+.office-uploaded-files .image a:nth-child(2) {
+}
+
+.office-uploaded-files .image a img {
     width:100%;
-    height:100%;
 }
 
 .office-uploaded-files .attachments a {
-    display:block;
-    padding:1em 0;
+    display:inline-block;
+    padding:1em 4em 1em 0;
     font-size:1.2em;
     text-decoration: underline;
 }
+
 /** --------------------- EO Office Uploaded Files ---------------------*/
 
 

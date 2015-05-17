@@ -309,13 +309,13 @@ class Task extends ContentEntityBase implements TaskInterface {
 			$process_id = $task->get('process_id')->target_id;
 			$task->process = x::markupProcess($process_id);
 		}
-		$ids = db_select('file_usage','f')
+		$result = db_select('file_usage','f')
 			->fields('f',['fid'])
 			->condition('module','office')
 			->condition('type', 'task')
 			->condition('id',$id)
-			->execute()
-			->fetchAllKeyed();
+			->execute();
+		$ids = $result->fetchAllAssoc('fid', \PDO::FETCH_ASSOC);
 		if ( $ids ) {
 			foreach($task->files = File::loadMultiple(array_keys($ids)) as $file) {
 				$file->name_url_decoded = urldecode($file->getFilename());

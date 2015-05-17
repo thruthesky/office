@@ -205,22 +205,8 @@
     {% endif %}
 
     {% if task.files %}
-        <div class="office-uploaded-files">
-            <div class="images">
-                {% for file in task.files %}
-                    {% if 'image' in file.getMimeType %}
-                        <a href="{{ file.url }}"><img src="{{ file.url }}"></a>
-                    {% endif %}
-                {% endfor %}
-            </div>
-            <div class="attachments">
-                {% for file in task.files %}
-                    {% if 'image' not in file.getMimeType %}
-                        <a href="{{ file.url }}">Download: {{ file.name_url_decoded }}</a>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div>
+        {% set files = task.files %}
+        {% include dir_office ~ '/templates/uploaded-files.html.twig' %}
     {% endif %}
 
     {% if data.logs %}
