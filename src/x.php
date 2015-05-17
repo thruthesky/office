@@ -1030,6 +1030,15 @@ class x {
 		else return FALSE;
 	}
 
+	public static function isOfficeDocumentationPage() {
+		$request = \Drupal::request();
+		$uri = $request->getRequestUri();
+		if ( strpos( $uri, '/office/documentation') !== FALSE ) {
+			return TRUE;
+		}
+		else return FALSE;
+	}
+
 	public static function messageUserNotExist(&$data) {
 		$data['code'] = 'error user-not-exist';
 		$data['message'] = 'User is not exist by that name. Please check the user name. Wrong Username(ID)';
@@ -1098,5 +1107,6 @@ class x {
 
 		$variables['my'] = $my;
 	}
+
 
 }

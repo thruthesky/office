@@ -50,13 +50,8 @@ function office_preprocess(&$variables, $hook)
 		$variables['member'] = Member::loadByUserID(x::in('uid'));
 	}
 
-
-
-
 	if ( x::myUid() ) x::myOfficeInformation($variables);
 	x::officeInformation($variables);
-
-
 
 	if ( x::in('code') ) $variables['data']['code'] = x::in('code');
 	if ( x::in('message') ) $variables['data']['message'] = x::in('message');
@@ -76,6 +71,9 @@ function office_preprocess(&$variables, $hook)
 	}
 	else if ( x::isOfficeTaskPage() ) {
 		$variables['#attached']['library'][] = 'office/task';
+	}
+	else if ( x::isOfficeDocumentationPage() ) {
+		$variables['#attached']['library'][] = 'office/documentation';
 	}
 	$variables['data']['class']['office'][] = 'office';
 

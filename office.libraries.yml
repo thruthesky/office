@@ -52,6 +52,14 @@ task:
       css/office.component-task-edit.css: {}
       css/office.component-task-list.css: {}
 
+### documentation page ###
+documentation:
+  version: 1.x
+  css:
+    theme:
+      css/office.component-documentation.css: {}
+
+
 ### Admin Page ####
 Admin:
   version: 1.x
