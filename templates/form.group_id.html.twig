@@ -4,6 +4,9 @@
 
 <select name="group_id" id="group_id">
     {% if data.task is empty %}
+        {% if office.group %}
+            <option value="{{ office.group.id.value }}">{{ office.group.name.value }}</option>
+        {% endif %}
         {% for group in office.groups %}
             <option value="{{ group.group_id.target_id }}">{{ group.group_id.entity.name.value }}</option>
         {% endfor %}
