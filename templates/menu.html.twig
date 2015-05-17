@@ -4,7 +4,6 @@
    <div class="a welcome">
        <div class="content">
            {{ ol.welcome | replace({'$name':office.member.user_id.entity.name.value}) }}
-
            {% if office.groups %}
                {{ ol.group }} :
                Primary - {{ office.group.name.value }}
@@ -24,7 +23,10 @@
             <span class="urgent"><b>Urgent</b><i>{{ my.count_urgent_task }}</i></span>
             {% endif %}
             {% if my.count_deadline_task %}
-            <span class="deadline"><b>Deadline</b><i>{{ my.count_deadline_task }}</i></span>
+                <span class="deadline"><b>Deadline</b><i>{{ my.count_deadline_task }}</i></span>
+            {% endif %}
+            {% if my.count_rejected_task %}
+                <span class="rejected"><b>Rejected</b><i>{{ my.count_rejected_task }}</i></span>
             {% endif %}
         </div>
     </div>

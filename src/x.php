@@ -1078,4 +1078,25 @@ class x {
 		return -1;
 	}
 
+	public static function myOfficeInformation(&$variables) {
+		$my = Member::loadByUserID(x::myUid());
+		$my->count_task = \Drupal::entityQuery('office_task')
+			->condition('worker_id',x::myUid())
+			->condition('status','closed', '<>')
+			->count()
+			->execute();
+		$status = Task::$config_priority['urgent']['value'];
+		$my->count_urgent_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->condition('priority',$status)->count()->execute();
+		$date = date('Y-m-d', strtotime('1 week ago'));
+		$my->count_deadline_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->condition('deadline',$date, '>')->count()->execute();
+
+		$my->count_rejected_task = \Drupal::entityQuery('office_task')
+			->condition('worker_id',x::myUid())
+			->condition('status','rejected')
+			->count()
+			->execute();
+
+		$variables['my'] = $my;
+	}
+
 }
