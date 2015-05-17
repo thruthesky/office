@@ -43,6 +43,9 @@ function office_preprocess(&$variables, $hook)
 
 
 	$variables['office_module'] = 1;
+	$variables['groups'] = Group::loadMultiple();
+	$variables['input'] = x::input();
+	$variables['priority'] = x::priority();
 
 	$variables['ol'] = Language::load();
 
@@ -55,9 +58,6 @@ function office_preprocess(&$variables, $hook)
 
 	if ( x::in('code') ) $variables['data']['code'] = x::in('code');
 	if ( x::in('message') ) $variables['data']['message'] = x::in('message');
-	$variables['input'] = x::input();
-	$variables['groups'] = Group::loadMultiple();
-	$variables['priority'] = x::priority();
 
 	if ( $hook == 'page' ) {
 		// x::gs(2);
