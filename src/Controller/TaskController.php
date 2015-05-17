@@ -137,17 +137,20 @@ class TaskController extends ControllerBase {
 	public function edit(Task $office_task=null) {
 		if ( ! x::login() ) x::messageLoginFirst($data);
 
-		$id = $office_task->id();
 		$data = [];
 		if (x::isFromSubmit()) {
 			if ( x::in('for') == 'file-delete' ) {
 				$file = File::load(x::in('fid'));
 				if ( $file ) $file->delete();
+				$id = $office_task->id();
 			}
 			else {
 				$id = task::formSubmit($data);
 				return new RedirectResponse("/office/task/edit/$id?code=$data[code]&message=$data[message]");
 			}
+		}
+		else {
+			$id = $office_task->id();
 		}
 
 		$data['task'] = Task::loadFull($id);
