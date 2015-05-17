@@ -1,7 +1,10 @@
 $(function(){
-    $('.ajax-file-upload-version-1')
-});
-$(function(){
+    $(".jbutton.setting").click(function(){
+        var text = $(this).text();
+        if ( text == 'Show less filters' ) $(this).prev().val('less');
+        else $(this).prev().val('more');
+        $('.task-search').submit();
+    });
     $(".status-all").click(function(){
         $("[name^='status']").prop('checked',true);
     });

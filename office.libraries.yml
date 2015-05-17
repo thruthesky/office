@@ -12,6 +12,8 @@ default:
       css/office.component-menu.css: {}
       css/office.component-message.css: {}
       css/office.component-grid.css: {}
+      css/office.component-rows.css: {}
+      css/office.component-roadmap.css: {}
       css/jbutton/jbutton.css: {}
   dependencies:
     - core/jquery
@@ -49,7 +51,6 @@ task:
       css/office.component-task.css: {}
       css/office.component-task-edit.css: {}
       css/office.component-task-list.css: {}
-
 
 ### Admin Page ####
 Admin:

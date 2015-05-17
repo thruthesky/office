@@ -30,7 +30,7 @@ class Task extends ContentEntityBase implements TaskInterface {
 		8 => "Important",
 		6 => "Normal",
 		4 => "Low",
-		2 => "None(Don't Care)",
+		2 => "Very Low",
 	];
 
 	public static $config_priority = [
@@ -142,7 +142,7 @@ class Task extends ContentEntityBase implements TaskInterface {
 			->setDescription(t('The title of the Task.'))
 			->setSettings(array(
 				'default_value' => '',
-				'max_length' => 255,
+				'max_length' => 2048,
 			));
 
 		$fields['summary'] = BaseFieldDefinition::create('string')

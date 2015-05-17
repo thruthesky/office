@@ -29,7 +29,7 @@
         <form class="task-edit" action="/office/task/edit" enctype="multipart/form-data" method="POST">
 
 
-            <fieldset>
+            <fieldset class="rows">
 
                 <input type="hidden" name="mode" value="submit">
                 <input type="hidden" name="task_id" value="{{ task.id.value }}">
@@ -132,16 +132,17 @@
 
                 <div class="row">
                     <div class="caption">Roadmap:</div>
-                    <div class="text roadmap">
+                    <div class="text">
                         <select name="roadmap">
                             {% for n in 0..10 %}
                                 <option value="{{ n * 10 }}"{{ n * 10 == task.roadmap.value ? ' selected=1' }}>{{ n * 10 }} %</option>
                             {% endfor %}
                         </select>
-                    </div>
-                    <div class="graph roadmap">
-                        <div class="bar" percentage="{{ task.roadmap.value }}" style="width:{{ task.roadmap.value ? : '0' }}%;">&nbsp;</div>
-                        <div class="text roadmap ">{{ task.roadmap.value ? : '0' }}%</div>
+
+                        <div class="graph roadmap">
+                            <div class="bar" percent="{{ task.roadmap.value }}" style="width:{{ task.roadmap.value ? : '0' }}%;">&nbsp;</div>
+                            <div class="text">{{ task.roadmap.value ? : '0' }}%</div>
+                        </div>
                     </div>
                 </div>
 
