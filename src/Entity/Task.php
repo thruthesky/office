@@ -306,9 +306,12 @@ class Task extends ContentEntityBase implements TaskInterface {
 		$p = $task->get('priority')->value;
 		if ( isset(self::$config_priority_value[$p]) ) {
 			$task->priority_text = self::$config_priority_value[$p];
-			$process_id = $task->get('process_id')->target_id;
-			$task->process = x::markupProcess($process_id);
 		}
+
+		$process_id = $task->get('process_id')->target_id;
+		if ( $process_id ) $task->process = x::markupProcess($process_id);
+
+
 		$result = db_select('file_usage','f')
 			->fields('f',['fid'])
 			->condition('module','office')

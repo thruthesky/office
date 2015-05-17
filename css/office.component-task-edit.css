@@ -70,8 +70,6 @@ form.task-edit textarea{
 
 
 form.task-edit .process-holder {
-    display:none;
-    margin-top:0.1em;
     padding:1em;
     box-sizing: border-box;
     background-color: rgb(255, 255, 255);
