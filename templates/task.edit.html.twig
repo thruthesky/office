@@ -55,16 +55,17 @@
 
 
                 <div class="row">
+                    <div class="caption">Title</div>
+                    <div class="text"><input type="text" name="title" id="title" value="{{ task.title.value }}" placeholder="Title"></div>
+                </div>
+
+
+
+                <div class="row">
                     <div class="caption">Assigned To(Worker)</div>
                     <div class="text">
                         <input type="text" id="worker" name="worker" value="{{ task.worker_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
                     </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="caption">Title</div>
-                    <div class="text"><input type="text" name="title" id="title" value="{{ task.title.value }}" placeholder="Title"></div>
                 </div>
 
 
@@ -88,6 +89,12 @@
                 <div class="row">
                     <div class="caption">Priority</div>
                     <div class="text">
+
+
+
+                        <input id='priority9' type="radio" name="priority" value="9"{{ task.priority.value == priority.immediate.value ? ' checked=1' }}>
+                        <label for="priority9">{{ priority.immediate.text }}</label>
+
                         <input id='priority8' type="radio" name="priority" value="8"{{ task.priority.value == priority.urgent.value ? ' checked=1' }}>
                         <label for="priority8">{{ priority.urgent.text }}</label>
 

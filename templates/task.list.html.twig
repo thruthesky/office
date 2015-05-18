@@ -63,6 +63,9 @@
                 <div class="text">
                     <span class="priority-all"># All</span>
 
+                    <input id='priority9' type="checkbox" name="priority[]" value="9"{{ 9 in input.priority ? ' checked=1' }}>
+                    <label for="priority9">{{ priority.immediate.text }}</label>
+
                     <input id='priority8' type="checkbox" name="priority[]" value="8"{{ 8 in input.priority ? ' checked=1' }}>
                     <label for="priority8">{{ priority.urgent.text }}</label>
                     <input id='priority6' type="checkbox" name="priority[]" value="6"{{ 6 in input.priority ? ' checked=1' }}>
@@ -320,15 +323,11 @@
                         </td>
                     {% endif %}
 
-
                     {% if input.show_status == 'Y' %}
                         <td nowrap class="status">
                             <a href="{{ href }}"><span priority="{{ task.priority.value }}">{{ task.status.value }}</span></a>
                         </td>
                     {% endif %}
-
-
-
 
                     <td class="title">
                         <a href="{{ href }}">

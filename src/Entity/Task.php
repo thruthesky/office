@@ -27,6 +27,7 @@ use Drupal\user\UserInterface;
 class Task extends ContentEntityBase implements TaskInterface {
 
 	public static $config_priority_value = [
+		8 => "Immediate",
 		8 => "Important",
 		6 => "Normal",
 		4 => "Low",
@@ -34,6 +35,7 @@ class Task extends ContentEntityBase implements TaskInterface {
 	];
 
 	public static $config_priority = [
+		'immediate'    => ['value'=>9, 'text'=>"Immediate"],
 		'urgent'    => ['value'=>8, 'text'=>"Important"],
 		'normal'    => ['value'=>6, 'text'=>"Normal"],
 		'low'       => ['value'=>4, 'text'=>"Low"],
