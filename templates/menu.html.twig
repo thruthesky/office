@@ -46,7 +46,7 @@
             <a href="/office/documentation"><span>Documentation</span></a>
         </div>
 
-        {% if office.groups %}
+        {% if office.group %}
         <div>
             <a href="/office/attendance_list/?mode=submit&date={{ 'now' | date("Y-m-d") }}"><span class="caption my-desk">Attendance List</span></a>
             <a href="/office/attend"><span class="item attend">Attend now</span></a>

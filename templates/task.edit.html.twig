@@ -65,17 +65,17 @@
                 </div>
 
                 <div class="row">
-                    <div class="caption">Description :</div>
+                    <div class="caption">Description</div>
                     <div class="text"><textarea id="description" name="description">{{ task.description.value }}</textarea></div>
                 </div>
 
                 <div class="row">
-                    <div class="caption">Deadline :</div>
+                    <div class="caption">Deadline</div>
                     <div class="text"><input type="text" name="deadline" id="deadline" value="{{ task.deadline.value }}"></div>
                 </div>
 
                 <div class="row">
-                    <div class="caption">Priority :</div>
+                    <div class="caption">Priority</div>
                     <div class="text">
                         <input id='priority8' type="radio" name="priority" value="8"{{ task.priority.value == priority.urgent.value ? ' checked=1' }}>
                         <label for="priority8">{{ priority.urgent.text }}</label>
@@ -94,7 +94,7 @@
 
                 {# if office.group.option.use_process == 'Y' #}
                 <div class="row">
-                    <div class="caption">Work Process :</div>
+                    <div class="caption">Work Process</div>
                     <div class="text"><input type="text" id="process" name="process" value="{{ task.process_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=process"></div>
                 </div>
                 {# endif #}
@@ -112,7 +112,7 @@
                     </div>
 
                 <div class="row">
-                    <div class="caption">Work Status :</div>
+                    <div class="caption">Work Status</div>
                     <div class="text">
 
                         <input id='pending' type="radio" name="status" value="pending"{{ task.status.value == 'pending' ? ' checked=1' }}>
@@ -140,7 +140,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="caption">Roadmap:</div>
+                    <div class="caption">Roadmap</div>
                     <div class="text">
                         <select name="roadmap">
                             {% for n in 0..10 %}
@@ -156,28 +156,28 @@
                 </div>
 
                 <div class="row">
-                    <div class="caption">Service For (Client) :</div>
+                    <div class="caption">Service For (Client)</div>
                     <div class="text">
                         <input type="text" id="worker" name="client" value="{{ task.client_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="caption">Assigned To(Worker) :</div>
+                    <div class="caption">Assigned To(Worker)</div>
                     <div class="text">
                         <input type="text" id="worker" name="worker" value="{{ task.worker_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="caption">Person in charge :</div>
+                    <div class="caption">Person in charge</div>
                     <div class="text">
                         <input type="text" id="in_charge" name="in_charge" value="{{ task.in_charge_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="caption">View status:</div>
+                    <div class="caption">View status</div>
                     <div class="text">
                         <input id='view_status_open' type="radio" name="view_status" value="O"{{ task.view_status.value == 'O' ? ' checked=1' }}>
                         <label for="view_status_open">Public</label>
@@ -189,7 +189,7 @@
                 {% endif %}
                 {% if task %}
                     <div class="row">
-                        <div class="caption">Comment :</div>
+                        <div class="caption">Comment</div>
                         <div class="text"><textarea name="comment"></textarea></div>
                     </div>
                 {% endif %}
