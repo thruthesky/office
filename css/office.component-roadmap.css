@@ -14,11 +14,11 @@
     background-color: #B04949;
 }
 .graph.roadmap .text {
-    position:absolute;
-    top:4px;
-    left:8px;
+    position: absolute;
+    top: 6px;
+    left: 8px;
     z-index: 1234;
-    color:white;
+    color: white;
 }
 
 .graph.roadmap .bar[percent='90'] {
