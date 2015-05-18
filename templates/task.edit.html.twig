@@ -61,16 +61,17 @@
 
 
 
-                <div class="row">
-                    <div class="caption">Assigned To(Worker)</div>
-                    <div class="text">
-                        <input type="text" id="worker" name="worker" value="{{ task.worker_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
+
+                {% if task %}
+
+
+                    <div class="row">
+                        <div class="caption">Assigned To(Worker)</div>
+                        <div class="text">
+                            <input type="text" id="worker" name="worker" value="{{ task.worker_id.entity.name.value }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
+                        </div>
                     </div>
-                </div>
 
-
-
-                {% if office.is_member %}
                 <div class="row">
                     <div class="caption">Summary</div>
                     <div class="text"><textarea placeholder="Summary" name="summary" id="summary">{{ task.summary.value }}</textarea></div>
