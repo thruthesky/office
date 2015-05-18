@@ -4,8 +4,15 @@
    <div class="a welcome">
        <div class="content">
            {{ ol.welcome | replace({'$name':office.member.user_id.entity.name.value}) }}
-           {% if office.group %}
-               {{ ol.group }} : {{ office.group.name.value }}
+           {% if office.groups %}
+               {{ ol.group }} :
+               Primary - {{ office.group.name.value }}
+               {% if office.groups %}
+                    Also Joined :
+                   {% for group in office.groups %}
+                       {{ group.group_id.entity.name.value }}
+                   {% endfor %}
+               {% endif %}
            {% endif %}
        </div>
     </div>
@@ -16,7 +23,10 @@
             <span class="urgent"><b>Urgent</b><i>{{ my.count_urgent_task }}</i></span>
             {% endif %}
             {% if my.count_deadline_task %}
-            <span class="deadline"><b>Deadline</b><i>{{ my.count_deadline_task }}</i></span>
+                <span class="deadline"><b>Deadline</b><i>{{ my.count_deadline_task }}</i></span>
+            {% endif %}
+            {% if my.count_rejected_task %}
+                <span class="rejected"><b>Rejected</b><i>{{ my.count_rejected_task }}</i></span>
             {% endif %}
         </div>
     </div>
@@ -55,7 +65,7 @@
         <div>
             <a href="/office/group/{{ office.my_own_group.id.value }}/edit"><span class="caption group-update">My Group - Update</span></a>
             <a href="/office/group/{{ office.my_own_group.id.value }}/workinghours"><span class="item group-update-workschedule">Work Schedules</span></a>
-            <a href="/office/member/list"><span class="item group-member-list">Member List</span></a>
+            <a href="/office/group/member/list/{{ office.my_own_group.id.value }}"><span class="item group-member-list">Group Member List</span></a>
         </div>
         {% endif %}
 

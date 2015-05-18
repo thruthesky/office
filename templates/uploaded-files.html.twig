@@ -1,0 +1,22 @@
+<div class="office-uploaded-files">
+    <div class="images">
+        {% for file in files %}
+            {% if 'image' in file.getMimeType %}
+                <div class="image">
+                    <a href="?mode=submit&for=file-delete&fid={{ file.id }}">X</a>
+                    <a href="{{ file.url }}" target="_blank"><img src="{{ file.url }}"></a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="attachments">
+        {% for file in files %}
+            {% if 'image' not in file.getMimeType %}
+                <div>
+                    <a href="{{ file.url }}" target="_blank">Download: {{ file.name_url_decoded }}</a>
+                    <a href="?mode=submit&for=file-delete&fid={{ file.id }}">[X] DELETE</a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

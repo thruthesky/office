@@ -1,6 +1,7 @@
 <?php
 namespace Drupal\office\Controller;
 use Drupal\Core\Routing\RouteProvider;
+use Drupal\file\Entity\File;
 use Drupal\office\Entity\Group;
 use Drupal\office\Entity\Task;
 use Drupal\office\Entity\TaskLog;
@@ -138,10 +139,15 @@ class TaskController extends ControllerBase {
 
 		$data = [];
 		if (x::isFromSubmit()) {
-			$id = task::formSubmit($data);
-			$code = 'task-updated';
-			$message = "Task has been updated";
-			return new RedirectResponse("/office/task/edit/$id?code=$code&message=$message");
+			if ( x::in('for') == 'file-delete' ) {
+				$file = File::load(x::in('fid'));
+				if ( $file ) $file->delete();
+				$id = $office_task->id();
+			}
+			else {
+				$id = task::formSubmit($data);
+				return new RedirectResponse("/office/task/edit/$id?code=$data[code]&message=$data[message]");
+			}
 		}
 		else {
 			$id = $office_task->id();

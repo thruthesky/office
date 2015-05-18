@@ -1,0 +1,36 @@
+
+.graph.roadmap {
+    position:relative;
+    width:100px;
+    height:20px;
+    background-color:#b9b9b9;
+}
+.graph.roadmap .bar {
+    position: absolute;
+    margin:0;
+    border:0;
+    top:0;
+    bottom:0;
+    background-color: #B04949;
+}
+.graph.roadmap .text {
+    position:absolute;
+    top:4px;
+    left:8px;
+    z-index: 1234;
+    color:white;
+}
+
+.graph.roadmap .bar[percent='90'] {
+    background-color: #D00000;
+}
+.graph.roadmap .bar[percent='80'] {
+    background-color: #C50000;
+}
+.graph.roadmap .bar[percent='70'] {
+    background-color: #C00000;
+}
+.graph.roadmap .bar[percent='60'] {
+    background-color: #B00000;
+}
+

@@ -91,7 +91,7 @@ $(function(){
         var qs = {"call": "load_process", "process_id": id};
         office_api(qs, function(re){
             //console.log(re);
-            $('.process-holder').html(re).show();
+            $('.process-holder').html(re).parent().show();
         });
     }
 

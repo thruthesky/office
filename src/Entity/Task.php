@@ -1,5 +1,6 @@
 <?php
 namespace Drupal\office\Entity;
+use Drupal\file\Entity\File;
 use Drupal\office\TaskInterface;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
@@ -29,7 +30,7 @@ class Task extends ContentEntityBase implements TaskInterface {
 		8 => "Important",
 		6 => "Normal",
 		4 => "Low",
-		2 => "None(Don't Care)",
+		2 => "Very Low",
 	];
 
 	public static $config_priority = [
@@ -141,7 +142,7 @@ class Task extends ContentEntityBase implements TaskInterface {
 			->setDescription(t('The title of the Task.'))
 			->setSettings(array(
 				'default_value' => '',
-				'max_length' => 255,
+				'max_length' => 2048,
 			));
 
 		$fields['summary'] = BaseFieldDefinition::create('string')
@@ -209,8 +210,8 @@ class Task extends ContentEntityBase implements TaskInterface {
 		if ($re = self::validateFormSubmit($data)) {
 			// error
 		}
-		if ( x::in('task_id') ) {
-			$task = task::load(x::in('task_id'));
+		if ( $task_id = x::in('task_id') ) {
+			$task = task::load($task_id);
 		}
 		else {
 			$task = task::create();
@@ -223,30 +224,62 @@ class Task extends ContentEntityBase implements TaskInterface {
 		$task->set('client_id', x::getUserID(x::in('client')));
 		$task->set('worker_id', x::getUserID(x::in('worker')));
 		$task->set('in_charge_id', x::getUserID(x::in('in_charge')));
-
 		$task->set('priority', x::in('priority', 2));
 		$task->set('deadline', x::in('deadline'));
-
 		$task->set('roadmap', x::in('roadmap', 0));
-
 		$task->set('view_status', x::in('view_status', 'O'));
 		$task->set('status', x::in('status', 'pending'));
-
 		$process = Process::loadByName(x::in('process'));
-
 		if ( $process ) $task->set('process_id', $process->id());
 		else $task->set('process_id', 0);
-
 		$task->save();
+		$task_id = $task->id();
+
+		$data['code'] = 'task-updated';
+		$data['message'] = "Task has been updated";
 
 		$log = TaskLog::create();
 		$log->set('user_id', x::myUid());
-		$log->set('task_id', $task->id());
-		$data = serialize(x::input());
-		$log->set('data', $data);
+		$log->set('task_id', $task_id);
+		$input_data = serialize(x::input());
+		$log->set('data', $input_data);
 		$log->save();
 
-		return $task->id();
+
+
+
+		$max_uploaded_files = count($_FILES['files']['name']);
+		if ( $max_uploaded_files ) {// 파일 업로드가 되었는가?
+			$dir_repo = 'public://file-upload/office/';
+			$ret = file_prepare_directory($dir_repo, FILE_CREATE_DIRECTORY);			// 파일이 업로드 된 경우, 디렉토리 생성. 파일 업로드 될 때마 체크하지만 속도나 성능에 영향을 미치지 않음.
+			if ( ! $ret ) $error_code = x::messageTaskFailedPrepareDirectory($data);
+			for ( $j = 0; $j < $max_uploaded_files; $j ++ ) {
+				$name = $_FILES['files']['name'][$j];
+				$type = $_FILES['files']['type'][$j];
+				$tmp_name = $_FILES['files']['tmp_name'][$j];
+				$error = $_FILES['files']['error'][$j];
+				$size = $_FILES['files']['size'][$j];
+				if ( $error ) x::log("File upload error: $error");
+				else {
+					$name = urlencode($name);
+					if ( strlen($name) > 150 ) {
+						$pi = pathinfo($name);
+						$name = substr($name, 0, 150);
+						$name = trim($name, ' \t\n\r\0\x0B%');
+						$name .= '.' . $pi['extension'];
+					}
+					$file = file_save_data(file_get_contents($tmp_name), $dir_repo . $name);
+					if ( $file ) {
+						\Drupal::service('file.usage')->add($file, 'office', 'task', $task_id);
+					}
+					else {
+						x::log("error: uploading file. file name:$name");
+						$error_code = x::messageTaskFailedToUploadFile($data);
+					}
+				}
+			}
+		}
+		return $task_id;
 	}
 
 	private static function validateFormSubmit(array &$data) {
@@ -273,8 +306,23 @@ class Task extends ContentEntityBase implements TaskInterface {
 		$p = $task->get('priority')->value;
 		if ( isset(self::$config_priority_value[$p]) ) {
 			$task->priority_text = self::$config_priority_value[$p];
-			$process_id = $task->get('process_id')->target_id;
-			$task->process = x::markupProcess($process_id);
+		}
+
+		$process_id = $task->get('process_id')->target_id;
+		if ( $process_id ) $task->process = x::markupProcess($process_id);
+
+
+		$result = db_select('file_usage','f')
+			->fields('f',['fid'])
+			->condition('module','office')
+			->condition('type', 'task')
+			->condition('id',$id)
+			->execute();
+		$ids = $result->fetchAllAssoc('fid', \PDO::FETCH_ASSOC);
+		if ( $ids ) {
+			foreach($task->files = File::loadMultiple(array_keys($ids)) as $file) {
+				$file->name_url_decoded = urldecode($file->getFilename());
+			}
 		}
 		return $task;
 	}

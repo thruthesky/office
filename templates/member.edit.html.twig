@@ -7,7 +7,7 @@
 
     {% if logged_in %}
 
-    <form  class="member" action="/office/member/add">
+    <form  class="member" action="/office/member/add" enctype="multipart/form-data" method="POST">
        <fieldset>
            <legend> ADD / EDIT</legend>
            <input type="hidden" name="mode" value="submit">
@@ -41,7 +41,16 @@
                    <div class="text"><input type="text" name="address" id="address" value="{{ data.member.address.value }}"></div>
                </div>
 
-               <div class="row">
+
+           <div class="row">
+               <div class="caption">File Upload</div>
+               <div class="text">
+                   <input type='file' name='files[]' multiple>
+               </div>
+           </div>
+
+
+           <div class="row">
                    <div class="caption">&nbsp;</div>
                    <div class="text">
                        <div class="jbutton-group">
@@ -53,4 +62,11 @@
          </fieldset>
     </form>
     {% endif %}
+
+    {% if data.member.files %}
+        {% set files = data.member.files %}
+        {% include dir_office ~ '/templates/uploaded-files.html.twig' %}
+    {% endif %}
+
 </div>
+

@@ -1,0 +1,9 @@
+.office-documentation h3 {
+    font-size:1.4em;
+}
+
+.document-content {
+    padding:1em;
+    box-sizing: border-box;
+    font-size:1.2em;
+}

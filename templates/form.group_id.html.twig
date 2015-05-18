@@ -1,10 +1,18 @@
 {#
     @note 입력 값으로 기본 선택 group_id 값이 default_group_id 변수에 들어와야 한다.
 #}
+
 <select name="group_id" id="group_id">
-    {% for group in groups %}
-        {% if group.id.value == my.group_id.entity.id.value or group.view_status.value == 'O' %}
-            <option value="{{ group.id.value }}"{{ default_group_id == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
+    {% if data.task is empty %}
+        {% if office.group %}
+            <option value="{{ office.group.id.value }}">{{ office.group.name.value }}</option>
         {% endif %}
-    {% endfor %}
+        {% for group in office.groups %}
+            <option value="{{ group.group_id.target_id }}">{{ group.group_id.entity.name.value }}</option>
+        {% endfor %}
+    {% else %}
+        {% for group in groups %}
+            <option value="{{ group.id.value }}"{{ default_group_id == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
+        {% endfor %}
+    {% endif %}
 </select>

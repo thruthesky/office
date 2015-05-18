@@ -1,6 +1,7 @@
 <?php
 namespace Drupal\office\Controller;
 use Drupal\Core\Routing\RouteProvider;
+use Drupal\file\Entity\File;
 use Drupal\office\Entity\Member;
 use Drupal\office\Entity\Group;
 use Drupal\office\x;
@@ -11,7 +12,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class MemberController extends ControllerBase {
 	public function collection() {
 		$data = [];
-
 		$request = \Drupal::request();
 		if ( $request->get('mode') == 'submit' ) {
 			$group = Member::myOwnGroup(x::myUid());
@@ -23,7 +23,7 @@ class MemberController extends ControllerBase {
 					$member->save();
 				}
 				else {
-					x::messageNotGroupMemberForReq($data);
+					x::messageNotGroupMemberToAddIntoGroup($data);
 				}
 			}
 			else {
@@ -72,7 +72,13 @@ class MemberController extends ControllerBase {
 		//if ( ! x::login() ) return x::loginResponse();
 		if ( ! x::login() ) x::messageLoginFirst($data);
 		else {
-			if (x::isFromSubmit())  Member::formSubmit($data);
+			if (x::isFromSubmit()) {
+				if (x::in('for')=='file-delete') {
+					$file = File::load(x::in('fid'));
+					if ( $file ) $file->delete();
+				}
+				else Member::formSubmit($data);
+			}
 			$data['member'] = Member::loadByUserID(x::myUid());
 			$data['groups'] = Group::loadMultiple();
 		}

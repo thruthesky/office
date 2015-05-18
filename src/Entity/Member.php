@@ -1,5 +1,6 @@
 <?php
 namespace Drupal\office\Entity;
+use Drupal\file\Entity\File;
 use Drupal\office\MemberInterface;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
@@ -43,9 +44,46 @@ use Drupal\user\UserInterface;
  */
 class Member extends ContentEntityBase implements MemberInterface {
 
+	/**
+	 * 사용자 번호를 입력받아서 그룹 회원 정보를 리턴한다.
+	 *
+	 * @param $uid
+	 * @return mixed|null
+	 */
 	public static function loadByUserID($uid) {
+
+
 		if ( empty($uid) ) return null;
-		return x::loadEntityByUserID('office_member', $uid);
+
+		$member = x::loadEntityByUserID('office_member', $uid);
+
+
+		if ( $member ) {
+			$result = db_select('file_usage','f')
+				->fields('f',['fid'])
+				->condition('module','office')
+				->condition('type', 'member')
+				->condition('id',$member->id())
+				->execute();
+			$ids = $result->fetchAllAssoc('fid', \PDO::FETCH_ASSOC);
+			if ( $ids ) {
+				foreach($member->files = File::loadMultiple(array_keys($ids)) as $file) {
+					$file->name_url_decoded = urldecode($file->getFilename());
+				}
+			}
+		}
+		return $member;
+	}
+
+	/**
+	 * 사용자 이름(=아이디)를 입력 받아서 그룹 회원 정보를 리턴한다.
+	 *
+	 * @param $name
+	 * @return mixed|null
+	 */
+	public static function loadByUsername($name) {
+		if ( $user = user_load_by_name($name) ) return Member::loadByUserID($user->id());
+		return null;
 	}
 
 	/**
@@ -73,6 +111,7 @@ class Member extends ContentEntityBase implements MemberInterface {
 	public static function myOwnGroup($myUid) {
 		return x::loadEntityByUserID('office_group', $myUid);
 	}
+
 
 
 	/**
@@ -280,6 +319,42 @@ class Member extends ContentEntityBase implements MemberInterface {
 		$entity->set('user_id', x::myUid());
 		//$entity->set('group_id', $in['group_id']);// // @NOTE 회원이 자기 그룹을 선택하지 못한다.
 		$entity->save();
+		$id = $entity->id();
+
+		if ( isset($_FILES['files'])) {
+			$max_uploaded_files = count($_FILES['files']['name']);
+			if ( $max_uploaded_files ) {// 파일 업로드가 되었는가?
+				$dir_repo = 'public://file-upload/office/';
+				$ret = file_prepare_directory($dir_repo, FILE_CREATE_DIRECTORY);			// 파일이 업로드 된 경우, 디렉토리 생성. 파일 업로드 될 때마 체크하지만 속도나 성능에 영향을 미치지 않음.
+				if ( ! $ret ) $error_code = x::messageTaskFailedPrepareDirectory($data);
+				for ( $j = 0; $j < $max_uploaded_files; $j ++ ) {
+					$name = $_FILES['files']['name'][$j];
+					$type = $_FILES['files']['type'][$j];
+					$tmp_name = $_FILES['files']['tmp_name'][$j];
+					$error = $_FILES['files']['error'][$j];
+					$size = $_FILES['files']['size'][$j];
+					if ( $error ) x::log("File upload error: $error");
+					else {
+						$name = urlencode($name);
+						if ( strlen($name) > 150 ) {
+							$pi = pathinfo($name);
+							$name = substr($name, 0, 150);
+							$name = trim($name, ' \t\n\r\0\x0B%');
+							$name .= '.' . $pi['extension'];
+						}
+						$file = file_save_data(file_get_contents($tmp_name), $dir_repo . $name);
+						if ( $file ) {
+							\Drupal::service('file.usage')->add($file, 'office', 'member', $id);
+						}
+						else {
+							x::log("error: uploading file. file name:$name");
+							$error_code = x::messageTaskFailedToUploadFile($data);
+						}
+					}
+				}
+			}
+		}
+
 		return NULL;
 	}
 

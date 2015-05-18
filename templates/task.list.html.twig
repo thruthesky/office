@@ -6,175 +6,127 @@
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
 
+    <form class="task-search">
+        <fieldset class="rows">
 
+            <div class="row title">
+                <legend>TASK LIST</legend>
+            </div>
 
-    <form>
-        <fieldset>
-            <legend> CREATE TASK</legend>
             <input type="hidden" name="mode" value="submit">
-            <table>
-                <tr>
-                    <td><label for="group_id">Group</label></td>
-                    <td>
-                        <select name="group_id" id="group_id">
-                            <option value="">Select service group</option>
-                            {% for group in groups %}
-                                <option value="{{ group.id.value }}"{{ input.group_id == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
-                            {% endfor %}
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="creator">Creator :</label>
-                    </td>
-                    <td>
-                        <input type="text" id="creator" name="creator" value="{{ input.creator }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <label for="worker">Assigned To(Worker) :</label>
-                    </td>
-                    <td>
-                        <input type="text" id="worker" name="worker" value="{{ input.worker }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <label for="in_charge">Person in charge :</label>
-                    </td>
-                    <td>
-                        <input type="text" id="in_charge" name="in_charge" value="{{ input.in_charge }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <label for="keyword">Keyword Search</label>
-                    </td>
-                    <td>
-                        <input type="text" id="keyword" name="keyword" value="{{ input.keyword }}" autocomplete="off">
-
-                        Search Option:
-                        <input type="checkbox" id="search_title_only" name="search_title_only" value="Y"{{ input.search_title_only == 'Y' ? ' checked=1' }}>
-                        <label for="search_title_only">Title Only</label>,...
+            <div class="row">
+                <div class="caption">Group</div>
+                <div class="text">
+                    <select name="group_id" id="group_id">
+                        <option value="">Select service group</option>
+                        {% for group in groups %}
+                            <option value="{{ group.id.value }}"{{ input.group_id == group.id.value ? ' selected' }}>{{ group.name.value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
 
 
+            <div class="row">
+                <div class="caption">Assigned To (Worker)</div>
+                <div class="text">
+                    <input type="text" id="worker" name="worker" placeholder="Assigned To (Worker)" title="Assigned To (Worker)" value="{{ input.worker }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
+                    <input type="text" id="creator" name="creator" placeholder="Creator" title="Creator" value="{{ input.creator }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
+                    <input type="text" id="in_charge" placeholder="Person in charge" title="Person in charge" name="in_charge" value="{{ input.in_charge }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=member">
+                    <input type="text" id="worker" placeholder="Service For (Client)" title="Service For (Client)" name="client" value="{{ input.client }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
+                </div>
+            </div>
 
-                        Search Condition:
+            {% if input.show_filter != 'less' %}
+            <div class="row">
+                <div class="caption">Keyword Search</div>
+                <div class="text">
+                    <input type="text" id="keyword" name="keyword" placeholder="Keyword" title="Keyword" value="{{ input.keyword }}" autocomplete="off">
+                    Option:
+                    <input type="checkbox" id="search_title_only" name="search_title_only" value="Y"{{ input.search_title_only == 'Y' ? ' checked=1' }}>
+                    <label for="search_title_only">Title Only</label>
 
-                        <input type="radio" name="search_condition" id="search_condition_sentence" value="sentence"{{ input.search_condition == 'sentence' ? ' checked=1' }}>
-                        <label for="search_condition_sentence">Sentence</label>
+                    &nbsp; - &nbsp;
+                    Condition:
+                    <input type="radio" name="search_condition" id="search_condition_sentence" value="sentence"{{ input.search_condition == 'sentence' ? ' checked=1' }}>
+                    <label for="search_condition_sentence">Sentence</label>
+                    <input type="radio" name="search_condition" id="search_condition_or" value="or"{{ input.search_condition == 'or' ? ' checked=1' }}>
+                    <label for="search_condition_or">OR</label>
+                    <input type="radio" name="search_condition" id="search_condition_and" value="and"{{ input.search_condition == 'and' ? ' checked=1' }}>
+                    <label for="search_condition_and">AND</label>
+                </div>
+            </div>
+            {% endif %}
 
-                        <input type="radio" name="search_condition" id="search_condition_or" value="or"{{ input.search_condition == 'or' ? ' checked=1' }}>
-                        <label for="search_condition_or">OR</label>
+            <div class="row">
+                <div class="caption">Priority</div>
+                <div class="text">
+                    <span class="priority-all"># All</span>
 
+                    <input id='priority8' type="checkbox" name="priority[]" value="8"{{ 8 in input.priority ? ' checked=1' }}>
+                    <label for="priority8">{{ priority.urgent.text }}</label>
+                    <input id='priority6' type="checkbox" name="priority[]" value="6"{{ 6 in input.priority ? ' checked=1' }}>
+                    <label for="priority6">{{ priority.normal.text }}</label>
+                    <input id='priority4' type="checkbox" name="priority[]" value="4"{{ 4 in input.priority ? ' checked=1' }}>
+                    <label for="priority4">{{ priority.low.text }}</label>
+                    <input id='priority2' type="checkbox" name="priority[]" value="2"{{ 2 in input.priority ? ' checked=1' }}>
+                    <label for="priority2">{{ priority.none.text }}</label>
 
-                        <input type="radio" name="search_condition" id="search_condition_and" value="and"{{ input.search_condition == 'and' ? ' checked=1' }}>
-                        <label for="search_condition_and">AND</label>
+                </div>
+            </div>
 
+            <div class="row">
+                <div class="caption">Work Status</div>
+                <div class="text">
+                    <span class="status-all"># All</span>
 
+                    <input id='pending' type="checkbox" name="status[pending]" value="Y"{{ input.status.pending == 'Y' ? ' checked=1' }}>
+                    <label for="pending">Pending.</label>
 
+                    <input id='accepted' type="checkbox" name="status[accepted]" value="Y"{{ input.status.accepted == 'Y' ? ' checked=1' }}>
+                    <label for="accepted">Accepted</label>
 
-                    </td>
-                </tr>
+                    <input id='inprogress' type="checkbox" name="status[inprogress]" value="Y"{{ input.status.inprogress == 'Y' ? ' checked=1' }}>
+                    <label for="inprogress">In-progress</label>
 
+                    <input id='finished' type="checkbox" name="status[finished]" value="Y"{{ input.status.finished == 'Y' ? ' checked=1' }}>
+                    <label for="finished">Finished</label>
 
+                    <input id='closed' type="checkbox" name="status[closed]" value="Y"{{ input.status.closed == 'Y' ? ' checked=1' }}>
+                    <label for="closed">Closed</label>
 
+                    <input id='redo' type="checkbox" name="status[redo]" value="Y"{{ input.status.redo  == 'Y' ? ' checked=1' }}>
+                    <label for="redo">Redo (Work again)</label>
 
+                    <input id='rejected' type="checkbox" name="status[rejected]" value="Y"{{ input.status.rejected == 'Y' ? ' checked=1' }}>
+                    <label for="rejected">Rejected</label>
 
-                <tr>
-                    <td>
-                        <label>Priority :</label>
-                    </td>
-                    <td>
-                        <span class="priority-all"># All</span>
-
-                        <input id='priority8' type="checkbox" name="priority[]" value="8"{{ 8 in input.priority ? ' checked=1' }}>
-                        <label for="priority8">{{ priority.urgent.text }}</label>
-                        <input id='priority6' type="checkbox" name="priority[]" value="6"{{ 6 in input.priority ? ' checked=1' }}>
-                        <label for="priority6">{{ priority.normal.text }}</label>
-                        <input id='priority4' type="checkbox" name="priority[]" value="4"{{ 4 in input.priority ? ' checked=1' }}>
-                        <label for="priority4">{{ priority.low.text }}</label>
-                        <input id='priority2' type="checkbox" name="priority[]" value="2"{{ 2 in input.priority ? ' checked=1' }}>
-                        <label for="priority2">{{ priority.none.text }}</label>
-
-                    </td>
-                </tr>
-
-
-                <tr>
-
-                    <td>Work Status</td>
-                    <td>
-                        <span class="status-all"># All</span>
-
-                        <input id='pending' type="checkbox" name="status[pending]" value="Y"{{ input.status.pending == 'Y' ? ' checked=1' }}>
-                        <label for="pending">Pending.</label>
-
-                        <input id='accepted' type="checkbox" name="status[accepted]" value="Y"{{ input.status.accepted == 'Y' ? ' checked=1' }}>
-                        <label for="accepted">Accepted</label>
-
-                        <input id='inprogress' type="checkbox" name="status[inprogress]" value="Y"{{ input.status.inprogress == 'Y' ? ' checked=1' }}>
-                        <label for="inprogress">In-progress</label>
-
-                        <input id='finished' type="checkbox" name="status[finished]" value="Y"{{ input.status.finished == 'Y' ? ' checked=1' }}>
-                        <label for="finished">Finished</label>
-
-                        <input id='closed' type="checkbox" name="status[closed]" value="Y"{{ input.status.closed == 'Y' ? ' checked=1' }}>
-                        <label for="closed">Closed</label>
-
-                        <input id='redo' type="checkbox" name="status[redo]" value="Y"{{ input.status.redo  == 'Y' ? ' checked=1' }}>
-                        <label for="redo">Redo (Work again)</label>
-
-                        <input id='rejected' type="checkbox" name="status[rejected]" value="Y"{{ input.status.rejected == 'Y' ? ' checked=1' }}>
-                        <label for="rejected">Rejected</label>
-
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <label for="worker">Service For (Client) :</label>
-                    </td>
-                    <td>
-                        <input type="text" id="worker" name="client" value="{{ input.client }}" autocomplete="off" data-autocomplete-url="/office/api?call=autocomplete&type=user">
-
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <label>Sort Field :</label>
-                    </td>
-                    <td>
-                        <input type="radio" name="sort" id="priority" value="priority"{{ input.sort == 'priority' ? ' checked=1' }}>
-                        <label for="priority">Priority</label>
+                </div>
+            </div>
 
 
-                        <input type="radio" name="sort" id="created" value="created"{{ input.sort == 'created' ? ' checked=1' }}>
-                        <label for="created">Date - Created</label>
-
-                        <input type="radio" name="sort" id="changed" value="changed"{{ input.sort == 'changed' ? ' checked=1' }}>
-                        <label for="changed">Date - Changaed</label>
-
-
-                        <input type="radio" name="sort" id="deadline" value="deadline"{{ input.sort == 'deadline' ? ' checked=1' }}>
-                        <label for="deadline">Deadline</label>
+            <div class="row">
+                <div class="caption">Sort Field</div>
+                <div class="text">
+                    <input type="radio" name="sort" id="priority" value="priority"{{ input.sort == 'priority' ? ' checked=1' }}>
+                    <label for="priority">Priority</label>
+                    <input type="radio" name="sort" id="sort_status" value="status"{{ input.sort == 'status' ? ' checked=1' }}>
+                    <label for="sort_status">Work status</label>
 
 
-                        <input type="radio" name="sort" id="roadmap" value="roadmap"{{ input.sort == 'roadmap' ? ' checked=1' }}>
-                        <label for="roadmap">Roadmap</label>
+                    <input type="radio" name="sort" id="deadline" value="deadline"{{ input.sort == 'deadline' ? ' checked=1' }}>
+                    <label for="deadline">Deadline</label>
+
+                    <input type="radio" name="sort" id="roadmap" value="roadmap"{{ input.sort == 'roadmap' ? ' checked=1' }}>
+                    <label for="roadmap">Roadmap</label>
+
+                    <input type="radio" name="sort" id="roadmap" value="roadmap"{{ input.sort == 'roadmap' ? ' checked=1' }}>
+                    <label for="roadmap">Group</label>
 
 
 
-                        <input type="radio" name="sort" id="roadmap" value="roadmap"{{ input.sort == 'roadmap' ? ' checked=1' }}>
-                        <label for="roadmap">Group</label>
 
-
+                    {% if input.show_filter != 'less' %}
                         <input type="radio" name="sort" id="sort_creator" value="creator_id"{{ input.sort == 'creator_id' ? ' checked=1' }}>
                         <label for="sort_creator">Creator</label>
 
@@ -184,244 +136,261 @@
                         <input type="radio" name="sort" id="sort_in_charge" value="in_charge_id"{{ input.sort == 'in_charge_id' ? ' checked=1' }}>
                         <label for="sort_in_charge">Person in charge</label>
 
-                        <input type="radio" name="sort" id="sort_status" value="status"{{ input.sort == 'status' ? ' checked=1' }}>
-                        <label for="sort_status">Work status</label>
+                        <input type="radio" name="sort" id="created" value="created"{{ input.sort == 'created' ? ' checked=1' }}>
+                        <label for="created">Date - Created</label>
 
-                    </td>
-                </tr>
+                        <input type="radio" name="sort" id="changed" value="changed"{{ input.sort == 'changed' ? ' checked=1' }}>
+                        <label for="changed">Date - Changaed</label>
+                    {% endif %}
 
-                <tr>
-                    <td>
-                        <label> Sort in :</label>
-                    </td>
-                    <td>
-                        <input type="radio" name="by" id="ASC" value="ASC"{{ input.by == 'ASC' ? ' checked=1' }}>
-                        <label for="ASC">Asc</label>
-                        <input type="radio" name="by" id="DESC" value="DESC"{{ input.by == 'DESC' ? ' checked=1' }}>
-                        <label for="DESC">Desc</label>
+                    &nbsp; - &nbsp;
 
-                    </td>
-                </tr>
+                    Sort in:
 
-                <tr>
-                    <td><label>Show Fields:</label></td>
-                    <td>
+                    <input type="radio" name="by" id="ASC" value="ASC"{{ input.by == 'ASC' ? ' checked=1' }}>
+                    <label for="ASC">Asc</label>
+                    <input type="radio" name="by" id="DESC" value="DESC"{{ input.by == 'DESC' ? ' checked=1' }}>
+                    <label for="DESC">Desc</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="caption">Show Fields</div>
+                <div class="text">
+                    <input type="checkbox" name="show_group" id="show_group" value="Y"{{ input.show_group == 'Y' ? ' checked=1' }}>
+                    <label for="show_group">Group</label>
+                    <input type="checkbox" name="show_priority" id="show_priority" value="Y"{{ input.show_priority == 'Y' ? ' checked=1' }}>
 
-                        <input type="checkbox" name="show_group" id="show_group" value="Y"{{ input.show_group == 'Y' ? ' checked=1' }}>
-                        <label for="show_group">Group</label>
-                        <input type="checkbox" name="show_priority" id="show_priority" value="Y"{{ input.show_priority == 'Y' ? ' checked=1' }}>
-
-                        <label for="show_priority">Priority</label>
+                    <label for="show_priority">Priority</label>
 
 
-                        <input type="checkbox" name="show_status" id="show_status" value="Y"{{ input.show_status == 'Y' ? ' checked=1' }}>
-                        <label for="show_status">Status</label>
+                    <input type="checkbox" name="show_status" id="show_status" value="Y"{{ input.show_status == 'Y' ? ' checked=1' }}>
+                    <label for="show_status">Status</label>
 
+                    <input type="checkbox" name="show_deadline" id="show_deadline" value="Y"{{ input.show_deadline == 'Y' ? ' checked=1' }}>
+                    <label for="show_deadline">Deadline</label>
 
+                    <input type="checkbox" name="show_assigned" id="show_assigned" value="Y"{{ input.show_assigned == 'Y' ? ' checked=1' }}>
+                    <label for="show_assigned">Assigned To</label>
 
+                    <input type="checkbox" name="show_road_map" id="show_road_map" value="Y"{{ input.show_road_map == 'Y' ? ' checked=1' }}>
+                    <label for="show_road_map">Road-map</label>
+
+                    {% if input.show_filter != 'less' %}
                         <input type="checkbox" name="show_created" id="show_created" value="Y"{{ input.show_created == 'Y' ? ' checked=1' }}>
                         <label for="show_created">Created</label>
-
                         <input type="checkbox" name="show_updated" id="show_updated" value="Y"{{ input.show_updated == 'Y' ? ' checked=1' }}>
                         <label for="show_updated">Updated</label>
-
-                        <input type="checkbox" name="show_deadline" id="show_deadline" value="Y"{{ input.show_deadline == 'Y' ? ' checked=1' }}>
-                        <label for="show_deadline">Deadline</label>
-
                         <input type="checkbox" name="show_creator" id="show_creator" value="Y"{{ input.show_creator == 'Y' ? ' checked=1' }}>
                         <label for="show_creator">Creator</label>
-                        <input type="checkbox" name="show_assigned" id="show_assigned" value="Y"{{ input.show_assigned == 'Y' ? ' checked=1' }}>
-                        <label for="show_assigned">Assigned To</label>
                         <input type="checkbox" name="show_in_charge" id="show_in_charge" value="Y"{{ input.show_in_charge == 'Y' ? ' checked=1' }}>
                         <label for="show_in_charge"> In charge of</label>
                         <input type="checkbox" name="show_client" id="show_client" value="Y"{{ input.show_client == 'Y' ? ' checked=1' }}>
                         <label for="show_client"> Service For</label>
-                        <input type="checkbox" name="show_road_map" id="show_road_map" value="Y"{{ input.show_road_map == 'Y' ? ' checked=1' }}>
-                        <label for="show_road_map">Road-map</label>
-                    </td>
-                </tr>
+                    {% endif %}
 
+                </div>
+            </div>
+            <div class="row">
+                <div class="caption">&nbsp;</div>
+                <div class="text">
+                    <div class="jbutton-group">
+                        <input class="jbutton grey submit" type="submit">
+                        <input type="hidden" name="show_filter" value="{{ input.show_filter }}">
 
-                <tr>
-                    <td><label for="submit"></label></td>
-                    <td>
-                        <div class="jbutton-group">
-                            <input class="jbutton grey-active submit" type="submit" id="submit">
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                        <span class="jbutton grey setting">{{ input.show_filter == 'less' ? 'Show more filters' : 'Show less filters' }}</span>
+                    </div>
+                </div>
+            </div>
+
         </fieldset>
     </form>
 
 
-    <table width='100%' class="list">
-        <tr>
-
-            {% if input.show_group == 'Y' %}
-                <td><span>Group</span></td>
-            {% endif %}
-
-            {% if input.show_road_map == 'Y' %}
-                <td><span>Roadmap</span></td>
-            {% endif %}
-
-            {% if input.show_priority == 'Y' %}
-                <td><span>Priority</span></td>
-            {% endif %}
-
-
-            {% if input.show_status == 'Y' %}
-                <td><span>Status</span></td>
-            {% endif %}
-
-
-            <td><span>Title</span></td>
-
-            {% if input.show_created == 'Y' %}
-                <td><span>Created</span></td>
-            {% endif %}
-            {% if input.show_updated == 'Y' %}
-                <td><span>Updated</span></td>
-            {% endif %}
-            {% if input.show_deadline == 'Y' %}
-                <td><span>Deadline</span></td>
-            {% endif %}
-
-            {% if input.show_creator == 'Y' %}
-                <td><span>Creator</span></td>
-            {% endif %}
-
-            {% if input.show_assigned == 'Y' %}
-                <td><span>Assigned To</span></td>
-            {% endif %}
-
-            {% if input.show_in_charge == 'Y' %}
-                <td><span>In charge of</span></td>
-            {% endif %}
-
-            {% if input.show_client == 'Y' %}
-                <td><span>Client</span></td>
-            {% endif %}
-
-            <td>
-                <span>
-                    ...
-                </span>
-            </td>
-
-        </tr>
 
 
 
 
-        {% for task in data.tasks %}
-            {% if task.group_id.target_id == my.group_id.target_id %}
-                {% set href = '/office/task/edit/' ~ task.id.value %}
-            {% else %}
-                {% set href = '/office/task/' ~ task.id.value %}
-            {% endif %}
 
+
+
+
+
+
+
+
+
+
+
+
+    <div class="task-list">
+        <table cellpadding="0" cellspacing="0" width='100%' class="list">
             <tr>
 
                 {% if input.show_group == 'Y' %}
-                    <td>
-                        <a href="{{ href }}"><span>{{ task.group_id.entity.name.value }}</span></a>
-                    </td>
+                    <td class="group"><span>Group</span></td>
+                    <td>&nbsp;</td>
                 {% endif %}
-
-
 
                 {% if input.show_road_map == 'Y' %}
-                    <td>
-                        <a href="{{ href }}">
-                            <div class="graph roadmap">
-                                <div class="bar" percentage="{{ task.roadmap.value }}" style="width:{{ task.roadmap.value ? : '0' }}%;">&nbsp;</div>
-                                <div class="text">{{ task.roadmap.value ? : '0' }}%</div>
-                            </div>
-                        </a>
-                    </td>
+                    <td><span>Roadmap</span></td>
                 {% endif %}
 
-
                 {% if input.show_priority == 'Y' %}
-                    <td>
-                        <a href="{{ href }}"><span>{{ task.priority_text }}</span></a>
-                    </td>
+                    <td><span>Priority</span></td>
                 {% endif %}
 
 
                 {% if input.show_status == 'Y' %}
-                    <td>
-                        <a href="{{ href }}"><span>{{ task.status.value }}</span></a>
-                    </td>
+                    <td><span>Status</span></td>
                 {% endif %}
 
 
-
-
-                <td>
-                    <a href="{{ href }}">
-                        <span>{{ task.title.value }}</span>
-                    </a>
-                </td>
-
+                <td><span>Title</span></td>
 
                 {% if input.show_created == 'Y' %}
-                    <td>
-                        <a href="{{ href }}"><span>{{ task.created.value | date('M d, Y') }}</span></a>
-                    </td>
+                    <td><span>Created</span></td>
                 {% endif %}
                 {% if input.show_updated == 'Y' %}
-                    <td>
-                        <a href="{{ href }}"><span>{{ task.changed.value | date('M d, Y') }}</span></a>
-                    </td>
+                    <td><span>Updated</span></td>
                 {% endif %}
                 {% if input.show_deadline == 'Y' %}
-                    <td>
-                        <a href="{{ href }}"><span>{{ task.deadline.value }}</span></a>
-                    </td>
+                    <td><span>Deadline</span></td>
                 {% endif %}
 
-
-
                 {% if input.show_creator == 'Y' %}
-                    <td>
-                        <a href="{{ href }}"><span>{{ task.creator_id.entity.name.value }}</span></a>
-                    </td>
+                    <td><span>Creator</span></td>
                 {% endif %}
 
                 {% if input.show_assigned == 'Y' %}
-                    <td>
-                        <a href="{{ href }}"><span>{{ task.worker_id.entity.name.value }}</span></a>
-                    </td>
+                    <td><span>Assigned To</span></td>
                 {% endif %}
-
 
                 {% if input.show_in_charge == 'Y' %}
-                    <td>
-                        <a href="{{ href }}"><span>{{ task.in_charge_id.entity.name.value }}</span></a>
-                    </td>
+                    <td><span>In charge of</span></td>
                 {% endif %}
 
-
                 {% if input.show_client == 'Y' %}
-                    <td>
-                        <a href="{{ href }}"><span>{{ task.client_id.entity.name.value }}</span></a>
-                    </td>
+                    <td><span>Client</span></td>
                 {% endif %}
 
                 <td>
-                    <div class="jbutton group">
-                        {% if task.group_id.target_id == my.group_id.target_id %}
-                            <a class="jbutton blue-active post" href="{{ href }}">Edit</a>
-                        {% endif %}
-                    </div>
+                <span>
+                    ...
+                </span>
                 </td>
+
             </tr>
-        {% endfor %}
 
 
-    </table>
+
+
+            {% for task in data.tasks %}
+                {% if task.group_id.target_id == my.group_id.target_id or task.group_id.target_id in office.group_ids %}
+                    {% set href = '/office/task/edit/' ~ task.id.value %}
+                {% else %}
+                    {% set href = '/office/task/' ~ task.id.value %}
+                {% endif %}
+
+                <tr>
+
+                    {% if input.show_group == 'Y' %}
+                        <td class="group">
+                            <a href="{{ href }}"><span>{{ task.group_id.entity.name.value }}</span></a>
+                        </td>
+                        <td>&nbsp;</td>
+                    {% endif %}
+
+
+
+                    {% if input.show_road_map == 'Y' %}
+                        <td>
+                            <a href="{{ href }}">
+                                <div class="graph roadmap">
+                                    <div class="bar" percent="{{ task.roadmap.value }}" style="width:{{ task.roadmap.value ? : '0' }}%;">&nbsp;</div>
+                                    <div class="text">{{ task.roadmap.value ? : '0' }}%</div>
+                                </div>
+                            </a>
+                        </td>
+                    {% endif %}
+
+
+                    {% if input.show_priority == 'Y' %}
+                        <td nowrap class="priority">
+                            <a href="{{ href }}"><span priority="{{ task.priority.value }}">{{ task.priority_text }}</span></a>
+                        </td>
+                    {% endif %}
+
+
+                    {% if input.show_status == 'Y' %}
+                        <td nowrap class="status">
+                            <a href="{{ href }}"><span priority="{{ task.priority.value }}">{{ task.status.value }}</span></a>
+                        </td>
+                    {% endif %}
+
+
+
+
+                    <td class="title">
+                        <a href="{{ href }}">
+                            <span priority="{{ task.priority.value }}">{{ task.title.value }}</span>
+                        </a>
+                    </td>
+
+
+                    {% if input.show_created == 'Y' %}
+                        <td nowrap>
+                            <a href="{{ href }}"><span>{{ task.created.value | date('M d, Y') }}</span></a>
+                        </td>
+                    {% endif %}
+                    {% if input.show_updated == 'Y' %}
+                        <td nowrap>
+                            <a href="{{ href }}"><span>{{ task.changed.value | date('M d, Y') }}</span></a>
+                        </td>
+                    {% endif %}
+                    {% if input.show_deadline == 'Y' %}
+                        <td nowrap>
+                            <a href="{{ href }}"><span>{{ task.deadline.value }}</span></a>
+                        </td>
+                    {% endif %}
+
+
+
+                    {% if input.show_creator == 'Y' %}
+                        <td>
+                            <a href="{{ href }}"><span>{{ task.creator_id.entity.name.value }}</span></a>
+                        </td>
+                    {% endif %}
+
+                    {% if input.show_assigned == 'Y' %}
+                        <td>
+                            <a href="{{ href }}"><span>{{ task.worker_id.entity.name.value }}</span></a>
+                        </td>
+                    {% endif %}
+
+
+                    {% if input.show_in_charge == 'Y' %}
+                        <td>
+                            <a href="{{ href }}"><span>{{ task.in_charge_id.entity.name.value }}</span></a>
+                        </td>
+                    {% endif %}
+
+
+                    {% if input.show_client == 'Y' %}
+                        <td>
+                            <a href="{{ href }}"><span>{{ task.client_id.entity.name.value }}</span></a>
+                        </td>
+                    {% endif %}
+
+                    <td>
+                        <div class="jbutton-group">
+                            {% if task.group_id.target_id == my.group_id.target_id or task.group_id.target_id in office.group_ids %}
+                                <a class="jbutton blue edit" href="{{ href }}">Edit</a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 

@@ -1,0 +1,42 @@
+@media all and ( min-width: 640px ) { /* 640px and above */
+    .office .rows .row:after {
+        display:block;
+        content:'';
+        clear:both;
+    }
+    .office .rows .row .caption {
+        float:left;
+        width:24%;
+    }
+    .office .rows .row .text {
+        float:left;
+        width:76%;
+    }
+}
+
+.office .rows .row {
+    padding: 1em 1em 0 ;
+    box-sizing: border-box;
+}
+
+
+.office .rows .row.title {
+    display:block;
+    width:100%;
+    font-size:1.2em;
+    padding:1em;
+    box-sizing: border-box;
+    background-color:#e0e0d8;
+}
+
+
+
+.office .rows .row .caption {
+    font-size:1.2em;
+    color:#000066;
+}
+
+.office .rows .row .caption {
+    font-size:1.2em;
+    color:#010101;
+}

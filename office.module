@@ -17,7 +17,7 @@ function office_theme() {
 		'office', 'login', 'mydesk', 'office.documentation',
 		'member.list', 'member.view', 'member.edit',
 		'task.edit','task.list', 'task.view',
-		'group.edit', 'group.list', 'group.workinghours',
+		'group.edit', 'group.list', 'group.workinghours', 'group.memberlist',
 		'attendance.list',
 		'process.edit', 'process.list', 'process.view',
 
@@ -40,29 +40,24 @@ function office_preprocess(&$variables, $hook)
 	$uri = $request->getRequestUri();
 	if ( ! x::isOfficePage() ) return;
 
-	$variables['office_module'] = 1;
 
+
+	$variables['office_module'] = 1;
+	$variables['groups'] = Group::loadMultiple();
+	$variables['input'] = x::input();
+	$variables['priority'] = x::priority();
 
 	$variables['ol'] = Language::load();
-	if ( x::in('uid') ) $variables['member'] = Member::loadByUserID(x::in('uid'));
-	if ( x::myUid() ) {
-		$my = Member::loadByUserID(x::myUid());
-		$my->count_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->count()->execute();
-		$status = Task::$config_priority['urgent']['value'];
-		$my->count_urgent_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->condition('status',$status)->count()->execute();
-		$date = date('Y-m-d', strtotime('1 week ago'));
-		$my->count_deadline_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->condition('deadline',$date, '>')->count()->execute();
-		$variables['my'] = $my;
-	}
-	if ( x::in('code') ) $variables['data']['code'] = x::in('code');
-	if ( x::in('message') ) $variables['data']['message'] = x::in('message');
 
-	$variables['input'] = x::input();
-	$variables['groups'] = Group::loadMultiple();
-	$variables['priority'] = x::priority();
+	if ( x::in('uid') ) {
+		$variables['member'] = Member::loadByUserID(x::in('uid'));
+	}
+
+	if ( x::myUid() ) x::myOfficeInformation($variables);
 	x::officeInformation($variables);
 
-
+	if ( x::in('code') ) $variables['data']['code'] = x::in('code');
+	if ( x::in('message') ) $variables['data']['message'] = x::in('message');
 
 	if ( $hook == 'page' ) {
 		// x::gs(2);
@@ -76,6 +71,9 @@ function office_preprocess(&$variables, $hook)
 	}
 	else if ( x::isOfficeTaskPage() ) {
 		$variables['#attached']['library'][] = 'office/task';
+	}
+	else if ( x::isOfficeDocumentationPage() ) {
+		$variables['#attached']['library'][] = 'office/documentation';
 	}
 	$variables['data']['class']['office'][] = 'office';
 
