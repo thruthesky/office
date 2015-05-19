@@ -83,12 +83,19 @@ form.task-search .priority-all {
     font-size:1.1em;
 }
 .task-list [priority='8'] {
-    color:#D00000;
-    font-size:1.2em;
+    color: #d01010;
+    font-size:1.1em;
+}
+
+.task-list td[priority='9'] {
+    background:#D00000;
+}
+.task-list td[priority='9'] a {
+    color: white;
+    font-size:1.1em;
 }
 .task-list .priority [priority='6'],
-.task-list .priority [priority='8'],
-.task-list .status [priority='9'] {
+.task-list .priority [priority='8'] {
     font-weight:bold;
 }
 

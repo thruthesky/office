@@ -317,18 +317,18 @@
 
 
                     {% if input.show_priority == 'Y' %}
-                        <td nowrap class="priority">
+                        <td nowrap class="priority" priority="{{ task.priority.value }}">
                             <a href="{{ href }}"><span class="prority" priority="{{ task.priority.value }}">{{ task.priority_text }}</span></a>
                         </td>
                     {% endif %}
 
                     {% if input.show_status == 'Y' %}
-                        <td nowrap class="status">
+                        <td nowrap class="status" priority="{{ task.priority.value }}">
                             <a href="{{ href }}"><span class="status" priority="{{ task.priority.value }}">{{ task.status.value }}</span></a>
                         </td>
                     {% endif %}
 
-                    <td class="title">
+                    <td class="title" priority="{{ task.priority.value }}">
                         <a href="{{ href }}">
                             <span class="status" priority="{{ task.priority.value }}">{{ task.title.value }}</span>
                         </a>
