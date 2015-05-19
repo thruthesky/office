@@ -87,9 +87,8 @@ form.task-search .priority-all {
     font-size:1.2em;
 }
 .task-list .priority [priority='6'],
-.task-list .status [priority='6'],
 .task-list .priority [priority='8'],
-.task-list .status [priority='8'] {
+.task-list .status [priority='9'] {
     font-weight:bold;
 }
 

@@ -318,19 +318,19 @@
 
                     {% if input.show_priority == 'Y' %}
                         <td nowrap class="priority">
-                            <a href="{{ href }}"><span priority="{{ task.priority.value }}">{{ task.priority_text }}</span></a>
+                            <a href="{{ href }}"><span class="prority" priority="{{ task.priority.value }}">{{ task.priority_text }}</span></a>
                         </td>
                     {% endif %}
 
                     {% if input.show_status == 'Y' %}
                         <td nowrap class="status">
-                            <a href="{{ href }}"><span priority="{{ task.priority.value }}">{{ task.status.value }}</span></a>
+                            <a href="{{ href }}"><span class="status" priority="{{ task.priority.value }}">{{ task.status.value }}</span></a>
                         </td>
                     {% endif %}
 
                     <td class="title">
                         <a href="{{ href }}">
-                            <span priority="{{ task.priority.value }}">{{ task.title.value }}</span>
+                            <span class="status" priority="{{ task.priority.value }}">{{ task.title.value }}</span>
                         </a>
                     </td>
 
@@ -340,11 +340,13 @@
                             <a href="{{ href }}"><span>{{ task.created.value | date('M d, Y') }}</span></a>
                         </td>
                     {% endif %}
+
                     {% if input.show_updated == 'Y' %}
                         <td nowrap>
                             <a href="{{ href }}"><span>{{ task.changed.value | date('M d, Y') }}</span></a>
                         </td>
                     {% endif %}
+
                     {% if input.show_deadline == 'Y' %}
                         <td nowrap>
                             <a href="{{ href }}"><span>{{ task.deadline.value }}</span></a>
