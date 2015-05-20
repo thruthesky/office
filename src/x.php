@@ -1123,6 +1123,19 @@ class x {
 			->count()
 			->execute();
 
+
+		$db = \Drupal::entityQuery('office_task');
+		$or = $db->orConditionGroup();
+		$or->condition('worker_id', x::myUid());
+		$or->condition('creator_id', x::myUid());
+		$or->condition('in_charge_id', x::myUid());
+		$my->count_recent_task = $db->condition($or)
+			->condition('status','closed', '<>')
+			->condition('changed', time()-24*60*60, '>')
+			->count()
+			->execute();
+
+
 		$variables['my'] = $my;
 	}
 

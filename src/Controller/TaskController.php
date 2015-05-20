@@ -29,24 +29,26 @@ class TaskController extends ControllerBase {
 			$db->condition('group_id', $group_id);
 		}
 
+		$or = $db->orConditionGroup();
 		if ( $creator = x::in('creator') ) {
 			$creator_id = x::getUserID($creator);
-			$db->condition('creator_id', $creator_id);
+			$or->condition('creator_id', $creator_id);
 		}
 		if ( $worker = x::in('worker') ) {
 			$worker_id = x::getUserID($worker);
-			$db->condition('worker_id', $worker_id);
+			$or->condition('worker_id', $worker_id);
 		}
-
 		if ( $in_charge = x::in('in_charge') ) {
 			$in_charge_id = x::getUserID($in_charge);
-			$db->condition('in_charge_id', $in_charge_id);
+			$or->condition('in_charge_id', $in_charge_id);
 		}
-
 		if ( $client = x::in('client') ) {
 			$client_id = x::getUserID($client);
-			$db->condition('client_id', $client_id);
+			$or->condition('client_id', $client_id);
 		}
+		if ( $or->count() > -1 ) $db->condition($or);
+
+
 
 		$keyword = x::in('keyword');
 
