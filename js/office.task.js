@@ -5,6 +5,14 @@ $(function(){
         else $(this).prev().val('more');
         $('.task-search').submit();
     });
+
+    $(".task-search [type='checkbox'],.task-search [type='radio']").click(function(){
+        $('.task-search').submit();
+    });
+    $(".task-search select").change(function(){
+        $('.task-search').submit();
+    });
+
     $(".status-all").click(function(){
         $("[name^='status']").prop('checked',true);
     });
