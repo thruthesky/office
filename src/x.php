@@ -1096,11 +1096,26 @@ class x {
 			->execute();
 
 		$status = Task::$config_priority['immediate']['value'];
-		$my->count_immediate_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->condition('priority',$status)->count()->execute();
+		$my->count_immediate_task = \Drupal::entityQuery('office_task')
+			->condition('worker_id',x::myUid())
+			->condition('status','closed', '<>')
+			->condition('priority',$status)
+			->count()
+			->execute();
 		$status = Task::$config_priority['urgent']['value'];
-		$my->count_urgent_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->condition('priority',$status)->count()->execute();
+		$my->count_urgent_task = \Drupal::entityQuery('office_task')
+			->condition('worker_id',x::myUid())
+			->condition('status','closed', '<>')
+			->condition('priority',$status)
+			->count()
+			->execute();
 		$date = date('Y-m-d', strtotime('1 week ago'));
-		$my->count_deadline_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->condition('deadline',$date, '>')->count()->execute();
+		$my->count_deadline_task = \Drupal::entityQuery('office_task')
+			->condition('worker_id',x::myUid())
+			->condition('status','closed', '<>')
+			->condition('deadline',$date, '>')
+			->count()
+			->execute();
 
 		$my->count_rejected_task = \Drupal::entityQuery('office_task')
 			->condition('worker_id',x::myUid())
