@@ -18,16 +18,29 @@
     </div>
     <div class="b task-status">
         <div class="content">
-            <span class="task"><b>Your task</b><i>{{ my.count_task }}</i></span>
+            <a href="?mode=submit&group_id=&worker={{ my.user_id.entity.getUsername }}&creator=&in_charge=&client=&keyword=&priority%5B%5D=9&priority%5B%5D=8&priority%5B%5D=6&priority%5B%5D=4&priority%5B%5D=2&status%5Bpending%5D=Y&status%5Baccepted%5D=Y&status%5Binprogress%5D=Y&status%5Bfinished%5D=Y&status%5Bredo%5D=Y&sort=priority&by=DESC&show_group=Y&show_priority=Y&show_deadline=Y&show_assigned=Y&show_road_map=Y&show_comment=Y&show_filter="><span class="task"><b>My task</b><i>{{ my.count_task }}</i></span></a>
+
+            {% if my.count_immediate_task %}
+            <a href="?mode=submit&group_id=&worker={{ my.user_id.entity.getUsername }}&creator=&in_charge=&client=&keyword=&priority%5B%5D=9&status%5Bpending%5D=Y&status%5Baccepted%5D=Y&status%5Binprogress%5D=Y&status%5Bfinished%5D=Y&status%5Bredo%5D=Y&sort=priority&by=DESC&show_group=Y&show_priority=Y&show_deadline=Y&show_assigned=Y&show_road_map=Y&show_comment=Y&show_filter="><span class="immediate"><b>Immediate</b><i>{{ my.count_immediate_task }}</i></span></a>
+            {% endif %}
+
             {% if my.count_urgent_task %}
-            <span class="urgent"><b>Urgent</b><i>{{ my.count_urgent_task }}</i></span>
+                <a href="?mode=submit&group_id=&worker={{ my.user_id.entity.getUsername }}&creator=&in_charge=&client=&keyword=&priority%5B%5D=8&status%5Bpending%5D=Y&status%5Baccepted%5D=Y&status%5Binprogress%5D=Y&status%5Bfinished%5D=Y&status%5Bredo%5D=Y&sort=priority&by=DESC&show_group=Y&show_priority=Y&show_deadline=Y&show_assigned=Y&show_road_map=Y&show_comment=Y&show_filter="><span class="urgent"><b>Important</b><i>{{ my.count_urgent_task }}</i></span></a>
             {% endif %}
             {% if my.count_deadline_task %}
-                <span class="deadline"><b>Deadline</b><i>{{ my.count_deadline_task }}</i></span>
+                <a href="?mode=submit&group_id=&worker={{ my.user_id.entity.getUsername }}&creator=&in_charge=&client=&keyword=&status%5Bpending%5D=Y&status%5Baccepted%5D=Y&status%5Binprogress%5D=Y&status%5Bfinished%5D=Y&status%5Bredo%5D=Y&sort=deadline&by=DESC&show_group=Y&show_priority=Y&show_deadline=Y&show_assigned=Y&show_road_map=Y&show_comment=Y&show_filter="><span class="deadline"><b>Deadline</b><i>{{ my.count_deadline_task }}</i></span></a>
             {% endif %}
+
+            <a href="?mode=submit&group_id=&worker={{ my.user_id.entity.getUsername }}&creator=&in_charge=&client=&keyword=&status%5Bpending%5D=Y&status%5Baccepted%5D=Y&status%5Binprogress%5D=Y&status%5Bfinished%5D=Y&status%5Bredo%5D=Y&sort=changed&by=DESC&show_group=Y&show_priority=Y&show_deadline=Y&show_assigned=Y&show_road_map=Y&show_comment=Y&show_filter="><span class="recent"><b>Recent</b></span></a>
+
+            <a href="?mode=submit&group_id={{ office.group.id.value }}&worker=&creator=&in_charge=&client=&keyword=&status%5Bpending%5D=Y&status%5Baccepted%5D=Y&status%5Binprogress%5D=Y&status%5Bfinished%5D=Y&status%5Bredo%5D=Y&sort=priority&by=DESC&show_group=Y&show_priority=Y&show_deadline=Y&show_assigned=Y&show_road_map=Y&show_comment=Y&show_filter="><span class="recent"><b>My group</b></span></a>
+
             {% if my.count_rejected_task %}
-                <span class="rejected"><b>Rejected</b><i>{{ my.count_rejected_task }}</i></span>
+                <a href="?mode=submit&group_id=&worker={{ my.user_id.entity.getUsername }}&creator=&in_charge=&client=&keyword=&status%5Brejected%5D=Y&sort=priority&by=DESC&show_group=Y&show_priority=Y&show_deadline=Y&show_assigned=Y&show_road_map=Y&show_comment=Y&show_filter="><span class="rejected"><b>Rejected</b><i>{{ my.count_rejected_task }}</i></span></a>
             {% endif %}
+
+
+            <a href="/office/task/list?mode=submit&worker=&creator=&in_charge=&client=&keyword=&status%5Bpending%5D=Y&status%5Baccepted%5D=Y&status%5Binprogress%5D=Y&status%5Bfinished%5D=Y&status%5Bredo%5D=Y&sort=priority&by=DESC&show_group=Y&show_priority=Y&show_deadline=Y&show_assigned=Y&show_road_map=Y&show_comment=Y&show_filter="><span class="recent"><b>All</b></span></a>
         </div>
     </div>
 {% else %}

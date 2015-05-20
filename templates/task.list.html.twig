@@ -179,6 +179,8 @@
                     <label for="show_road_map">Road-map</label>
 
                     {% if input.show_filter != 'less' %}
+                        <input type="checkbox" name="show_comment" id="show_comment" value="Y"{{ input.show_comment == 'Y' ? ' checked=1' }}>
+                        <label for="show_comment">Comment</label>
                         <input type="checkbox" name="show_created" id="show_created" value="Y"{{ input.show_created == 'Y' ? ' checked=1' }}>
                         <label for="show_created">Created</label>
                         <input type="checkbox" name="show_updated" id="show_updated" value="Y"{{ input.show_updated == 'Y' ? ' checked=1' }}>
@@ -332,6 +334,13 @@
                         <a href="{{ href }}">
                             <span class="status" priority="{{ task.priority.value }}">{{ task.title.value }}</span>
                         </a>
+
+                        {% if input.show_comment == 'Y' %}
+                        <a href="{{ href }}">
+                            <span class="comment">{{ task.last_comment }}</span>
+                        </a>
+                        {% endif %}
+
                     </td>
 
 

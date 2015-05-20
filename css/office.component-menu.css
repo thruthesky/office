@@ -70,12 +70,19 @@ nav.office-menu div a:first-child {
 
 /** status under title **/
 
+.task-status a {
+    color:white;
+}
 .task-status span {
     margin-right:1em;
 }
 
 .task-status .urgent {
     color:#ffff00;
+}
+.task-status .immediate {
+    font-size:1.2em;
+    color:#FF2222;
 }
 .task-status i {
     font-weight:bold;

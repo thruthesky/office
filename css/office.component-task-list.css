@@ -99,5 +99,12 @@ form.task-search .priority-all {
     font-weight:bold;
 }
 
+.task-list .comment:before {
+    content:'- ';
+}
+.task-list .comment {
+    padding-left:1em;
+    font-style: italic;
+}
 /** ------------------------ STATE ----------------------------- **/
 

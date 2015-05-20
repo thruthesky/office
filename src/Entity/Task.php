@@ -310,10 +310,26 @@ class Task extends ContentEntityBase implements TaskInterface {
 			$task->priority_text = self::$config_priority_value[$p];
 		}
 
+		// Work Process
 		$process_id = $task->get('process_id')->target_id;
 		if ( $process_id ) $task->process = x::markupProcess($process_id);
 
 
+		// 마지막 코멘트
+		$ids = \Drupal::entityQuery('office_tasklog')
+			->condition('task_id', $id)
+			->range(0,1)
+			->sort('id', 'DESC')
+			->execute();
+		$logs = TaskLog::loadMultiple($ids);
+		if ( $logs ) {
+			$log = reset($logs);
+			$data = unserialize($log->get('data')->value);
+			$task->last_comment = $data['comment'];
+		}
+
+
+		// 파일 및 이미지
 		$result = db_select('file_usage','f')
 			->fields('f',['fid'])
 			->condition('module','office')

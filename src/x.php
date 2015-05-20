@@ -1094,6 +1094,9 @@ class x {
 			->condition('status','closed', '<>')
 			->count()
 			->execute();
+
+		$status = Task::$config_priority['immediate']['value'];
+		$my->count_immediate_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->condition('priority',$status)->count()->execute();
 		$status = Task::$config_priority['urgent']['value'];
 		$my->count_urgent_task = \Drupal::entityQuery('office_task')->condition('worker_id',x::myUid())->condition('priority',$status)->count()->execute();
 		$date = date('Y-m-d', strtotime('1 week ago'));
