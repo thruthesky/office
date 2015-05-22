@@ -29,16 +29,15 @@ class TaskLog extends ContentEntityBase implements TaskLogInterface {
 		$db = \Drupal::entityQuery('office_tasklog');
 		$db->condition('task_id', $id);
 		$ids = $db->execute();
-		$tasks = [];
+		$logs = [];
 		if ( $ids ) {
 			$logs = TaskLog::loadMultiple($ids);
 			foreach( $logs as $log ) {
-				$task = unserialize($log->get('data')->value);
-				$task['user'] = User::load($log->get('user_id')->target_id);
-				$tasks[] = $task;
+				$log->data = unserialize($log->get('data')->value);
+				$log->user = User::load($log->get('user_id')->target_id);
 			}
 		}
-		return $tasks;
+		return $logs;
 
 	}
 

@@ -3,44 +3,23 @@
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
 
-    <div class="office-message todo">
-        tasks to do!<br>
-        urgent task to do!<br>
-        deadline tasks<br>
-
-    </div>
 
 
-    <p>Please read this 1 minute guideline to master how to use your office.</p>
-    <div class="guide">
-        <ol>
+    <div class="guideline">
+        <div class="title">
+            {{ ol.guide_title }}
+        </div>
+        <div class="content">
             <li>
-                Terms
-                <ul>
+                서비스 신청하기
+                <ol>
                     <li>
-                        Client - are the users who have a service to get.
+                        '서비스 신청' 메뉴를 통해서 원하는 서비스를 신청합니다.
                     </li>
-                    <li>
-                        Officer - are the employees/workers who will serve the clients.
-                    </li>
-                    <li>
-                        Group - is a group or a company or a project.
-                    </li>
-                    <li>
-                        Task - is a work to do. It is a service for client. Tasks belongs to a group.
-                    </li>
-                </ul>
+                </ol>
             </li>
             <li>
-               How to become a Client?
-                <ul>
-                    <li>
-                        To become a client click 'Member Registration' under Front Desk menu.
-                    </li>
-                </ul>
-            </li>
-            <li>
-               How to create a task?
+                How to create a task?
                 <ul>
 
                     <li>
@@ -57,13 +36,14 @@
             </li>
 
             <li>
-               How to track your task?
+                How to track your task?
                 <ul>
                     <li>
                         Click 'Front Desk' menu and you will see all the information that you need.
                     </li>
                 </ul>
             </li>
-        </ol>
+            </ol>
+        </div>
     </div>
 </div>

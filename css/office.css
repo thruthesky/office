@@ -34,4 +34,17 @@
     background-color: #B00000;
 }
 
-
+.office .guideline .title {
+    padding:1em;
+    box-sizing: border-box;
+    font-size:1.4em;
+    font-family: '맑은고딕', 'Malgun Gothic', 'Arial', serif;
+    background-color: #c4e3f3;
+}
+.office .guideline .content {
+    padding:1em;
+    box-sizing: border-box;
+    font-size:1.2em;
+    font-family: '맑은고딕', 'Malgun Gothic', 'Arial', serif;
+    background-color: #d3e8f4;
+}
