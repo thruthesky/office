@@ -317,18 +317,38 @@ class Task extends ContentEntityBase implements TaskInterface {
 		if ( $process_id ) $task->process = x::markupProcess($process_id);
 
 
-		// 마지막 코멘트
+		/**
+		 * 마지막 코멘트
+		 *
+		 * 주의: 마지막 10개만 추출한다. 이것은 코멘트 표시에 영향을 미친다.
+		 * 그리고 이것은 결국은 잘못된 코딩이다.
+		 * TaskLog 를 저장 할 때, 각 항목을 분리해야 했다.
+		 * 그렇지 않으니 결국은 파싱을 해서 비교를 해야 한다.
+		 */
 		$ids = \Drupal::entityQuery('office_tasklog')
 			->condition('task_id', $id)
-			->range(0,1)
+			->range(0,10)
 			->sort('id', 'DESC')
 			->execute();
 		$logs = TaskLog::loadMultiple($ids);
+		/**
+		 * 마지막 코멘트가 있을 때 까지 루프. 즉, Task 업데이트 할 때, 코멘트를 기록하지 않았으면 마지막 기록이 나올 때까지, 루프.
+		 * @TODO 이것은 그냥 마지막 코멘트가 공백이어도 보여줄지 말지를 옵션 처리 할 수 있다.
+		 */
+		foreach( $logs as $log ) {
+			$data = unserialize($log->get('data')->value);
+			if ( isset($data['comment']) && ! empty($data['comment']) ) {
+				$task->last_comment = $data['comment'];
+				break;
+			}
+		}
+		/*
 		if ( $logs ) {
 			$log = reset($logs);
 			$data = unserialize($log->get('data')->value);
 			$task->last_comment = $data['comment'];
 		}
+		*/
 
 
 		// 파일 및 이미지

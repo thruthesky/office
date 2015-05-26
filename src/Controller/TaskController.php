@@ -1,13 +1,10 @@
 <?php
 namespace Drupal\office\Controller;
-use Drupal\Core\Routing\RouteProvider;
 use Drupal\file\Entity\File;
-use Drupal\office\Entity\Group;
 use Drupal\office\Entity\Task;
 use Drupal\office\Entity\TaskLog;
 use Drupal\office\x;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\user\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class TaskController extends ControllerBase {
@@ -36,6 +33,7 @@ class TaskController extends ControllerBase {
 		}
 		if ( $worker = x::in('worker') ) {
 			$worker_id = x::getUserID($worker);
+			x::config('search', x::in('worker'), x::myUid());
 			$or->condition('worker_id', $worker_id);
 		}
 		if ( $in_charge = x::in('in_charge') ) {
@@ -126,6 +124,7 @@ class TaskController extends ControllerBase {
 			'#theme' => 'task.list',
 			'#data' => [ 'tasks' => $entities ],
 		];
+
 	}
 
 	public function add() {

@@ -8,11 +8,9 @@ use Drupal\office\Entity\Task;
 use Drupal\user\Entity\User;
 use Drupal\user\UserAuth;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Yaml\Yaml;
 
-/**
- * @property  count_log
- */
+
+
 class x {
 	const error_login_first = 'login first';
 	const error_logged_in_already = 'logged in already';
@@ -924,6 +922,20 @@ class x {
 				if ( $group->get('user_id')->target_id == x::myUid() ) $office['is_group_admin'] = 1;
 			}
 		}
+
+
+
+		$rows = db_select('office_config', 'c')
+			->fields('c')
+			->condition('code', 'search')
+			->condition('value', x::myUid() )
+			->orderBy('idx', 'DESC')
+			->range(0, 5)
+			->execute()
+			->fetchAllAssoc('category', \PDO::FETCH_ASSOC);
+
+		$office['last_searches'] = array_keys($rows);
+
 
 		$variables['office'] = $office;
 	}
