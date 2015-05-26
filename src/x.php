@@ -374,6 +374,8 @@ class x {
 					->execute();
 			}
 		}
+
+		return null;//??
 	}
 
 	public static function config_delete( $code, $category )
