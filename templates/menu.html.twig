@@ -1,6 +1,5 @@
-<div class="office-message welcome-task-status grid">
-
 {% if office.member %}
+<div class="office-message welcome-task-status grid">
    <div class="a welcome">
        <div class="content">
            {{ ol.welcome | replace({'$name':office.member.user_id.entity.name.value}) }}
@@ -41,19 +40,21 @@
                 <a href="/office/task/list?mode=submit&group_id=&worker={{ my.user_id.entity.getUsername }}&creator=&in_charge=&client=&keyword=&status%5Brejected%5D=Y&sort=priority&by=DESC&show_group=Y&show_priority=Y&show_deadline=Y&show_assigned=Y&show_road_map=Y&show_comment=Y&show_filter="><span class="rejected"><b>Rejected</b><i>{{ my.count_rejected_task }}</i></span></a>
             {% endif %}
 
-
             <a href="/office/task/list?mode=submit&worker=&creator=&in_charge=&client=&keyword=&status%5Bpending%5D=Y&status%5Baccepted%5D=Y&status%5Binprogress%5D=Y&status%5Bfinished%5D=Y&status%5Bredo%5D=Y&sort=priority&by=DESC&show_group=Y&show_priority=Y&show_deadline=Y&show_assigned=Y&show_road_map=Y&show_comment=Y&show_filter="><span class="recent"><b>All</b></span></a>
         </div>
     </div>
+</div>
 {% else %}
+    {#
     <div class="login-first">
         Please login first...
     </div>
+    #}
 {% endif %}
 
-</div>
 
 
+{% if my %}
 <nav class="office-menu">
         <div>
             <a href="/office"><span class="caption office">{{ ol.front_desk }}</span></a>
@@ -90,3 +91,11 @@
             <a href="/office/process/list"><span class="item task-create">Work Process Update</span></a>
         </div>
 </nav>
+{% else %}
+    <nav class="office-menu-anonymous">
+        <a href="/office"><span class="caption office">{{ ol.front_desk }}</span></a>
+        <a href="/office/task/list"><span class="caption">{{ ol.task_list }}</span></a>
+        <a href="/office/member/add"><span class="item register">{{ ol.registration }}</span></a>
+        <a href="/office/task/add"><span class="item task-create">{{ ol.task_create }}</span></a>
+    </nav>
+{% endif %}

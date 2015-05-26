@@ -29,6 +29,7 @@ class Task extends ContentEntityBase implements TaskInterface {
 	public static $config_priority_value = [
 		9 => "Immediate",
 		8 => "Important",
+		7 => "Note/Notice",
 		6 => "Normal",
 		4 => "Low",
 		2 => "Very Low",
@@ -37,6 +38,7 @@ class Task extends ContentEntityBase implements TaskInterface {
 	public static $config_priority = [
 		'immediate'    => ['value'=>9, 'text'=>"Immediate"],
 		'urgent'    => ['value'=>8, 'text'=>"Important"],
+		'note'    => ['value'=>7, 'text'=>"Note/Notice"],
 		'normal'    => ['value'=>6, 'text'=>"Normal"],
 		'low'       => ['value'=>4, 'text'=>"Low"],
 		'none'      => ['value'=>2, 'text'=>"None(Don't Care)"],

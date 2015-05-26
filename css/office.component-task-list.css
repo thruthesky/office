@@ -82,6 +82,11 @@ form.task-search .priority-all {
     color:black;
     font-size:1.1em;
 }
+
+.task-list td[priority='7'] {
+    background:#f5c512;
+}
+
 .task-list [priority='8'] {
     color: #d01010;
     font-size:1.1em;

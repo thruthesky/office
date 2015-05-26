@@ -1,3 +1,13 @@
+.office h2 {
+    margin: 0;
+    padding: 0.8em;
+    box-sizing: border-box;
+    background-color: #353535;
+    color: white;
+    font-weight: normal;
+    font-size:1.4em;
+}
+
 /** --------------------- Office Uploaded Files ---------------------*/
 .office-uploaded-files {
     margin:1em 0;

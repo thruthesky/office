@@ -38,7 +38,6 @@ class TaskLog extends ContentEntityBase implements TaskLogInterface {
 			}
 		}
 		return $logs;
-
 	}
 
 

@@ -4,6 +4,14 @@ use Symfony\Component\Yaml\Yaml;
 class Language {
 	private static $language = [];
 	private static $text = [];
+	/**
+	 * Returns the language.
+	 * @return array - language code and text
+	 * @NOTE It caches on memory. You can call this function as many times as you want.
+	 * @code
+	 *      $ol = Language::load();
+	 * @endcode
+	 */
 	public static function load() {
 		if ( empty(self::$language) ) {
 			$path_language = drupal_get_path('module', 'office') . '/office.language.yml';

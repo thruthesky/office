@@ -668,7 +668,8 @@ class x {
 
 	public static function messageLoginFirst(array & $data=null) {
 		$data['code'] = 'error login-first';
-		$data['message'] = 'Please Login First!';
+		$ol = Language::load();
+		$data['message'] = $ol['login_first'];
 		return ['code'=>$data['code'], 'message'=>$data['message']];
 	}
 

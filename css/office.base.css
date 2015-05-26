@@ -1,12 +1,11 @@
 /* base.css */
-.office h2 {
-    margin: 0;
-    padding: 0.4em;
-    box-sizing: border-box;
-    background-color: #353535;
-    color: white;
-    font-weight: normal;
-    font-size:1.4em;
+.office,
+.office a,
+.office h1,
+.office h2,
+.office h3,
+.office td {
+    font-family: 'Malgun Gothic', arial, sans-serif;
 }
 .office fieldset {
     margin:0;

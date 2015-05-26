@@ -106,3 +106,29 @@ nav.office-menu div a:first-child {
 /** ---------------------------------- STATE --------------------------------- **/
 
 
+
+/** -------------------------------- Anonymous ------------------------------ **/
+.office-menu-anonymous {
+
+}
+.office-menu-anonymous:after {
+    display:block;
+    content:'';
+    clear:both;
+}
+.office-menu-anonymous a span {
+    display:block;
+    float:left;
+    padding:1em;
+    border-bottom:4px solid #000066;
+    box-sizing: border-box;
+    width:25%;
+    text-align: center;
+}
+.office-menu-anonymous a span:hover {
+    border-bottom:4px solid #000077;
+    background-color: #000077;
+    color:white;
+}
+
+
