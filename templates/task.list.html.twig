@@ -1,6 +1,8 @@
 
 <div{{ attributes.addClass( data.class.office ) }}>
 
+    {% if input.list_type == 'simple' %}
+    {% else %}
     <h2>Task List</h2>
 
     {% include dir_office ~ '/templates/menu.html.twig' %}
@@ -217,19 +219,7 @@
         </fieldset>
     </form>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    {% endif %}
 
 
 

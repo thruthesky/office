@@ -73,13 +73,6 @@ div.office {
     background-color: #ffffff;
 }
 
-td.td-layout-left{
-    display: none!important;
-}
-td.td-layout-right{
-    display: none!important;
-}
-
 .jbutton-group {
     margin:0 0 0.2em!important;
 }
