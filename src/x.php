@@ -900,8 +900,12 @@ class x {
 		$office['member'] = Member::loadByUserID(x::myUid());
 		$office['now'] = date('r');
 
+
+		// 나의 그룹. 내가 소속된 그룹. 내가 관리 가능한 그룹이 아니라, 나의 회사(그룹)을 말한다.
 		// {{ office.group }} 을 지정하고 {{ office.is_member }} 를 지정한다.
 		$office['group'] = Member::group(x::myUid());
+
+		// 내가 TASK 관리 가능한 그룹
 		$groups = entity_load_multiple_by_properties('office_groupmember', ['user_id' => x::myUid()]);
 		if ( $groups ) {
 			$office['is_member'] = 1;
@@ -914,6 +918,7 @@ class x {
 
 
 
+		// 내가 관리자로 되어져 있는 그룹
 		$my_own_group = Member::myOwnGroup(x::myUid()); $office['my_own_group'] = $my_own_group;
 
 		/**
@@ -925,8 +930,7 @@ class x {
 			}
 		}
 
-
-
+		// 나만의 그룹 설정
 		$rows = db_select('office_config', 'c')
 			->fields('c')
 			->condition('code', 'search')
@@ -937,7 +941,6 @@ class x {
 			->fetchAllAssoc('category', \PDO::FETCH_ASSOC);
 
 		$office['last_searches'] = array_keys($rows);
-
 
 		$variables['office'] = $office;
 	}

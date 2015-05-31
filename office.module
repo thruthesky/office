@@ -38,7 +38,22 @@ function office_preprocess(&$variables, $hook)
 {
 	$request = \Drupal::request();
 	$uri = $request->getRequestUri();
-	if ( ! x::isOfficePage() ) return;
+
+
+	if ( x::in('uid') ) {
+		$variables['member'] = Member::loadByUserID(x::in('uid'));
+	}
+
+	/**
+	 * Office 페이지가 아니면,
+	 */
+	if ( ! x::isOfficePage() ) {
+		if ( $uid = x::myUid() ) {
+			$variables['my'] = x::loadEntityByUserID('office_member', $uid);
+			$variables['my_group'] = Member::group($uid);
+		}
+		return;
+	}
 
 
 
@@ -49,9 +64,6 @@ function office_preprocess(&$variables, $hook)
 
 	$variables['ol'] = Language::load();
 
-	if ( x::in('uid') ) {
-		$variables['member'] = Member::loadByUserID(x::in('uid'));
-	}
 
 	if ( x::myUid() ) x::myOfficeInformation($variables);
 	x::officeInformation($variables);
