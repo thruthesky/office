@@ -15,9 +15,20 @@
             <input type="hidden" name="process_id" value="{{ process.id.value }}">
 
             <div class="row">
-                <div class="caption">Name</div>
+                <div class="caption">Name Of Task</div>
                 <div class="text"><input type="text" name="name" value="{{ process.name.value }}"></div>
             </div>
+
+            <div class="row">
+                <div class="caption">Work Flow ( Work Process )</div>
+                <div class="text"><textarea name="workflow">{{ process.workflow.value }}</textarea></div>
+            </div>
+
+            <div class="row">
+                <div class="caption">Requirement<br>Add URL of FORMs and Requirement</div>
+                <div class="text"><textarea name="requirement">{{ process.requirement.value }}</textarea></div>
+            </div>
+
 
             <div class="row">
                 <div class="caption">Summary</div>
@@ -29,15 +40,6 @@
                 <div class="text"><textarea name="description">{{ process.description.value }}</textarea></div>
             </div>
 
-            <div class="row">
-                <div class="caption">Work Flow</div>
-                <div class="text"><textarea name="workflow">{{ process.workflow.value }}</textarea></div>
-            </div>
-
-            <div class="row">
-                <div class="caption">Requirement</div>
-                <div class="text"><textarea name="requirement">{{ process.requirement.value }}</textarea></div>
-            </div>
 
             <div class="row">
                 <div class="caption">&nbsp;</div>

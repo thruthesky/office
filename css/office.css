@@ -1,3 +1,17 @@
+/** jQuery UI Override */
+
+.ui-autocomplete {
+    background-color:grey;
+    color:white;
+    padding:1em;
+}
+.ui-autocomplete li {
+    margin-left:1em;
+    cursor:pointer;
+}
+
+
+
 /** office.css This is a temporary space */
 
 .graph.roadmap {

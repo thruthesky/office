@@ -1011,9 +1011,9 @@ class x {
 		$workflow = $process->get('workflow')->value;
 		$requirement = $process->get('requirement')->value;
 		$html = "
-				$summary<br>
-				$description<br>
-				$workflow<br>
+				$summary
+				$description
+				$workflow
 				$requirement
 			";
 		return $html;
