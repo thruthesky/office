@@ -58,7 +58,7 @@
 					<b>Summary</b>
 				</td>
 				<td>
-					 {{ task.summary.value }}
+					 {{ task.summary.value | raw }}
 				</td>
 			</tr>
 
@@ -67,7 +67,7 @@
 					<b>Description</b>
 				</td>
 				<td>
-					 {{ task.description.value }}
+					 {{ task.description.value | raw }}
 				</td>
 			</tr>
 
