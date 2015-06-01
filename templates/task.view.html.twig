@@ -4,130 +4,138 @@
     {% include dir_office ~ '/templates/menu.html.twig' %}
     {% include dir_office ~ '/templates/message.html.twig' %}
 
+	<div class='table-wrapper'>
+		<table cellpadding=0 cellspacing=0 width='100%'>
+			<tr valign='top'>
+				<td width='120'>
+					<b>Task No.</b>
+				</td>
+				<td>
+					{{ task.id.value }}
+				</td>
+			</tr>
+			<tr valign='top'>
+				<td>
+					<b>Group</b>
+				</td>
+				<td>
+					 {{ task.name.value }}
+				</td>
+			</tr>
 
-    <table>
-        <tr>
-            <td>
-                Task No.
-            </td>
-            <td>
-                {{ task.id.value }}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Group :
-            </td>
-            <td>
-                 {{ task.name.value }}
-            </td>
-        </tr>
+			{% if task %}
+			<tr valign='top'>
+				<td>
+					<b>Created</b>
+				</td>
+				<td>
+					{{ task.created.value | date('M d, Y H:i:s') }}
+				</td>
+			</tr>
+			{% endif %}
 
-        {% if task %}
-        <tr>
-            <td>
-                <div>Created : {{ task.created.value | date('M d, Y H:i:s') }}</div>
-            </td>
-        </tr>
-        {% endif %}
+			<tr valign='top'>
+				<td>
+					<b>Title</b>
+				</td>
+				<td>
+					 {{ task.title.value }}
+				</td>
+			</tr>
 
-        <tr>
-            <td>
-                Title:
-            </td>
-            <td>
-                 {{ task.title.value }}
-            </td>
-        </tr>
+			<tr valign='top'>
+				<td>
+					<b>Summary</b>
+				</td>
+				<td>
+					 {{ task.summary.value }}
+				</td>
+			</tr>
 
-        <tr>
-            <td>
-                Summary:
-            </td>
-            <td>
-                 {{ task.summary.value }}
-            </td>
-        </tr>
+			<tr valign='top'>
+				<td>
+					<b>Description</b>
+				</td>
+				<td>
+					 {{ task.description.value }}
+				</td>
+			</tr>
 
-        <tr>
-            <td>
-                Description:
-            </td>
-            <td>
-                 {{ task.description.value }}
-            </td>
-        </tr>
+			<tr valign='top'>
+				<td>
+					<b>Priority</b>
+				</td>
+				<td>
+					 {{ task.priority.value }}
+				</td>
+			</tr>
 
-        <tr>
-            <td>
-                Priority :
-            </td>
-            <td>
-                 {{ task.priority.value }}
-            </td>
-        </tr>
+			<tr valign='top'>
+				<td>
+					<b>View status</b>
+				</td>
+				<td>
+					 {{ task.view_status.value }}
+				</td>
+			</tr>
+			<tr valign='top'>
+				<td>
+					<b>Work Flowchart</b>
+				</td>
+				<td>
+				</td>
+			</tr>
+			<tr valign='top'>
+				<td>
+					<b>Requirement</b>.
+				</td>
+				<td>
+				</td>
+			</tr>
+			<tr valign='top'>
+				<td>
+					<b>Created By</b>
+				</td>
+				<td>
+					 {{ task.creator_id.entity.name.value }}
+				</td>
+			</tr>
+			<tr valign='top'>
+				<td>
+					<b>Service For (Client)</b>
+				</td>
+				<td>
+					 {{ task.client_id.entity.name.value }}
+				</td>
+			</tr>
+			<tr valign='top'>
+				<td>
+					<b>Assigned To(Worker)</b>
+				</td>
+				<td>
+					 {{ task.worker_id.entity.name.value }}
+				</td>
+			</tr>
 
-        <tr>
-            <td>
-                View status:
-            </td>
-            <td>
-                 {{ task.view_status.value }}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Work Flowchart :
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Requirement:
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Created By :
-            </td>
-            <td>
-                 {{ task.creator_id.entity.name.value }}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Service For (Client) :
-            </td>
-            <td>
-                 {{ task.client_id.entity.name.value }}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Assigned To(Worker) :
-            </td>
-            <td>
-                 {{ task.worker_id.entity.name.value }}
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                Person in charge :
-            </td>
-            <td>
-                 {{ task.in_charge_id.entity.name.value }}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div>Upload files:</div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="/office/task/list">LIST</a>
-            </td>
-        </tr>
-    </table>
-
+			<tr valign='top'>
+				<td>
+					<b>Person in charge</b>
+				</td>
+				<td>
+					 {{ task.in_charge_id.entity.name.value }}
+				</td>
+			</tr>
+			<tr valign='top'>
+				<td>
+					<b>Upload files</b>
+				</td>
+				<td>
+				</td>
+			</tr>
+		</table>		
+	</div>
+	<div class='buttons'>
+		<a href="/office/task/add">CREATE</a>
+		<a href="/office/task/list">LIST</a>
+	</div>
 </div>

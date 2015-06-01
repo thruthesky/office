@@ -51,6 +51,7 @@ task:
       css/office.component-task.css: {}
       css/office.component-task-edit.css: {}
       css/office.component-task-list.css: {}
+      css/office.component-task-view.css: {}
 
 ### documentation page ###
 documentation:
