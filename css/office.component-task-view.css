@@ -1,0 +1,44 @@
+.office.task.view.task-view{
+	  padding-bottom: 10px;
+}
+
+.office.task.view.task-view .table-wrapper{
+	margin:10px 10px 0 10px;
+	border:1px solid #f1f1f1;
+	font-size:1.2em;
+}
+
+.office.task.view.task-view table td{
+	padding:5px 10px;
+}
+
+.office.task.view.task-view table td b{
+	
+}
+
+.office.task.view.task-view table tr:nth-child(2n+2){
+	background-color:#f1f1f1;
+}
+
+.office.task.view.task-view table tr td:nth-child(1){
+	border-right:1px solid# d5d5d5;
+}
+
+.office.task.view.task-view .buttons{
+	margin: 10px 10px 0 10px;
+	text-align:right;
+}
+
+.office.task.view.task-view .buttons a{
+	display:inline-block;
+	padding:5px 10px;
+	border:1px solid #444444;
+	background-color:#f1f1f1;
+	font-weight:bold;
+	line-height: 100%;
+}
+
+.office.task.view.task-view .buttons a:hover{
+	background-color:orange;
+	color:#ffffff;
+}
