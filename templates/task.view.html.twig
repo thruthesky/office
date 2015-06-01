@@ -14,6 +14,7 @@
 					{{ task.id.value }}
 				</td>
 			</tr>
+            {#
 			<tr valign='top'>
 				<td>
 					<b>Group</b>
@@ -22,16 +23,25 @@
 					 {{ task.name.value }}
 				</td>
 			</tr>
+            #}
 
 			{% if task %}
-			<tr valign='top'>
-				<td>
-					<b>Created</b>
-				</td>
-				<td>
-					{{ task.created.value | date('M d, Y H:i:s') }}
-				</td>
-			</tr>
+                <tr valign='top'>
+                    <td>
+                        <b>Created</b>
+                    </td>
+                    <td>
+                        {{ task.created.value | date('M d, Y H:i:s') }}
+                    </td>
+                </tr>
+                <tr valign='top'>
+                    <td>
+                        <b>Last Update</b>
+                    </td>
+                    <td>
+                        {{ task.changed.value | date('M d, Y H:i:s') }}
+                    </td>
+                </tr>
 			{% endif %}
 
 			<tr valign='top'>
@@ -61,6 +71,7 @@
 				</td>
 			</tr>
 
+            {#
 			<tr valign='top'>
 				<td>
 					<b>Priority</b>
@@ -117,6 +128,8 @@
 				</td>
 			</tr>
 
+            #}
+
 			<tr valign='top'>
 				<td>
 					<b>Person in charge</b>
@@ -125,6 +138,7 @@
 					 {{ task.in_charge_id.entity.name.value }}
 				</td>
 			</tr>
+            {#
 			<tr valign='top'>
 				<td>
 					<b>Upload files</b>
@@ -132,10 +146,10 @@
 				<td>
 				</td>
 			</tr>
+            #}
 		</table>		
 	</div>
 	<div class='buttons'>
-		<a href="/office/task/list">LIST</a>
-		<a href="/office/task/add">CREATE</a>		
+		<a href="/office/task/list?list_type=simple&mode=submit&group_id={{ task.group_id.target_id }}&show_road_map=Y&show_comment=Y&sort=changed&by=DESC">LIST</a>
 	</div>
 </div>
