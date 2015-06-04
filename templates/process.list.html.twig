@@ -36,8 +36,8 @@
                 <td>{{ process.summary.value }}</td>
                 <td>{{ process.description.value }}</td>
                 <td>
-                    {% if process.group.id.value == office.group.id.value %}
-                    <div class="jbutton-group">
+                    {% if process.group.user_id.target_id == my.user_id.target_id or process.group.id.value == office.group.id.value %}
+                        <div class="jbutton-group">
                         <a class="jbutton edit" href="/office/process/edit/{{ process.id.value }}">EDIT</a>
                     </div>
                     {% endif %}
