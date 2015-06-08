@@ -102,9 +102,25 @@
 </nav>
 {% else %}
     <nav class="office-menu-anonymous">
-        <a href="/office"><span class="caption office">{{ ol.front_desk }}</span></a>
-        <a href="/office/task/list"><span class="caption">{{ ol.task_list }}</span></a>
-        <a href="/office/member/add"><span class="item register">{{ ol.registration }}</span></a>
-        <a href="/office/task/add"><span class="item task-create">{{ ol.task_create }}</span></a>
+        <a href="/office">
+			<span class="caption office">
+				<div class='menu'>{{ ol.front_desk }}<div class='border'></div></div>
+			</span>
+		</a>
+        <a href="/office/task/list">
+			<span class="caption">
+				<div class='menu'>{{ ol.task_list }}<div class='border'></div></div>
+			</span>
+		</a>
+        <a href="/office/member/add">
+			<span class="item register">
+				<div class='menu'>{{ ol.registration }}<div class='border'></div></div>
+			</span>
+		</a>
+        <a href="/office/task/add">
+			<span class="item task-create">
+				<div class='menu'>{{ ol.task_create }}<div class='border'></div></div>
+			</span>
+		</a>
     </nav>
 {% endif %}

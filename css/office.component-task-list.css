@@ -40,12 +40,22 @@ form.task-search .priority-all {
 }
 
 .task-list table tr:nth-child(even) {
-    background-color: #F0F0F8;
+    background-color: #ffffff;
 }
 
+.task-list table tr:nth-child(odd) {
+    background-color: #e6f5fe;
+}
+
+.task-list table tr.header {
+	background-color: #1886c5;
+	font-size: 1.2em;
+	color: #ffffff;	
+	line-height: 100%;
+}
 
 .task-list table tr td {
-    padding:0.4em 0;
+    padding:10px;
 }
 
 .task-list table tr td span {
@@ -54,11 +64,12 @@ form.task-search .priority-all {
 }
 
 .task-list table tr td.group {
-    background-color: #A0A0BB;
+    /*background-color: #A0A0BB;*/
 }
 .task-list table tr td.group span {
+	font-weight:bold;
     box-sizing: border-box;
-    color:white;
+    /*color:white;*/
 }
 
 .task-list table tr td.title span {

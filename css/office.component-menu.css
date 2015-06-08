@@ -117,18 +117,34 @@ nav.office-menu div a:first-child {
     clear:both;
 }
 .office-menu-anonymous a span {
+	position:relative;
     display:block;
     float:left;
+	width:25%;
     padding:1em;
-    border-bottom:4px solid #000066;
-    box-sizing: border-box;
-    width:25%;
-    text-align: center;
+    background-color:#1886c5;
+	color:#ffffff;
+	text-align: center;
+    box-sizing: border-box;    
 }
-.office-menu-anonymous a span:hover {
-    border-bottom:4px solid #000077;
-    background-color: #000077;
-    color:white;
+
+.office-menu-anonymous a span .menu{
+	display:inline-block;
+	position:relative;
+	padding:0 10px   
+}
+
+.office-menu-anonymous a span .border {
+	display:none;
+	position: absolute;
+	bottom: -5px;
+	left: 5%;
+	width: 90%;
+	border-bottom: 3px solid #ffffff;
+	box-sizing: border-box;
+}
+.office-menu-anonymous a span:hover .border{
+	display:block;
 }
 
 

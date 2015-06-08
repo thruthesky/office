@@ -226,15 +226,14 @@
 
     <div class="task-list">
         <table cellpadding="0" cellspacing="0" width='100%' class="list">
-            <tr>
+            <tr class='header'>
 
                 {% if input.show_group == 'Y' %}
-                    <td class="group"><span>Group</span></td>
-                    <td>&nbsp;</td>
+                    <td width='100' class="group"><span>Group</span></td>
                 {% endif %}
 
                 {% if input.show_road_map == 'Y' %}
-                    <td><span>Roadmap</span></td>
+                    <td width='115'><span>Roadmap</span></td>
                 {% endif %}
 
                 {% if input.show_priority == 'Y' %}
@@ -247,7 +246,7 @@
                 {% endif %}
 
 
-                <td><span>Title</span></td>
+                <td ><span>Title</span></td>
 
                 {% if input.show_created == 'Y' %}
                     <td><span>Created</span></td>
@@ -297,8 +296,7 @@
                     {% if input.show_group == 'Y' %}
                         <td class="group">
                             <a href="{{ href }}"><span>{{ task.group_id.entity.name.value }}</span></a>
-                        </td>
-                        <td>&nbsp;</td>
+                        </td>                        
                     {% endif %}
 
 
