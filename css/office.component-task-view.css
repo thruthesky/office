@@ -35,8 +35,3 @@
 .office.task.view.task-view .buttons a img{
 	display:inline-block;
 }
-
-.office.task.view.task-view .buttons a:hover{
-	background-color:orange;
-	color:#ffffff;
-}
